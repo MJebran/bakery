@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bakery.WebApp.Data;
 
-public partial class Category
+public partial class Topping
 {
     public int CategoryId { get; set; }
 
