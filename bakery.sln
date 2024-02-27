@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bakery.Mobile", "Bakery.Mobile\Bakery.Mobile.csproj", "{27622CDF-ECF2-44EC-81C2-D3D43C156A45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery.Mobile", "Bakery.Mobile\Bakery.Mobile.csproj", "{27622CDF-ECF2-44EC-81C2-D3D43C156A45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bakery.ClassLibrary", "Bakery.ClassLibrary\Bakery.ClassLibrary.csproj", "{A9C02E36-437B-47F6-B820-6533A4EEF778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery.ClassLibrary", "Bakery.ClassLibrary\Bakery.ClassLibrary.csproj", "{A9C02E36-437B-47F6-B820-6533A4EEF778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bakery.WebApp", "Bakery.WebApp\Bakery.WebApp.csproj", "{4FCE6797-A9B3-4C09-9E47-1C06FE54D50F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery.WebApp", "Bakery.WebApp\Bakery.WebApp.csproj", "{4FCE6797-A9B3-4C09-9E47-1C06FE54D50F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bakery.XUnitTests", "Bakery.XUnitTests\Bakery.XUnitTests.csproj", "{0ABC7AEB-E0A4-4DEE-B023-478189EC4ADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery.XUnitTests", "Bakery.XUnitTests\Bakery.XUnitTests.csproj", "{0ABC7AEB-E0A4-4DEE-B023-478189EC4ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BakeryTests", "BakeryTests\BakeryTests.csproj", "{A9AA0CA6-3FAE-4D00-994A-D26A7E926323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BakeryTests", "BakeryTests\BakeryTests.csproj", "{A9AA0CA6-3FAE-4D00-994A-D26A7E926323}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
