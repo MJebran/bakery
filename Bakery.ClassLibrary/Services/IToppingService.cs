@@ -9,6 +9,6 @@ namespace Bakery.ClassLibrary.Services;
 
 public interface IToppingService
 {
-    public Task AddTopping(Topping size);
+    public Task AddTopping(Topping topping);
     public Task<IEnumerable<Topping>> GetAllToppings();
 }

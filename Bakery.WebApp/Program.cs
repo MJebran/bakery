@@ -11,6 +11,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddSingleton<ISizeService, SizeService>();
+builder.Services.AddSingleton<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<IToppingService, ToppingService>();
+builder.Services.AddSingleton<IRoleService, RoleService>();
+builder.Services.AddSingleton<IUserService, UserService>();
 
 //Swagger
 builder.Services.AddControllers();

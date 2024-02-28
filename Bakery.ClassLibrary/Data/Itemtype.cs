@@ -21,7 +21,7 @@ public partial class Itemtype
 
     public int SizeId { get; set; }
 
-    public virtual Topping Category { get; set; } = null!;
+    public virtual Category Category { get; set; } = null!;
 
     public virtual ICollection<Customitem> Customitems { get; set; } = new List<Customitem>();
 

@@ -9,6 +9,6 @@ namespace Bakery.ClassLibrary.Services;
 
 public interface ICategoryService
 {
-    public Task AddCategory(Topping size);
-    public Task<IEnumerable<Topping>> GetAllCategories();
+    public Task AddCategory(Category category);
+    public Task<IEnumerable<Category>> GetAllCategories();
 }

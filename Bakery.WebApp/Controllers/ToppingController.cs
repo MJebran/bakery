@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bakery.WebApp.Services
@@ -7,5 +9,22 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class ToppingController : ControllerBase
     {
+        IToppingService _service;
+        public ToppingController(IToppingService services)
+        {
+            _service = services;
+        }
+
+        [HttpGet("toppings")]
+        public async Task<IEnumerable<Topping>> GetAllAvailableToppings()
+        {
+            return await _service.GetAllToppings();
+        }
+
+        [HttpPost("add/topping")]
+        public async Task AddTopping(Topping s)
+        {
+            await _service.AddTopping(s);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bakery.WebApp.Services
@@ -7,5 +9,21 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class RoleController : ControllerBase
     {
+        IRoleService _service;
+
+        public RoleController(IRoleService service)
+        {
+            _service = service;
+        }
+
+        [HttpGet("roles")]
+        public async Task<IEnumerable<Role>> GetRolesAsync() 
+        {
+            return await _service.GetAllRoles();
+        }
+
+
+
+
     }
 }
