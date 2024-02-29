@@ -12,6 +12,8 @@ public interface IItemPurchaseService
     public Task AddItempurchase(Itempurchase size);
     public Task<IEnumerable<Itempurchase>> GetAllItempurchase();
     //public Task DeleteItempurchase(int id);
-    public Task GetItempurchaseById(int id);
+    public Task<Itempurchase> GetItempurchaseById(int id);
     public Task UpdateItempurchase(int id);
+
+    public Task DeleteItempurchase(int id);
 }
