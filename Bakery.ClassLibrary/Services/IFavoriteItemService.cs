@@ -11,7 +11,7 @@ public interface IFavoriteItemService
 {
     public Task AddFavoriteitem(Favoriteitem size);
     public Task<IEnumerable<Favoriteitem>> GetAllFavoriteitem();
-    public Task GetFavoriteitemById(int id);
+    public Task<Favoriteitem> GetFavoriteitemById(int id);
     public Task DeleteFavoriteitem(int id);
     public Task UpdateFavoriteitem(int id);
 }

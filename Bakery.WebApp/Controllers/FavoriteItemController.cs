@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bakery.WebApp.Services
@@ -7,5 +9,40 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class FavoriteItemController : ControllerBase
     {
+        IFavoriteItemService _service;
+        public FavoriteItemController(IFavoriteItemService service)
+        {
+            _service = service;
+        }
+        [HttpGet("favoritieitems")]
+        public async Task<IEnumerable<Favoriteitem>> GetAllFavoriteItems()
+        {
+            return await _service.GetAllFavoriteitem();
+        }
+
+        [HttpGet("favoriteitem/{id}")]
+
+        public async Task<Favoriteitem> GetFavoriteItem(int id)
+        {
+            return await _service.GetFavoriteitemById(id);
+        }
+        [HttpPost("add/favoriteitem")]
+
+        public async Task AddFAvoriteItemAsycn(Favoriteitem favorite)
+        {
+            await _service.AddFavoriteitem(favorite);
+        }
+
+        [HttpDelete("delete/favoriteItem")]
+        public async Task DeletePurchaseAsync(int id)
+        {
+            await _service.DeleteFavoriteitem(id);
+        }
+
+        [HttpPut("update/purchase")]
+        public async Task UpdatePurchaseAsync(int id)
+        {
+            await _service.UpdateFavoriteitem(id);
+        }
     }
 }
