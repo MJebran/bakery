@@ -9,9 +9,10 @@ namespace Bakery.ClassLibrary.Services;
 
 public interface ICustomItemService
 {
-    public Task AddCustomitem(Customitem size);
+    public Task AddCustomitem(Customitem customitem);
     public Task<IEnumerable<Customitem>> GetAllCustomitem();
     public Task DeleteCustomitem(int id);
     public Task UpdateCustomitem(int id);
+    public Task<Customitem> GetCustomeItemById(int id);
 }
 

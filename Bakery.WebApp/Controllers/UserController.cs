@@ -16,7 +16,6 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpGet("users")]
-
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _service.GetAllUsers();
@@ -39,7 +38,5 @@ namespace Bakery.WebApp.Services
         {
             await _service.UpdateUser(user.UserId);
         }
-
-
     }
 }
