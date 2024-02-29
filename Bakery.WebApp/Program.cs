@@ -18,7 +18,8 @@ builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IItemTypeService, ItemTypeService>();
 builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
 builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
-
+builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
+builder.Services.AddSingleton<IFavoriteItemService, FavoriteItemService>();
 //Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
