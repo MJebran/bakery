@@ -16,7 +16,8 @@ builder.Services.AddSingleton<IToppingService, ToppingService>();
 builder.Services.AddSingleton<IRoleService, RoleService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IItemTypeService, ItemTypeService>();
-//builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
+builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
+builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
 
 //Swagger
 builder.Services.AddControllers();
