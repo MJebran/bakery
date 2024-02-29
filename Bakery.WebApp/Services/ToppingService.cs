@@ -9,7 +9,7 @@ namespace Bakery.WebApp.Services
         public async Task AddTopping(Topping topping)
         {
             var context = await dbFactory.CreateDbContextAsync();
-            var value = context.Toppings.AddAsync(topping);
+            await context.Toppings.AddAsync(topping);
             await context.SaveChangesAsync();
         }
 
