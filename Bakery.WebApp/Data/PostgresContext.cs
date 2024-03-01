@@ -49,7 +49,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.CategoryId).HasName("category_pkey");
 
-            entity.ToTable("category", "Bakery");
+            entity.ToTable("category", "bakery");
 
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CategoryDescription).HasColumnName("category_description");
@@ -60,7 +60,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.CustomItemId).HasName("customitem_pkey");
 
-            entity.ToTable("customitem", "Bakery");
+            entity.ToTable("customitem", "bakery");
 
             entity.Property(e => e.CustomItemId).HasColumnName("custom_item_id");
             entity.Property(e => e.CustomItemToppingQuantity).HasColumnName("custom_item_topping_quantity");
@@ -82,7 +82,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.FavoriteitemId).HasName("favoriteitem_pkey");
 
-            entity.ToTable("favoriteitem", "Bakery");
+            entity.ToTable("favoriteitem", "bakery");
 
             entity.Property(e => e.FavoriteitemId).HasColumnName("favoriteitem_id");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
@@ -103,7 +103,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.ItempurchaseId).HasName("itempurchase_pkey");
 
-            entity.ToTable("itempurchase", "Bakery");
+            entity.ToTable("itempurchase", "bakery");
 
             entity.Property(e => e.ItempurchaseId).HasColumnName("itempurchase_id");
             entity.Property(e => e.ItempurchaseItemId).HasColumnName("itempurchase_item_id");
@@ -125,7 +125,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.ItemTypeId).HasName("itemtype_pkey");
 
-            entity.ToTable("itemtype", "Bakery");
+            entity.ToTable("itemtype", "bakery");
 
             entity.Property(e => e.ItemTypeId).HasColumnName("item_type_id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
@@ -151,7 +151,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.PurchaseId).HasName("purchase_pkey");
 
-            entity.ToTable("purchase", "Bakery");
+            entity.ToTable("purchase", "bakery");
 
             entity.Property(e => e.PurchaseId).HasColumnName("purchase_id");
             entity.Property(e => e.Ispayed).HasColumnName("ispayed");
@@ -168,7 +168,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.RoleId).HasName("role_pkey");
 
-            entity.ToTable("role", "Bakery");
+            entity.ToTable("role", "bakery");
 
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.RoleDescription).HasColumnName("role_description");
@@ -179,7 +179,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.SizeId).HasName("size_pkey");
 
-            entity.ToTable("size", "Bakery");
+            entity.ToTable("size", "bakery");
 
             entity.Property(e => e.SizeId).HasColumnName("size_id");
             entity.Property(e => e.SizeName)
@@ -191,7 +191,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.ToppingId).HasName("topping_pkey");
 
-            entity.ToTable("topping", "Bakery");
+            entity.ToTable("topping", "bakery");
 
             entity.Property(e => e.ToppingId).HasColumnName("topping_id");
             entity.Property(e => e.ToppingCalories).HasColumnName("topping_calories");
@@ -205,7 +205,7 @@ public partial class PostgresContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("user_pkey");
 
-            entity.ToTable("user", "Bakery");
+            entity.ToTable("user", "bakery");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.UserEmail).HasColumnName("user_email");

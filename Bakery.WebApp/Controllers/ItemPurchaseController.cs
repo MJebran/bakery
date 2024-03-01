@@ -34,7 +34,7 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpDelete("delete/itempurchase/{id}")]
-        public async Task DeleteItemPurchaseAsync(int id)
+        public async Task DeleteItemPurchaseAsync([FromBody] int id)
         {
             await _service.DeleteItempurchase(id);
         }

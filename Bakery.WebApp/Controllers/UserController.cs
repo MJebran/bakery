@@ -28,13 +28,13 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpDelete("/delete/user")]
-        public async Task DeleteUserAsync(User user)
+        public async Task DeleteUserAsync([FromBody] User user)
         {
             await _service.DeleteUser(user.UserId);
         }
 
         [HttpPut("/update/user")]
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync([FromBody] User user)
         {
             await _service.UpdateUser(user.UserId);
         }

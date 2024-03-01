@@ -25,11 +25,12 @@ namespace BakeryTests
                 CategoryDescription = "this is just a test"
             };
             //Act 
-            await client.PostAsJsonAsync("category/add/category", category);
-            var getcategories = await client.GetAsync("category/categories");
+            await client.PostAsJsonAsync("/api/Category/add/category", category);
+            var getcategories = await client.GetFromJsonAsync<List<Category>>("/api/Category/categories");
 
             //Assert
             getcategories.Should().NotBeNull();
+
         }
 
         [Fact]

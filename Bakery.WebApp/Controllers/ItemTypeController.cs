@@ -31,14 +31,14 @@ namespace Bakery.WebApp.Controllers
 
         [HttpPut("update/itemtype")]
 
-        public async Task UpdateItemTypeAsync(Itemtype item)
+        public async Task UpdateItemTypeAsync([FromBody] Itemtype item)
         {
             await _service.UpdateItemtype(item.CategoryId);
         }
 
         [HttpDelete("delete")]
 
-        public async Task DeleteItemTypeAsync(Itemtype item)
+        public async Task DeleteItemTypeAsync([FromBody] Itemtype item)
         {
             await _service.DeleteItemtype(item.CategoryId);
         }
