@@ -1,4 +1,7 @@
---
+-- 
+create role "azure_pg_admin";
+create role "bakeryadmin";
+
 -- PostgreSQL database dump
 --
 

@@ -33,7 +33,7 @@ namespace BakeryTests
             {
                 //var connection = _dbContainer.GetConnectionString();
                 services.RemoveAll(typeof(DbContextOptions<PostgresContext>));
-                services.AddDbContext<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
+                services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
             });
         }
 
