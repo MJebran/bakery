@@ -6,10 +6,10 @@ using Bakery.WebApp.Data;
 
 namespace BakeryTests
 {
-    public class AddApiTest : IClassFixture<BakeryWebAPIFactory>
+    public class AddApiTests : IClassFixture<BakeryWebAPIFactory>
     {
         HttpClient client;
-        public AddApiTest(BakeryWebAPIFactory factory)
+        public AddApiTests(BakeryWebAPIFactory factory)
         {
             client = factory.CreateDefaultClient();
         }
