@@ -8,7 +8,7 @@ param(
     [string]$password,
     [string]$localFolder=".",
     [string]$backupName=((get-date).ToString("yyyyMMdd.hh.mm.ss")+".sql"),
-    [string]$schema="Bakery"
+    [string]$schema="bakery"
 )
 
 if($password -eq $null) {
