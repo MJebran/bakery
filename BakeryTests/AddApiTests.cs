@@ -259,7 +259,5 @@ namespace BakeryTests
             //Assert
             getitems.Should().NotBeNull();
         }
-
-
     }
 }

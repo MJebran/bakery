@@ -55,7 +55,7 @@
 <button type="button" class="btn btn-primary btn-lg" @onclick="() => AddItem()">Submit</button>
 
 <div>
-    @ItemPrice
+    @ItemSizeId
 </div>
 
 
@@ -81,7 +81,17 @@
 
     public async Task AddItem()
     {
-        
+        item = new Itemtype
+            {
+                ItemName = ItemName,
+                ItemPrice = ItemPrice,
+                ItmeCalories = ItmeCalories,
+                ItemWeight = ItemWeight,
+                ItemDescription = ItemDescription,
+                SizeId = ItemSizeId,
+                CategoryId = ItemCategoryId
+        };
+        await _itemservice.AddItemtype(item);
     }
 
 }
