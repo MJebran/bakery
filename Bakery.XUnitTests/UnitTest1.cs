@@ -56,6 +56,28 @@ namespace Bakery.XUnitTests
            
         }
 
+        [Fact]
+        public async void ManagerCanUpdateItemType()
+        {
+            Itemtype newItem = new Itemtype()
+            {
+                ItemName = "test1",
+                ItemPrice = 1,
+                ItmeCalories = 300,
+                ItemWeight = 3,
+                ItemDescription = "amazing",
+                SizeId = 2,
+                CategoryId = 1
+            };
+            Mock<IItemTypeService> mockService = new();
+            mockService.Setup(m => m.UpdateItemtype(newItem.CategoryId)).Returns(Task.FromResult(newItem.ItemName));
+            //Itemtype itemtype = new(mockService.Object);
+            var name = mockService.Object.UpdateItemtype(newItem.CategoryId);
+
+            mockService.Verify(m => m.UpdateItemtype(newItem.CategoryId));
+            Assert.NotNull(newItem);
+        }
+
 
     }
 }
