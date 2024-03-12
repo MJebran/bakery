@@ -32,5 +32,30 @@ namespace Bakery.XUnitTests
             mockService.Verify(m => m.AddItemtype(newItem));
             Assert.NotNull(newItem);
         }
+
+        [Fact]
+        public async void ManagerCanDeleteItemType()
+        {
+            Itemtype newItem = new Itemtype()
+            {
+                ItemName = "test1",
+                ItemPrice = 1,
+                ItmeCalories = 300,
+                ItemWeight = 3,
+                ItemDescription = "amazing",
+                SizeId = 2,
+                CategoryId = 1
+            };
+            Mock<IItemTypeService> mockService = new();
+            mockService.Setup(m => m.DeleteItemtype(newItem.CategoryId)).Returns(Task.FromResult(newItem.ItemName));
+            //Itemtype itemtype = new(mockService.Object);
+            var name = mockService.Object.DeleteItemtype(newItem.CategoryId);
+
+            mockService.Verify(m => m.DeleteItemtype(newItem.CategoryId));
+            Assert.NotNull(newItem);
+           
+        }
+
+
     }
 }
