@@ -20,6 +20,7 @@ builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
 builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
 builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
 builder.Services.AddSingleton<IFavoriteItemService, FavoriteItemService>();
+builder.Services.AddSingleton<IBlobStorageService, BlobService>();
 //Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
