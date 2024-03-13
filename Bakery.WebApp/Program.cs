@@ -28,6 +28,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
+
+
+
 var app = builder.Build();
 
 // Swagger Components

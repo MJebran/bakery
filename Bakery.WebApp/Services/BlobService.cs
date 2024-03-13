@@ -8,14 +8,13 @@ namespace Bakery.WebApp.Services
 
     public class BlobService : IBlobStorageService
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<BlobService> _logger;
         string blobStorageconnection = String.Empty;
         private string blobContainerName = "itemcontainer";
 
-        public BlobService()
+        public BlobService(IConfiguration _config)
         {
-            blobStorageconnection = _configuration.GetConnectionString("blobStorage");
+            blobStorageconnection = _config["blobStorage"];
         }
         public async Task<bool> DeleteFileToBlobAsync(string strFileName)
         {
