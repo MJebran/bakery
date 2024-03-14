@@ -73,11 +73,6 @@
             <i class="fa fa-refresh"></i> <span>Loading...</span>
         }
     </div>
-    <div class="col-sm-2">
-        <button type="button" disabled="@fileLoading" class="btn btn-primary" @onclick="OnUploadSubmit">
-            Upload File
-        </button>
-    </div>
 </div>
 @if (displayMessage.Length > 0)
 {
@@ -122,11 +117,7 @@
 </div>
 
 
-<button type="button" class="btn btn-primary btn-lg" @onclick="() => AddItem()">Submit</button>
-
-<div>
-    @ItemSizeId
-</div>
+<button type="button" disabled="@fileLoading" class="btn btn-primary btn-lg" @onclick="() => AddItem()">Submit</button>
 
 
 @code {
@@ -166,7 +157,7 @@
         {
             try
             {
-                var trustedFileNameForFileStorage = file.Name;
+                var trustedFileNameForFileStorage = ItemName;
                 var blobUrl = await _blobService.UploadFileToBlobAsync(trustedFileNameForFileStorage, file.ContentType, file.OpenReadStream(20971520));
                 if (blobUrl != null)
                 {
@@ -233,6 +224,8 @@
                 CategoryId = ItemCategoryId,
         };
         await _itemservice.AddItemtype(item);
+
+        await OnUploadSubmit();
     }
 
 }
