@@ -82,33 +82,7 @@
 }
 <br />
 <div class="row">
-    @if (fileUploadViewModels.Count > 0)
-    {
-        <table class="table table-responsive table-bordered">
-            <thead class="text-primary">
-                <tr>
-                    <th>File</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var attachment in fileUploadViewModels)
-                {
-
-                    <tr>
-                        <td>
-                            <a class="text-primary"><i class="fa-solid fa-paperclip"></i> @attachment.FileName</a>
-                        </td>
-
-                        <td>
-                            <span class="oi oi-delete" aria-hidden="true" @onclick="() => OnFileDeleteClick(attachment)"></span>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
+    @if (fileUploadViewModels.Count == 0)
     {
         <div class="alert alert-info">
             <strong>No Files!</strong>
@@ -195,7 +169,6 @@
                 fileUploadViewModels.Remove(attachment);
                 displayMessage = attachment.FileName + " Deleted!!";
             }
-
         }
         catch (Exception)
         {
