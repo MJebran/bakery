@@ -1,0 +1,39 @@
+﻿@page "/menuContents"
+@using Bakery.ClassLibrary.Data
+@using Bakery.ClassLibrary.Services;
+@using Bakery.WebApp.Data;
+@using Bakery.WebApp.Services
+@inject IItemTypeService _itemservice;
+@inject ICategoryService _categoryservice;
+@inject ISizeService _sizeservice;
+@inject IBlobStorageService _blobService;
+
+<h3>MenuContents</h3>
+
+@foreach(Itemtype item in items)
+{
+    <div>
+        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItemName.Replace(" ", "")}")"/>
+        <div>@item.ItemName</div>
+        <div>@item.ItemPrice</div>
+        <div>@item.ItemWeight</div>
+        <div>@item.ItmeCalories</div>
+        <div>@item.Category.CategoryName</div>
+        <div>@item.ItemDescription</div>
+    </div>
+}
+
+
+@code {
+@* {@item.ItemName.Replace(" ", "")}" style="max-width=100%" *@ 
+    List<Size> sizes = new();
+    List<Category> categories = new();
+    List<Itemtype> items = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
+        categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
+        items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
+    }
+}

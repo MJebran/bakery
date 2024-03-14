@@ -28,7 +28,7 @@ namespace Bakery.WebApp.Services
         public async Task<IEnumerable<Itemtype>> GetAllItemtypes()
         {
             var context = await factory.CreateDbContextAsync();
-            var items = context.Itemtypes.ToListAsync();
+            var items = context.Itemtypes.Include(c => c.Category).ToListAsync();
             return await items;
         }
 

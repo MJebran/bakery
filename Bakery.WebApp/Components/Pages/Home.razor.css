@@ -1,0 +1,115 @@
+﻿.frame {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.frame .div {
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+}
+
+.frame .overlap-group {
+  position: absolute;
+  width: 1440px;
+  height: 1024px;
+  top: 0;
+  left: 0;
+  background-image: url(./img/unsplash-l0mnnaswei8.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.frame .overlap {
+  position: absolute;
+  width: 156px;
+  height: 108px;
+  top: 57px;
+  left: 1186px;
+  background-color: #ed95ab;
+  border-radius: 45px 45px 45px 0px;
+  box-shadow: 0px 0px 15px #00000040;
+}
+
+.frame .text-wrapper {
+  position: absolute;
+  top: 26px;
+  left: 36px;
+  font-family: "Futura Bk BT-Book", Helvetica;
+  font-weight: 400;
+  color: #232323;
+  font-size: 45px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.frame .overlap-2 {
+  position: absolute;
+  width: 516px;
+  height: 317px;
+  top: 693px;
+  left: 38px;
+}
+
+.frame .quick-fresh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Futura Bk BT-Book", Helvetica;
+  font-weight: 400;
+  color: #232323;
+  font-size: 72px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.frame .rectangle {
+  position: absolute;
+  width: 173px;
+  height: 147px;
+  top: 170px;
+  left: 28px;
+}
+
+.frame .text-wrapper-2 {
+  position: absolute;
+  top: 220px;
+  left: 80px;
+  font-family: "Futura Bk BT-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 45px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.frame .line {
+  left: -1224px;
+  position: absolute;
+  width: 136px;
+  height: 1px;
+  top: 1572px;
+}
+
+.frame .img {
+  left: -1057px;
+  position: absolute;
+  width: 136px;
+  height: 1px;
+  top: 1572px;
+}
+
+.frame .line-2 {
+  left: -884px;
+  position: absolute;
+  width: 136px;
+  height: 1px;
+  top: 1572px;
+}
