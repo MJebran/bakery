@@ -21,6 +21,7 @@ builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
 builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
 builder.Services.AddSingleton<IFavoriteItemService, FavoriteItemService>();
 builder.Services.AddSingleton<IBlobStorageService, BlobService>();
+
 //Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -28,8 +29,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
-
-
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]??"";
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]??"";
+});
 
 var app = builder.Build();
 
@@ -38,7 +42,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
