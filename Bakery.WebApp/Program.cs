@@ -31,17 +31,18 @@ builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgs
 
 
 
-//builder.Services.AddAuthentication("Cookies")
-//              .AddCookie(opt =>
-//              {
-//                  opt.Cookie.Name = "TryingoutGoogleOAuth";
-//                  opt.LoginPath = "/auth/google-login";
-//              })
-//              .AddGoogle(opt =>
-//              {
-//                  opt.ClientId = builder.Configuration["ClientId"];
-//                  opt.ClientSecret = builder.Configuration["ClientSecret"];
-//              });
+builder.Services.AddAuthentication("Cookies")
+              .AddCookie(opt =>
+              {
+                  opt.Cookie.Name = "TryingoutGoogleOAuth";
+                  opt.LoginPath = "/google-login";
+              })
+              .AddGoogle(opt =>
+              {
+                  opt.ClientId = builder.Configuration["ClientId"];
+                  opt.ClientSecret = builder.Configuration["ClientSecret"];
+                  opt.CallbackPath = "/google-login";
+              });
 
 //builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 //{
