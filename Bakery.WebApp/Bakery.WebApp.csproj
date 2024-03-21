@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Content Include="Components\Pages\Home.razor.css" />
-    <Content Include="Components\Pages\MenuPage.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
