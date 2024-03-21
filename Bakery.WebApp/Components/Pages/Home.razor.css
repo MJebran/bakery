@@ -1,9 +1,16 @@
-﻿.frame {
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.frame {
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  margin: 0 !important;
 }
 
 .frame .div {
@@ -230,5 +237,13 @@
     100% {
         background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
         background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+}
+
+
+
+@media screen and (min-width: 641px) {
+    .top-row[b-0v0mk56atk], article[b-0v0mk56atk] {
+        padding: 0 !important;
     }
 }

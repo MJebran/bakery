@@ -1,5 +1,6 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0 !important;
 }
 
 a, .btn-link {
@@ -48,4 +49,10 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+@media screen and (min-width: 641px) {
+    .top-row[b-0v0mk56atk], article[b-0v0mk56atk] {
+        padding: 0 !important;
+    }
 }
