@@ -29,11 +29,25 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]??"";
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]??"";
-});
+
+
+//builder.Services.AddAuthentication("Cookies")
+//              .AddCookie(opt =>
+//              {
+//                  opt.Cookie.Name = "TryingoutGoogleOAuth";
+//                  opt.LoginPath = "/auth/google-login";
+//              })
+//              .AddGoogle(opt =>
+//              {
+//                  opt.ClientId = builder.Configuration["ClientId"];
+//                  opt.ClientSecret = builder.Configuration["ClientSecret"];
+//              });
+
+//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "";
+//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
+//});
 
 var app = builder.Build();
 
@@ -53,6 +67,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
