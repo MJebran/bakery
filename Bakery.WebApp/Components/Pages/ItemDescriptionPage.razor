@@ -1,0 +1,36 @@
+@page "/itemDescription/{ItemId}"
+@using Bakery.ClassLibrary.Services
+@using Bakery.WebApp.Data
+@using Bakery.WebApp.Services
+@inject IItemTypeService _itemservice
+@rendermode InteractiveServer
+
+@if(ItemToDisplay is not null)
+{
+<div>
+    <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{ItemToDisplay.ItemName.Replace(" ", "")}")"/>
+    <div class=size-container>S</div>
+    <div class=size-container>M</div>
+    <div class=size-container>L</div>
+    <div>
+        <div>@ItemToDisplay.ItmeCalories</div>
+        <div>@ItemToDisplay.ItemWeight</div>
+    </div>
+    <div>
+        <div>@ItemToDisplay.ItemDescription</div>
+        <button>Add To Cart</button>
+        <div>@ItemToDisplay.ItemPrice</div>
+    </div>
+</div>
+}
+
+@code {
+    [Parameter]
+    public string? ItemId {get; set;}
+    public Itemtype? ItemToDisplay {get; set;}
+    protected override async Task OnInitializedAsync()
+    {
+        var items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
+        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId??"")).First<Itemtype>();
+    }
+}

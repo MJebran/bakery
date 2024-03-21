@@ -1,5 +1,4 @@
 ﻿@page "/menuContents"
-@using Bakery.ClassLibrary.Data
 @using Bakery.ClassLibrary.Services;
 @using Bakery.WebApp.Data;
 @using Bakery.WebApp.Services
@@ -21,11 +20,10 @@
         <div>@item.Category.CategoryName</div>
         <div>@item.ItemDescription</div>
     </div>
+    <a href="/itemDescription/@item.ItemTypeId">View Item</a>
 }
 
-
 @code {
-@* {@item.ItemName.Replace(" ", "")}" style="max-width=100%" *@ 
     List<Size> sizes = new();
     List<Category> categories = new();
     List<Itemtype> items = new();
