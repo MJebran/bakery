@@ -8,11 +8,62 @@
 @inject IBlobStorageService _blobService;
 
 <h3>MenuContents</h3>
+<div class=Container>
+    <div class="frameHome">
+    </div>
+    <div class=containerforView>
+        <div class=ViewMenu>
+            <div class="boxView"></div><span class="viewMenuText">View menu</span>
+        </div>
+    </div>
+    <div class=locationContainer>
+        <div class="location"></div><span class="locationText">Manti, Utah</span>
+    </div>
+    <div class=searchMenuContainer>
+        <div class=searchMenu>
+            <div class="searchBar"></div><input class="searchMenuText" type="text" id="generic_search" value="Search here...">
+        </div>
+        <div class=squareCloseToSearch>
+            <div class="square"></div>
+        </div>
+    </div>
 
-@foreach(Itemtype item in items)
+    <div class=CakeContainer>
+        <div class="cakeFrame"></div>
+        <div class="cakeFrameCircle"></div>
+        <div class="imageCake"></div>
+    </div>
+
+    <div class=CupCakeContainer>
+        <div class="CupCakeFrame"></div>
+        <div class="CupCakeCircle"></div>
+        <div class="CupCakeCake"></div>
+    </div>
+    <div class=SlideCakeContainer>
+        <div class="SLideCakeFrame"></div>
+        <div class="SldeCakeCircle"></div>
+        <div class="SlideCakeImagine"></div>
+    </div>
+    <div class=discoveryTextContainer>
+        <span class="discoveryText">Discover by category</span>
+    </div>
+
+
+    @*----------------This are for Cakes-----------*@
+    <div class=e15_293>
+        <div class="e15_294"></div>
+        <div class="e15_295"></div>
+        <div class="e15_296"></div>
+        <div class="e15_297"></div><span class="e15_298">Special wedding cake</span><span class="e15_299">Flawor : Creamy</span><span class="e15_300">$34.21</span>
+        <div class="e15_301"></div>
+    </div>
+
+</div>
+
+@foreach (Itemtype item in items)
 {
     <div>
-        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItemName.Replace(" ", "")}")"/>
+        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItemName.Replace(" ", "")}")" />
         <div>@item.ItemName</div>
         <div>@item.ItemPrice</div>
         <div>@item.ItemWeight</div>
@@ -22,6 +73,412 @@
     </div>
     <a href="/itemDescription/@item.ItemTypeId">View Item</a>
 }
+
+<style>
+    .Container {
+        background-color: rgba(240.32421469688416, 240.32421469688416, 240.32421469688416, 1);
+        width: 1440px;
+        height: 1024px;
+        position: absolute;
+    }
+
+    .ViewMenu {
+        width: 136.51394653320312px;
+        height: 43.6435661315918px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    .containerforView {
+        width: 136.51394653320312px;
+        height: 43.6435661315918px;
+        position: absolute;
+        left: 0px;
+        top: 324.3564758300781px;
+    }
+
+    .viewMenuText {
+        color: rgba(255, 255, 255, 1);
+        width: 96.55867004394531px;
+        height: 21.069307327270508px;
+        position: absolute;
+        left: 19.978084564208984px;
+        top: 10.53466796875px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 19.80000114440918px;
+        letter-spacing: 0;
+    }
+
+    .boxView {
+        box-shadow: 0px 6.600000381469727px 6.600000381469727px rgba(0, 0, 0, 0.25);
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 136.51394653320312px;
+        height: 43.6435661315918px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-top-left-radius: 16.5px;
+        border-top-right-radius: 16.5px;
+        border-bottom-left-radius: 16.5px;
+        border-bottom-right-radius: 16.5px;
+    }
+
+    .frameHome {
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 1440px;
+        height: 173px;
+        position: absolute;
+        top: 165px;
+    }
+
+    .locationContainer {
+        width: 292px;
+        height: 38.33333206176758px;
+        position: absolute;
+        left: 26px;
+        top: 99px;
+    }
+
+    .location {
+        background-color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 26.83333396911621px;
+        height: 38.33333206176758px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    .locationText {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 242px;
+        height: 36px;
+        position: absolute;
+        left: 50px;
+        top: 2px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 30px;
+        letter-spacing: 0;
+    }
+
+    .searchMenuContainer {
+        width: 550.5px;
+        height: 72px;
+        position: absolute;
+        left: 468px;
+        top: 365px;
+    }
+
+    .searchMenu {
+        width: 469.5px;
+        height: 72px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    .searchBar {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 255, 255, 1);
+        width: 469.5px;
+        height: 72px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+
+    .searchMenuText {
+        border: none;
+        color: rgba(148.7499949336052, 148.7499949336052, 148.7499949336052, 1);
+        width: 129px;
+        height: 25.5px;
+        position: absolute;
+        left: 30px;
+        top: 22.5px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 21px;
+        letter-spacing: 0;
+    }
+
+    .squareCloseToSearch {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 490.5px;
+        top: 6px;
+    }
+
+    .square {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    .CakeContainer {
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 426px;
+        top: 457px;
+    }
+
+    .cakeFrame {
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-top-left-radius: 45px;
+        border-top-right-radius: 45px;
+        border-bottom-left-radius: 7.5px;
+        border-bottom-right-radius: 45px;
+    }
+
+    .cakeFrameCircle {
+        border-radius: 500px;
+        background-color: rgba(255, 255, 255, 1);
+        width: 79.5px;
+        height: 79.5px;
+        position: absolute;
+        left: 9px;
+        top: 15px;
+    }
+
+    .imageCake {
+        width: 43.5px;
+        height: 43.5px;
+        position: absolute;
+        left: 27px;
+        top: 27px;
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .CupCakeContainer {
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 559.5px;
+        top: 457px;
+    }
+
+    .CupCakeFrame {
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 255, 255, 1);
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-top-left-radius: 45px;
+        border-top-right-radius: 45px;
+        border-bottom-left-radius: 45px;
+        border-bottom-right-radius: 45px;
+    }
+
+    .CupCakeCircle {
+        border-radius: 500px;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
+        position: absolute;
+        left: 9px;
+        top: 15px;
+    }
+
+    .CupCakeCake {
+        width: 40.5px;
+        height: 40.5px;
+        position: absolute;
+        left: 28.5px;
+        top: 34.5px;
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .SlideCakeContainer {
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 694.5px;
+        top: 457px;
+    }
+
+    .SLideCakeFrame {
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 255, 255, 1);
+        width: 97.5px;
+        height: 154.5px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-top-left-radius: 45px;
+        border-top-right-radius: 45px;
+        border-bottom-left-radius: 45px;
+        border-bottom-right-radius: 45px;
+    }
+
+    .SldeCakeCircle {
+        border-radius: 500px;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
+        position: absolute;
+        left: 9px;
+        top: 15px;
+    }
+
+    .SlideCakeImagine {
+        width: 40.5px;
+        height: 40.5px;
+        position: absolute;
+        left: 28.5px;
+        top: 34.5px;
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .discoveryTextContainer {
+        width: 1128.99951171875px;
+        height: 28.799999237060547px;
+        position: absolute;
+        left: 228px;
+        top: 425px;
+    }
+
+    .discoveryText {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 539.5105590820312px;
+        height: 28.799999237060547px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 23.99999237060547px;
+        letter-spacing: 0;
+    }
+
+    .e15_293 {
+        width: 180px;
+        height: 235.26612854003906px;
+        position: absolute;
+        left: 151px;
+        top: 708px;
+    }
+
+    .e15_294 {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 255, 255, 1);
+        width: 179px;
+        height: 187px;
+        position: absolute;
+        left: 1px;
+        top: 48px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .e15_295 {
+        background-color: rgba(243.00000071525574, 228.0000016093254, 254.00000005960464, 1);
+        width: 179px;
+        height: 100.50806427001953px;
+        position: absolute;
+        left: -1.1368683772161603e-13px;
+        top: 47.814517974853516px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    .e15_296 {
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 33px;
+        height: 32.20161437988281px;
+        position: absolute;
+        left: 147px;
+        top: 203.06451416015625px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    .e15_297 {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        width: 123px;
+        height: 136.61289978027344px;
+        position: absolute;
+        left: 29px;
+        top: 0px;
+        background-image: url(images/pngwing.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .e15_298 {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 142px;
+        height: 17.564516067504883px;
+        position: absolute;
+        left: 10px;
+        top: 157.10484313964844px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 15px;
+        letter-spacing: 0;
+    }
+
+    .e15_299 {
+        color: rgba(148.7499949336052, 148.7499949336052, 148.7499949336052, 1);
+        width: 73px;
+        height: 11.709677696228027px;
+        position: absolute;
+        left: 10px;
+        top: 177.59677124023438px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 10px;
+        letter-spacing: 0;
+    }
+
+    .e15_300 {
+        color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 43px;
+        height: 14.637096405029297px;
+        position: absolute;
+        left: 13px;
+        top: 203px;
+        font-family: Futura-Bold;
+        text-align: left;
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+
+    .e15_301 {
+        background-color: rgba(255, 255, 255, 1);
+        width: 19px;
+        height: 18.54032325744629px;
+        position: absolute;
+        left: 154px;
+        top: 209.89515686035156px;
+    }
+
+</style>
 
 @code {
     List<Size> sizes = new();
