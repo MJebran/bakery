@@ -1,0 +1,87 @@
+@page "/customizeItem/{ItemId}"
+@using Bakery.ClassLibrary.Services
+@using Bakery.WebApp.Data
+@using Bakery.WebApp.Services
+@inject IItemTypeService _itemservice
+@inject IToppingService _toppingservice
+@rendermode InteractiveServer
+
+@if(ItemToDisplay is not null)
+{
+<div>
+    <diV>
+        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{ItemToDisplay.ItemName.Replace(" ", "")}")"/>
+    </diV>
+    <div>
+        @if(toppingToQuantity is not null)
+        {
+            @foreach(var topAndQtity in toppingToQuantity)
+            {
+                <div>
+                    <button @onclick="() => decreaseQuantity(topAndQtity.Key)">-</button>
+                    <div>        
+                        <img style="height:40px"src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{topAndQtity.Key.ToppingName.Replace(" ", "")}")"/>
+                    </div>
+                    <div>@topAndQtity.Value</div>
+                    <button @onclick="() => increaseQuantity(topAndQtity.Key)">+</button>
+                </div>
+            }
+        }
+        <button>Order Now</button>
+        <div>Total: @computeTotal()</div>
+    </div>
+</div>
+}
+
+@code {
+    [Parameter]
+    public string? ItemId {get; set;}
+    public Itemtype? ItemToDisplay {get; set;}
+    public Dictionary<Topping, int>? toppingToQuantity {get; set;}
+    protected override async Task OnInitializedAsync()
+    {
+        var items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
+        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId??"")).First<Itemtype>();
+
+        toppingToQuantity = new();
+        var toppings = (await _toppingservice.GetAllToppings()).ToList<Topping>();
+
+        foreach(var topping in toppings)
+        {
+            toppingToQuantity.Add(topping, 0);
+        }
+    }
+
+    public void increaseQuantity(Topping topping)
+    {
+        if(toppingToQuantity is not null)
+        {
+            toppingToQuantity[topping] += 1;
+        } 
+    }
+
+    public void decreaseQuantity(Topping topping)
+    {
+        if(toppingToQuantity is not null && toppingToQuantity[topping] > 0)
+        {
+            toppingToQuantity[topping] -= 1;
+        }   
+    }
+
+    public decimal computeTotal()
+    {
+        decimal total = 0;
+
+        if(toppingToQuantity is not null)
+        {
+            foreach(var topAndQtity in toppingToQuantity)
+            {
+                total += (decimal)(topAndQtity.Key.ToppingPrice * topAndQtity.Value);
+            }
+        }
+
+        total += (decimal)ItemToDisplay.ItemPrice;
+
+        return total;
+    }
+}
