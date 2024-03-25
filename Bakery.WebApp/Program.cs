@@ -1,4 +1,5 @@
 using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Authentication;
 using Bakery.WebApp.Components;
 using Bakery.WebApp.Data;
 using Bakery.WebApp.Services;
@@ -21,6 +22,7 @@ builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
 builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
 builder.Services.AddSingleton<IFavoriteItemService, FavoriteItemService>();
 builder.Services.AddSingleton<IBlobStorageService, BlobService>();
+builder.Services.AddScoped<IAutheticationService, AuthenticationService>();
 
 //Swagger
 builder.Services.AddControllers();
@@ -29,25 +31,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
-
-// builder.Services.AddAuthentication("Cookies")
-//               .AddCookie(opt =>
-//               {
-//                   opt.Cookie.Name = "TryingoutGoogleOAuth";
-//                   opt.LoginPath = "/google-login";
-//               })
-//               .AddGoogle(opt =>
-//               {
-//                   opt.ClientId = builder.Configuration["ClientId"];
-//                   opt.ClientSecret = builder.Configuration["ClientSecret"];
-//                   opt.CallbackPath = "/google-login";
-//               });
-
-//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "";
-//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
-//});
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "";
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
+});
 
 var app = builder.Build();
 
