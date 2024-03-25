@@ -1,58 +1,7 @@
-﻿@* <div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Bakery.WebApp</a>
-    </div>
-</div> *@
-
-
-@* <div class="pos-f-t">
-
-    <nav role="navigation">
-        <div id="menuToggle">
-
-            <input type="checkbox" />
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-
-            <ul id="menu">
-               
-                <li>
-                        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                            <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-                        </NavLink>
-                </li>
-                
-                <li>
-                    <NavLink class="nav-link" href="itemUpload">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Upload
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink class="nav-link" href="menuContents">
-                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Menu
-                    </NavLink>
-
-                </li>
-                
-            </ul>
-        </div>
-
-        <button data-quantity="0" class="btn-cart">
-            <svg class="icon-cart" viewBox="0 0 24.38 30.52" height="30.52" width="24.38" xmlns="http://www.w3.org/2000/svg">
-                <title>icon-cart</title>
-                <path transform="translate(-3.62 -0.85)" d="M28,27.3,26.24,7.51a.75.75,0,0,0-.76-.69h-3.7a6,6,0,0,0-12,0H6.13a.76.76,0,0,0-.76.69L3.62,27.3v.07a4.29,4.29,0,0,0,4.52,4H23.48a4.29,4.29,0,0,0,4.52-4ZM15.81,2.37a4.47,4.47,0,0,1,4.46,4.45H11.35a4.47,4.47,0,0,1,4.46-4.45Zm7.67,27.48H8.13a2.79,2.79,0,0,1-3-2.45L6.83,8.34h3V11a.76.76,0,0,0,1.52,0V8.34h8.92V11a.76.76,0,0,0,1.52,0V8.34h3L26.48,27.4a2.79,2.79,0,0,1-3,2.44Zm0,0"></path>
-            </svg>
-            <span class="quantity"></span>
-        </button>
-    </nav>
-    
-
-    
-</div> *@
-
+﻿@inject IHttpContextAccessor _httpContextAccessor
+@inject HttpClient Http
+@inject IUserRoleService _roleService
+@inject IUserService _userService
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
     <div>
@@ -70,6 +19,28 @@
             <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Upload
         </NavLink>
     </div>
+    @if (userRoleService.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/identity/logout"><i class="oi oi-account-logout"></i></a>
+        </li>
+    }
+    else
+    {                  
+        <li class="nav-item">
+            <a class="nav-link" href="/identity/login"><i class="oi oi-person"></i></a>
+        </li>
+    }
+    @if (userRoleService.IsAuthenticated && role == "admin")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/manager"><i class="oi oi-people"></i></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/imageUpload"><i class="oi oi-image"></i></a>
+        </li>
+    }
 
     <button data-quantity="0" class="btn-cart">
         <svg class="icon-cart" viewBox="0 0 24.38 30.52" height="30.52" width="24.38" xmlns="http://www.w3.org/2000/svg">
@@ -82,6 +53,33 @@
     
     
 </nav>
+
+@code{
+
+    private ClaimsPrincipal User;
+    private int userId { get; set; }
+    private string? role { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = _httpContextAccessor.HttpContext.User;
+        var GoogleUser = User.Identities.FirstOrDefault();
+        if (GoogleUser.IsAuthenticated)
+        {
+            userId = await _userService.LookUpUserAsync(GoogleUser.FindFirst(ClaimTypes.Email).Value,
+                GoogleUser.FindFirst(ClaimTypes.Name).Value,
+                GoogleUser.FindFirst(ClaimTypes.Surname).Value
+                );
+            if (_userService.IsAuthenticated)
+            {
+                var cutomer = await _userService.users..Where(c => c.Id == userId)
+                                              .Include(c => c.)
+                                              .FirstOrDefaultAsync();
+                role = customer.CustomerRole.RoleDescription;
+            }
+        }
+    }
+}
 
 
 

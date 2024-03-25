@@ -9,6 +9,11 @@
 @inject IBlobStorageService _blobService
 @rendermode InteractiveServer
 
+<AuthorizeView>
+    <NotAuthorized>xd</NotAuthorized>
+    <Authorized>aaa</Authorized>
+</AuthorizeView>
+
 <h3>Add an Item</h3>
 
 <EditForm Model="@itemToAdd" OnValidSubmit="AddItem" FormName=>
