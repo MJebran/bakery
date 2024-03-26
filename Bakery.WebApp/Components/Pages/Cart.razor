@@ -1,46 +1,135 @@
 ﻿@page "/cart"
 
-<div id=e128_2>
-    <div id="e128_14"></div>
-    <div id="e128_15"></div><span id="e128_16">Birthday cake</span>
-    <div id=e128_17>
-        <div id="e128_18"></div>
-        <div id="e128_19"></div><span id="e128_20">1</span>
-        <div id="e128_21"></div>
-        <div id="e128_22"></div>
-    </div>
-    <div id="e128_23"></div>
-    <div id=e128_44>
-        <div id="e128_45"></div>
-    </div>
-    <div id=e128_46>
-        <div id="e128_47"></div><span id="e128_48">Total</span>
-        <div id=e128_49>
-            <div id="e128_50"></div><span id="e128_51">$39.21</span>
-        </div>
-    </div><span id="e128_52">Check Out</span>
-    <div id=e129_66>
-        <div id=e128_61>
-            <div id="e128_62"></div>
-            <div id=e128_63><span id="e128_64">Edit</span></div>
-        </div>
-    </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
+		</div>
+		<div class="col-lg-9">
+			<div id="graycolor">
+				<div id="brownborder">
+					<form>
+						<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+						<input type="number" id="number" value="0" />
+						<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+					</form>
+
+					<button typ="button">Edit</button>
+
+				</div> @*yelow border around everything*@
+				<div id="imagecss"></div> @*image css*@
+				<span id="imagetitle">Birthday cake</span>
+
+				<button type="button" class="editbutton">Checkout</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
 <style>
-	#128_2 {
-		overflow: hidden;
+
+
+
+
+	.editbutton {
+		border-radius: 10px 10px 0 10px;
+		border: none;
+		background-color: rgba(236, 158, 73, 1);
+		color: white;
+		padding: 10px 20px;
+		cursor: pointer;
+		text-align: center;
+		margin: 0 auto; /* Center horizontally */
 	}
 
-	#e128_2 {
-		background-color: rgba(240.32421469688416, 240.32421469688416, 240.32421469688416, 1);
-		width: 1440px;
-		height: 1016px;
+	/* Hover effect */
+	button:hover {
+		background-color: rgba(236, 158, 73, 0.8); /* Adjust opacity on hover */
+	}
+
+
+	/* counter */
+	form {
+		width: 300px;
+		margin: 0 auto;
+		text-align: right;
+		padding-top: 80px; /* Increased padding to move the form lower */
+	}
+
+		/* Adjust text alignment for child elements */
+		form .counter-text {
+			text-align: left;
+		}
+
+
+	.value-button {
+		display: inline-block;
+		border: 1px solid #ddd;
+		margin: 0px;
+		width: 40px;
+		height: 20px;
+		text-align: center;
+		vertical-align: middle;
+		padding: 11px 0;
+		background: #eee;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+		.value-button:hover {
+			cursor: pointer;
+		}
+
+	form #decrease {
+		margin-right: -4px;
+		border-radius: 8px 0 0 8px;
+	}
+
+	form #increase {
+		margin-left: -4px;
+		border-radius: 0 8px 8px 0;
+	}
+
+	form #input-wrap {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	input#number {
+		text-align: center;
+		border: none;
+		border-top: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+		margin: 0px;
+		width: 40px;
+		height: 40px;
+	}
+
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	/* end of counter */
+
+	#graycolor {
+		background-color: rgba(240, 240, 240, 1); /* Adjusted the color */
+		width: 100%; /* Cover entire width of viewport */
+		height: 100%; /* Cover entire height of viewport */
 		position: absolute;
+		top: 0; /* Align to the top of the viewport */
+		right: 0; /* Align to the right of the viewport */
+		bottom: 0; /* Align to the bottom of the viewport */
+		left: 0; /* Align to the left of the viewport */
 	}
 
-	#e128_14 {
+
+	#brownborder {
 		background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
 		width: 503.1000061035156px;
 		height: 200.1999969482422px;
@@ -53,244 +142,30 @@
 		border-bottom-right-radius: 26.000001907348633px;
 	}
 
-	#e128_15 {
+	#imagecss {
 		width: 148.1999969482422px;
 		height: 148.1999969482422px;
 		position: absolute;
 		left: 540.900390625px;
 		top: 259px;
-		background-image: url(images/pngwing.png);
+		background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/SpecialWeddingCake);
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
 
-	#e128_16 {
-		color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-		width: 161.97999572753906px;
-		height: 32.76000213623047px;
+	/* Title */
+	#imagetitle {
+		color: rgba(35, 35, 35, 1); /* Adjusted color */
+		width: 161.98px;
+		height: 32.76px;
 		position: absolute;
 		left: 724px;
-		top: 267.0999755859375px;
+		top: 250px; /* Adjusted top position */
 		font-family: Futura Bk BT;
-		text-align: left;
-		font-size: 27.30000114440918px;
+		text-align: center;
+		font-size: 27.3px;
 		letter-spacing: 0;
-	}
-
-	#e128_17 {
-		width: 140.39999389648438px;
-		height: 47.736000061035156px;
-		position: absolute;
-		left: 746px;
-		top: 309.0999755859375px;
-	}
-
-	#e128_18 {
-		box-shadow: 0px 3.74399995803833px 3.74399995803833px rgba(0, 0, 0, 0.25);
-		background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-		width: 140.39999389648438px;
-		height: 47.736000061035156px;
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		border-radius: Symbol(figma.mixed)px;
-	}
-
-	#e128_19 {
-		background-color: rgba(255, 255, 255, 0.44999998807907104);
-		width: 54.288002014160156px;
-		height: 29.95199966430664px;
-		position: absolute;
-		left: 43.99195098876953px;
-		top: 8.423988342285156px;
-		border-top-left-radius: 4.680000305175781px;
-		border-top-right-radius: 4.680000305175781px;
-		border-bottom-left-radius: 4.680000305175781px;
-		border-bottom-right-radius: 4.680000305175781px;
-	}
-
-	#e128_20 {
-		color: rgba(0, 0, 0, 1);
-		width: 8.42400074005127px;
-		height: 19.6560001373291px;
-		position: absolute;
-		left: 67.39195251464844px;
-		top: 14.039989471435547px;
-		font-family: Futura-Bold;
-		text-align: left;
-		font-size: 18.720001220703125px;
-		letter-spacing: 0;
-	}
-
-	#e128_21 {
-		background-color: rgba(255, 255, 255, 1);
-		width: 17.784000396728516px;
-		height: 17.784000396728516px;
-		position: absolute;
-		left: 108.57595825195312px;
-		top: 14.975988388061523px;
-	}
-
-	#e128_22 {
-		background-color: rgba(255, 255, 255, 1);
-		width: 16.84800148010254px;
-		height: 1.871999979019165px;
-		position: absolute;
-		left: 13.103949546813965px;
-		top: 22.4639892578125px;
-	}
-
-	#e128_23 {
-		width: 25.15968132019043px;
-		height: 25.15968132019043px;
-		position: absolute;
-		left: 958.2001953125px;
-		top: 282.39990234375px;
-		background-image: url(images/image_3.png);
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-
-	#e128_44 {
-		width: 303.94000244140625px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 389px;
-		top: 810px;
-	}
-
-	#e128_45 {
-		box-shadow: 0px 7.28000020980835px 7.28000020980835px rgba(0, 0, 0, 0.25);
-		background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-		width: 303.94000244140625px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		border-radius: Symbol(figma.mixed)px;
-	}
-
-	#e128_46 {
-		width: 305.7599792480469px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 745.72021484375px;
-		top: 810px;
-	}
-
-	#e128_47 {
-		background-color: rgba(151.93750709295273, 145.87864100933075, 139.2760393023491, 0.800000011920929);
-		width: 303.94000244140625px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 1.8200194835662842px;
-		top: 0.00003204345557605848px;
-		border-radius: Symbol(figma.mixed)px;
-	}
-
-	#e128_48 {
-		color: rgba(0, 0, 0, 1);
-		width: 69.16000366210938px;
-		height: 45.5px;
-		position: absolute;
-		left: 121.94002532958984px;
-		top: 0.00003204345557605848px;
-		font-family: Jost;
-		text-align: left;
-		font-size: 32.76000213623047px;
-		letter-spacing: 0;
-	}
-
-	#e128_49 {
-		width: 303.94000244140625px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 0px;
-		top: 0px;
-	}
-
-	#e128_50 {
-		background-color: rgba(255, 255, 255, 0.5400000214576721);
-		width: 303.94000244140625px;
-		height: 92.82000732421875px;
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		border-radius: Symbol(figma.mixed)px;
-	}
-
-	#e128_51 {
-		color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-		width: 107.37999725341797px;
-		height: 40.040000915527344px;
-		position: absolute;
-		left: 109.20001220703125px;
-		top: 38.22003173828125px;
-		font-family: Futura Bk BT;
-		text-align: left;
-		font-size: 32.76000213623047px;
-		letter-spacing: 0;
-	}
-
-	#e128_52 {
-		color: rgba(0, 0, 0, 1);
-		width: 167.44000244140625px;
-		height: 45.5px;
-		position: absolute;
-		left: 456.34033203125px;
-		top: 833.6600341796875px;
-		font-family: Jost;
-		text-align: left;
-		font-size: 32.76000213623047px;
-		letter-spacing: 0;
-	}
-
-	#e129_66 {
-		width: 187px;
-		height: 172.74826049804688px;
-		position: absolute;
-		left: 746px;
-		top: 294.73046875px;
-	}
-
-	#e128_61 {
-		width: 187px;
-		height: 172.74826049804688px;
-		position: absolute;
-		left: 0px;
-		top: 0px;
-	}
-
-	#e128_62 {
-		box-shadow: 0px 3.454965591430664px 3.454965591430664px rgba(0, 0, 0, 0.25);
-		background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-		width: 144.2447967529297px;
-		height: 44.05080795288086px;
-		position: absolute;
-		left: 9.094947017729282e-13px;
-		top: 79.03236389160156px;
-		border-radius: Symbol(figma.mixed)px;
-	}
-
-	#e128_63 {
-		width: 172.74826049804688px;
-		height: 172.74826049804688px;
-		position: absolute;
-		left: 14.251689910888672px;
-		top: -0.000007966545126691926px;
-	}
-
-	#e128_64 {
-		color: rgba(248.0000004172325, 218.00000220537186, 187.00000405311584, 1);
-		width: 158.92840576171875px;
-		height: 43.18706512451172px;
-		position: absolute;
-		left: 0.0002251731784781441px;
-		top: 77.73673248291016px;
-		font-family: Jost;
-		text-align: left;
-		font-size: 31.094688415527344px;
-		letter-spacing: 0;
+		margin-top: 20px; /* Added margin */
 	}
 
 </style>
