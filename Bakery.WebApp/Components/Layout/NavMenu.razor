@@ -1,7 +1,11 @@
-﻿@inject IHttpContextAccessor _httpContextAccessor
+﻿@using Bakery.WebApp.Authentication;
+@using Bakery.ClassLibrary.Services;
+@using Bakery.WebApp.Data;
+@using System.Linq;
+@using System.Security.Claims;
 @inject HttpClient Http
-@inject IUserRoleService _roleService
-@inject IUserService _userService
+@inject IUserService _userService;
+@inject IBakeryAutheticationService _authenticationService
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
     <div>
@@ -19,28 +23,15 @@
             <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Upload
         </NavLink>
     </div>
-    @if (userRoleService.IsAuthenticated)
-    {
-        <li class="nav-item">
-            <a class="nav-link" href="/identity/logout"><i class="oi oi-account-logout"></i></a>
-        </li>
-    }
-    else
-    {                  
-        <li class="nav-item">
-            <a class="nav-link" href="/identity/login"><i class="oi oi-person"></i></a>
-        </li>
-    }
-    @if (userRoleService.IsAuthenticated && role == "admin")
-    {
-        <li class="nav-item">
-            <a class="nav-link" href="/manager"><i class="oi oi-people"></i></a>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="/imageUpload"><i class="oi oi-image"></i></a>
-        </li>
-    }
+    <li class="nav-item">
+        <a class="nav-link" href="/identity/logout"><i class="oi oi-account-logout"></i>no</a>
+    </li>
+    
+                
+    <li class="nav-item">
+        <a class="nav-link" href="/identity/login"><i class="oi oi-person">ayudaaa</i></a>
+    </li>
 
     <button data-quantity="0" class="btn-cart">
         <svg class="icon-cart" viewBox="0 0 24.38 30.52" height="30.52" width="24.38" xmlns="http://www.w3.org/2000/svg">
@@ -53,90 +44,3 @@
     
     
 </nav>
-
-@code{
-
-    private ClaimsPrincipal User;
-    private int userId { get; set; }
-    private string? role { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        User = _httpContextAccessor.HttpContext.User;
-        var GoogleUser = User.Identities.FirstOrDefault();
-        if (GoogleUser.IsAuthenticated)
-        {
-            userId = await _userService.LookUpUserAsync(GoogleUser.FindFirst(ClaimTypes.Email).Value,
-                GoogleUser.FindFirst(ClaimTypes.Name).Value,
-                GoogleUser.FindFirst(ClaimTypes.Surname).Value
-                );
-            if (_userService.IsAuthenticated)
-            {
-                var cutomer = await _userService.users..Where(c => c.Id == userId)
-                                              .Include(c => c.)
-                                              .FirstOrDefaultAsync();
-                role = customer.CustomerRole.RoleDescription;
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="itemUpload">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Upload
-            </NavLink>
-        </div> 
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="menuContents">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Menu
-            </NavLink>
-        </div>
-    </nav>
-</div> *@
-

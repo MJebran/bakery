@@ -28,7 +28,7 @@ namespace Bakery.WebApp.Services
         public async Task<IEnumerable<User>> GetAllUsers()
         {
             var context = await dbfactory.CreateDbContextAsync();
-            var value = await context.Users.ToListAsync();
+            var value = await context.Users.Include(u => u.UserRole).ToListAsync();
             return value;
 
         }
