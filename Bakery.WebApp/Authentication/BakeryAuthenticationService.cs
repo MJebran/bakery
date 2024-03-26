@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bakery.WebApp.Authentication;
 
-public class AuthenticationService : IAutheticationService
+public class BakeryAuthenticationService : IBakeryAutheticationService
 {
-    AuthenticationService(IUserService _userService) { this._userService = _userService; }
+    public BakeryAuthenticationService(IUserService _userService) { this._userService = _userService; }
     public bool IsAuthenticated { get; private set; }
     IUserService _userService { get; set; }
     public async Task<User> GetUser(string email)

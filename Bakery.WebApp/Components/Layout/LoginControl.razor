@@ -1,54 +1,105 @@
 ﻿@using System.Security.Claims
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor _httpContextAccessor
-@inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ILogger<LoginControl> Logger;
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="976414771735-nr7fhsilp16trl8clgd08pdfhu54bkc4.apps.googleusercontent.com">
-
-@if (User.Identity.Name != null)
+@if (User.Identity?.Name != null)
 {
-    @* <div>@User.FindFirst(ClaimTypes.Email).Value</div> how to get the email.*@
-    <img src="@Avatar" />
-<b>Logged in as @GivenName @Surname. Click here to Logout</b>
+    <img src="@Avatar"/>
+    <b>You are logged in as: @GivenName @Surname</b>
+    <a class="ml-md-auto btn btn-primary"
+       href="/Identity/Logout"
+       target="_top">
+        Logout
+    </a>
 }
 else
 {
-
-    @* <div class="g-signin2" data-onsuccess="onSignIn"></div> *@
-
-     <b>Login</b> 
-
-
+    <a class="ml-md-auto btn btn-primary"
+       href="/Identity/Login"
+       target="_top">
+        Login
+    </a>
 }
+
 @code {
     private ClaimsPrincipal User;
     private string GivenName;
     private string Surname;
     private string Avatar;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        try
+        {
+            User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+
+            // Try to get the GivenName
+            var givenName = User.FindFirst(ClaimTypes.GivenName);
+            GivenName = givenName != null ? givenName.Value : User.Identity?.Name ?? "Unknown";
+
+            var surname = User.FindFirst(ClaimTypes.Surname);
+            Surname = surname != null ? surname.Value : User.Identity?.Name ?? "Unknown";
+
+            var avatar = User.FindFirst("urn:google:image");
+            Avatar = avatar != null ? avatar.Value : "";
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Failed to resolve the authenticated user");
+        }
+    }
+
+}
+@* @page "/login"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpContextAccessor
+@inject HttpClient Http
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com">
+
+<script>
+    gapi.load('auth 2', function(){
+        gapi.auth2.init();
+    })
+</script>
+
+<div id="signin"></div>
+@if (User?.Identity?.Name != null)
+{
+    <b>Logged in as @GivenName @Surname. Click here to Logout</b>
+}
+else
+{
+     <b>Login</b> 
+}
+@code {
+    private ClaimsPrincipal? User;
+    private string GivenName = "";
+    private string Surname = "";
+    private string Avatar = "";
     protected override void OnInitialized()
     {
         base.OnInitialized();
         try
         {
-            // Set the user to determine if they are logged in
-            User = _httpContextAccessor.HttpContext.User;
-            // Try to get the GivenName
-            var givenName =
-                _httpContextAccessor.HttpContext.User
-                .FindFirst(ClaimTypes.GivenName);
+            User = _httpContextAccessor.HttpContext?.User;
+
+            var givenName = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.GivenName);
+
             if (givenName != null)
             {
                 GivenName = givenName.Value;
             }
             else
             {
-                GivenName = User.Identity.Name;
+                GivenName = User?.Identity?.Name ?? "";
             }
-            // Try to get the Surname
-            var surname =
-                _httpContextAccessor.HttpContext.User
-                .FindFirst(ClaimTypes.Surname);
+
+            var surname = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Surname);
+
             if (surname != null)
             {
                 Surname = surname.Value;
@@ -57,22 +108,10 @@ else
             {
                 Surname = "";
             }
-            // Try to get Avatar
-            var avatar =
-            _httpContextAccessor.HttpContext.User
-            .FindFirst("urn:google:image");
-            if (avatar != null)
-            {
-                Avatar = avatar.Value;
-            }
-            else
-            {
-                Avatar = "";
-            }
         }
         catch
         {
             throw new NotImplementedException();    
         }
     }
-}
+} *@

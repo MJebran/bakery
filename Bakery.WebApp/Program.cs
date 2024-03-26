@@ -4,42 +4,58 @@ using Bakery.WebApp.Components;
 using Bakery.WebApp.Data;
 using Bakery.WebApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .AddRazorPages(options =>
+    {
+        options.RootDirectory = "/Components/Pages/Identity";
+    }).Services
+    .AddServerSideBlazor().Services
+    .AddSingleton<ISizeService, SizeService>()
+    .AddSingleton<ISizeService, SizeService>()
+    .AddSingleton<ICategoryService, CategoryService>()
+    .AddSingleton<IToppingService, ToppingService>()
+    .AddSingleton<IRoleService, RoleService>()
+    .AddSingleton<IUserService, UserService>()
+    .AddSingleton<IItemTypeService, ItemTypeService>()
+    .AddSingleton<ICustomItemService, CustomItemService>()
+    .AddSingleton<IPurchaseService, PurchaseService>()
+    .AddSingleton<ICustomItemService, CustomItemService>()
+    .AddSingleton<IFavoriteItemService, FavoriteItemService>()
+    .AddSingleton<IBlobStorageService, BlobService>()
+    .AddScoped<IBakeryAutheticationService, BakeryAuthenticationService>()
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
+    .AddAuthentication().AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("Client Id not found");
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("Client secret not found");
+        options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+        options.ClaimActions.MapJsonKey("urn:google:image", "picture");
+    });
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<ISizeService, SizeService>();
-builder.Services.AddSingleton<ICategoryService, CategoryService>();
-builder.Services.AddSingleton<IToppingService, ToppingService>();
-builder.Services.AddSingleton<IRoleService, RoleService>();
-builder.Services.AddSingleton<IUserService, UserService>();
-builder.Services.AddSingleton<IItemTypeService, ItemTypeService>();
-builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
-builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
-builder.Services.AddSingleton<ICustomItemService, CustomItemService>();
-builder.Services.AddSingleton<IFavoriteItemService, FavoriteItemService>();
-builder.Services.AddSingleton<IBlobStorageService, BlobService>();
-builder.Services.AddScoped<IAutheticationService, AuthenticationService>();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<HttpClient>();
 
 //Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
+builder.Services.AddCascadingAuthenticationState();
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "";
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "";
-});
+builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
 var app = builder.Build();
 
-// Swagger Components
+//Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
@@ -51,16 +67,18 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection()
+    .UseStaticFiles()
+    .UseCookiePolicy()
+    .UseAuthentication()
+    .UseRouting()
+    .UseAntiforgery();
 
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.MapBlazorHub();
 
 app.Run();
 
