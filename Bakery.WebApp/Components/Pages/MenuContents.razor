@@ -7,494 +7,272 @@
 @inject ISizeService _sizeservice;
 @inject IBlobStorageService _blobService;
 
-<h3>MenuContents</h3>
-<div class=Container>
-    <div class="frameHome">
+<div class="Container">
+    <div class="locationContainer">
+        <div class="location"></div>
+        <span class="locationText">Manti, Utah</span>
     </div>
-    <div class=containerforView>
-        <div class=ViewMenu>
-            <div class="boxView"></div><span class="viewMenuText">View menu</span>
-        </div>
+
+    <div class="frame">
+        Frame
     </div>
-    <div class=locationContainer>
-        <div class="location"></div><span class="locationText">Manti, Utah</span>
-    </div>
-    <div class=searchMenuContainer>
-        <div class=searchMenu>
-            <div class="searchBar"></div><input class="searchMenuText" type="text" id="generic_search" value="Search here...">
-        </div>
-        <div class=squareCloseToSearch>
-            <div class="square"></div>
+
+    <div class="searchBar">
+        <div class="InputContainer">
+            <input placeholder="Search.." id="input" class="input" name="text" type="text">
         </div>
     </div>
 
-    <div class=CakeContainer>
-        <div class="cakeFrame"></div>
-        <div class="cakeFrameCircle"></div>
-        <div class="imageCake"></div>
+    <div class="categories">
+    <!-- Control buttons -->
+    <div id="myBtnContainer">
+        <button class="btn active" @onclick="() => FilterSelection(null)"> 
+            <div class="inner-circle-select"></div>
+            Show all
+        </button>
+        @foreach (var category in categories)
+        {
+            <button class="btn" @onclick="() => FilterSelection(category.CategoryName)"> 
+                @category.CategoryName
+                <div class="@category.CategoryName"></div> @*This is for the imagen*@
+            </button>
+        }
     </div>
 
-    <div class=CupCakeContainer>
-        <div class="CupCakeFrame"></div>
-        <div class="CupCakeCircle"></div>
-        <div class="CupCakeCake"></div>
-    </div>
-    <div class=SlideCakeContainer>
-        <div class="SLideCakeFrame"></div>
-        <div class="SldeCakeCircle"></div>
-        <div class="SlideCakeImagine"></div>
-    </div>
-    <div class=discoveryTextContainer>
-        <span class="discoveryText">Discover by category</span>
-    </div>
-
-
-    @*----------------This are for Items-----------*@
-    @foreach (Itemtype item in items)
-    {
-        <div class=ItemContainer>
-            <div class="whiteFrameItem"></div>
-            <div class="purpleFrameItem"></div>
-            <div class="addBlock"></div>
-            <div class="ItemContainerType"></div>
-                <span class="Itemname">@item.ItemName</span>
-                @* <span class="description">@item.ItemDescription</span> *@
-                <span class="itemPrice">@item.ItemPrice</span>
-            <div class="addIcon">
-
+    <!-- The filterable elements -->
+    <div class="container">
+        @foreach (var item in items)
+        {
+            <div class="filterDiv @item.Category">
+                @item.ItemName
+                <div class="purpleFrameItem"></div>
             </div>
-        </div>
-    }
-
-</div>
-
-@* @foreach (Itemtype item in items)
-{
-    <div>
-        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItemName.Replace(" ", "")}")" />
-        <div>@item.ItemName</div>
-        <div>@item.ItemPrice</div>
-        <div>@item.ItemWeight</div>
-        <div>@item.ItmeCalories</div>
-        <div>@item.Category.CategoryName</div>
-        <div>@item.ItemDescription</div>
+        }
     </div>
-    <a href="/itemDescription/@item.ItemTypeId">View Item</a>
-} *@
+</div>
+    
+</div>
 
 <style>
     .Container {
-        background-color: rgba(240.32421469688416, 240.32421469688416, 240.32421469688416, 1);
-        width: 1440px;
-        height: 1024px;
-        position: absolute;
-    }
-
-    .ViewMenu {
-        width: 136.51394653320312px;
-        height: 43.6435661315918px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-    }
-
-    .containerforView {
-        width: 136.51394653320312px;
-        height: 43.6435661315918px;
-        position: absolute;
-        left: 0px;
-        top: 324.3564758300781px;
-    }
-
-    .viewMenuText {
-        color: rgba(255, 255, 255, 1);
-        width: 96.55867004394531px;
-        height: 21.069307327270508px;
-        position: absolute;
-        left: 19.978084564208984px;
-        top: 10.53466796875px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 19.80000114440918px;
-        letter-spacing: 0;
-    }
-
-    .boxView {
-        box-shadow: 0px 6.600000381469727px 6.600000381469727px rgba(0, 0, 0, 0.25);
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 136.51394653320312px;
-        height: 43.6435661315918px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-top-left-radius: 16.5px;
-        border-top-right-radius: 16.5px;
-        border-bottom-left-radius: 16.5px;
-        border-bottom-right-radius: 16.5px;
-    }
-
-    .frameHome {
-        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
-        width: 1440px;
-        height: 173px;
-        position: absolute;
-        top: 165px;
+        background-color: rgba(240, 240, 240, 1);
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas automáticas con un mínimo de 200px */
+        grid-template-rows: auto auto auto; /* Filas automáticas */
+        gap: 10px;
     }
 
     .locationContainer {
-        width: 292px;
-        height: 38.33333206176758px;
-        position: absolute;
-        left: 26px;
-        top: 99px;
+        grid-column: 1 / span 2; /* Ocupa dos columnas */
+        grid-row: 1; /* Está en la primera fila */
     }
 
     .location {
-        background-color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 26.83333396911621px;
-        height: 38.33333206176758px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
+        background-color: rgba(35, 35, 35, 1);
     }
 
     .locationText {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 242px;
-        height: 36px;
-        position: absolute;
-        left: 50px;
-        top: 2px;
+        color: rgba(35, 35, 35, 1);
         font-family: Futura Bk BT;
-        text-align: left;
         font-size: 30px;
-        letter-spacing: 0;
+        text-align: left;
+        padding-left: 10px;
     }
 
-    .searchMenuContainer {
-        width: 550.5px;
-        height: 72px;
-        position: absolute;
-        left: 468px;
-        top: 365px;
-    }
-
-    .searchMenu {
-        width: 469.5px;
-        height: 72px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
+    .frame {
+        grid-column: 1 / span 2; /* Ocupa dos columnas */
+        grid-row: 2; /* Está en la segunda fila */
+        background-color: rgba(250, 232, 212, 1);
+        height: 200px;
     }
 
     .searchBar {
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
-        background-color: rgba(255, 255, 255, 1);
-        width: 469.5px;
-        height: 72px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
+        grid-column: 1 / span 2; /* Ocupa dos columnas */
+        grid-row: 3; /* Está en la tercera fila */
+        display: flex;
+        justify-content: center;
     }
 
-    .searchMenuText {
+    .InputContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .input {
+        width: 100%;
+        height: 40px;
         border: none;
-        color: rgba(148.7499949336052, 148.7499949336052, 148.7499949336052, 1);
-        width: 129px;
-        height: 25.5px;
-        position: absolute;
-        left: 30px;
-        top: 22.5px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 21px;
-        letter-spacing: 0;
+        outline: none;
+        padding-left: 15px;
+        border-radius: 30px;
+        font-size: 13.4px;
     }
 
-    .squareCloseToSearch {
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 490.5px;
-        top: 6px;
+    .categories {
+        grid-column: 1 / span 2; /* Ocupa dos columnas */
+        grid-row: 4; /* Está en la cuarta fila */
     }
 
-    .square {
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
+    .container {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .CakeContainer {
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 426px;
-        top: 457px;
-    }
-
-    .cakeFrame {
-        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-top-left-radius: 45px;
-        border-top-right-radius: 45px;
-        border-bottom-left-radius: 7.5px;
-        border-bottom-right-radius: 45px;
-    }
-
-    .cakeFrameCircle {
-        border-radius: 500px;
+    .filterDiv {
         background-color: rgba(255, 255, 255, 1);
-        width: 79.5px;
-        height: 79.5px;
-        position: absolute;
-        left: 9px;
-        top: 15px;
-    }
-
-    .imageCake {
-        width: 43.5px;
-        height: 43.5px;
-        position: absolute;
-        left: 27px;
-        top: 27px;
-        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .CupCakeContainer {
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 559.5px;
-        top: 457px;
-    }
-
-    .CupCakeFrame {
-        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
-        background-color: rgba(255, 255, 255, 1);
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-top-left-radius: 45px;
-        border-top-right-radius: 45px;
-        border-bottom-left-radius: 45px;
-        border-bottom-right-radius: 45px;
-    }
-
-    .CupCakeCircle {
-        border-radius: 500px;
-        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
-        width: 79.5px;
-        height: 79.5px;
-        position: absolute;
-        left: 9px;
-        top: 15px;
-    }
-
-    .CupCakeCake {
-        width: 40.5px;
-        height: 40.5px;
-        position: absolute;
-        left: 28.5px;
-        top: 34.5px;
-        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .SlideCakeContainer {
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 694.5px;
-        top: 457px;
-    }
-
-    .SLideCakeFrame {
-        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
-        background-color: rgba(255, 255, 255, 1);
-        width: 97.5px;
-        height: 154.5px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-top-left-radius: 45px;
-        border-top-right-radius: 45px;
-        border-bottom-left-radius: 45px;
-        border-bottom-right-radius: 45px;
-    }
-
-    .SldeCakeCircle {
-        border-radius: 500px;
-        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
-        width: 79.5px;
-        height: 79.5px;
-        position: absolute;
-        left: 9px;
-        top: 15px;
-    }
-
-    .SlideCakeImagine {
-        width: 40.5px;
-        height: 40.5px;
-        position: absolute;
-        left: 28.5px;
-        top: 34.5px;
-        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .discoveryTextContainer {
-        width: 1128.99951171875px;
-        height: 28.799999237060547px;
-        position: absolute;
-        left: 228px;
-        top: 425px;
-    }
-
-    .discoveryText {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 539.5105590820312px;
-        height: 28.799999237060547px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 23.99999237060547px;
-        letter-spacing: 0;
-    }
-
-    .ItemContainer {
-        width: 180px;
-        height: 235.26612854003906px;
-        position: absolute;
-        left: 151px;
-        top: 708px;
-    }
-
-    .whiteFrameItem {
-        box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-        background-color: rgba(255, 255, 255, 1);
+        color: rgba(236, 158, 73, 1);
         width: 179px;
         height: 187px;
-        position: absolute;
-        left: 1px;
-        top: 48px;
+        text-align: center;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
+        margin: 2px;
+        display: none; /* Oculto por defecto */
+        left: 1px;
+        top: 48px;
+        position: relative;
     }
 
     .purpleFrameItem {
         background-color: rgba(243.00000071525574, 228.0000016093254, 254.00000005960464, 1);
         width: 179px;
         height: 100.50806427001953px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
         position: absolute;
-        left: -1.1368683772161603e-13px;
-        top: 47.814517974853516px;
+        top: 0;
+        left: 0;
     }
 
-    .addBlock {
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 33px;
-        height: 32.20161437988281px;
-        position: absolute;
-        left: 147px;
-        top: 203.06451416015625px;
+    .show {
+        display: block;
     }
 
-    .ItemContainerType {
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        width: 123px;
-        height: 136.61289978027344px;
+    #myBtnContainer {
+        display: flex;
+        justify-content: center; /* Centrar horizontalmente los elementos */
+        align-items: center; /* Centrar verticalmente los elementos */
+    }
+
+    .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: white;
+        cursor: pointer;
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+        width: 97.5px;
+        height: 154.5px;
+        border-top-left-radius: 45px;
+        border-top-right-radius: 45px;
+        border-bottom-left-radius: 7.5px;
+        border-bottom-right-radius: 45px;
+        position: relative; /* Ensure the button is a positioned parent */
+        overflow: hidden; /* Ensure the circle stays within the button */
+    }
+
+    .cake {
+        border-radius: 50%;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
         position: absolute;
-        left: 29px;
-        top: 0px;
-        background-image: url(images/pngwing.png);
+        left: 9px; /* Adjust according to your preference */
+        top: 15px; /* Adjust according to your preference */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
         background-repeat: no-repeat;
-        background-size: cover;
+        background-position: center;
     }
 
-    .Itemname {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 142px;
-        height: 17.564516067504883px;
+    .cupcake {
+        border-radius: 50%;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
         position: absolute;
-        left: 10px;
-        top: 157.10484313964844px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 15px;
-        letter-spacing: 0;
+        left: 9px; /* Adjust according to your preference */
+        top: 15px; /* Adjust according to your preference */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
-    .e15_299 {
-        color: rgba(148.7499949336052, 148.7499949336052, 148.7499949336052, 1);
-        width: 73px;
-        height: 11.709677696228027px;
+    .inner-slideCake {
+        border-radius: 50%;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
         position: absolute;
-        left: 10px;
-        top: 177.59677124023438px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 10px;
-        letter-spacing: 0;
+        left: 9px; /* Adjust according to your preference */
+        top: 15px; /* Adjust according to your preference */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
-    .itemPrice {
-        color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 43px;
-        height: 14.637096405029297px;
+    .inner-donuts {
+        border-radius: 50%;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
         position: absolute;
-        left: 13px;
-        top: 203px;
-        font-family: Futura-Bold;
-        text-align: left;
-        font-size: 14px;
-        letter-spacing: 0;
+        left: 9px; /* Adjust according to your preference */
+        top: 15px; /* Adjust according to your preference */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
-    .addIcon {
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/plus.png);
-        width: 19px;
-        height: 18.54032325744629px;
+    .cookie {
+        border-radius: 50%;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 79.5px;
+        height: 79.5px;
         position: absolute;
-        left: 154px;
-        top: 209.89515686035156px;
+        left: 9px; /* Adjust according to your preference */
+        top: 15px; /* Adjust according to your preference */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cookies.png);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
+    .btn:hover {
+        background-color: #ddd;
+    }
+
+    .btn.active {
+        background-color: rgba(236, 158, 73, 1);
+        color: white;
+    }
 </style>
+
 
 @code {
     List<Size> sizes = new();
     List<Category> categories = new();
     List<Itemtype> items = new();
+    private string selectedCategory = null;
 
     protected override async Task OnInitializedAsync()
     {
         sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
         categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
         items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
+        FilterSelection(null);
+    }
+
+    private void FilterSelection(string category)
+    {
+        selectedCategory = category;
+        items = items.Where(item => selectedCategory == null || item.Category.CategoryName == selectedCategory).ToList();
     }
 }
+
