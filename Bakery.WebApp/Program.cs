@@ -74,7 +74,7 @@ app.MapRazorPages();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.MapBlazorHub();
+//app.MapBlazorHub();
 
 //Swagger
 app.UseSwagger();
