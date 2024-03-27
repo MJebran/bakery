@@ -2,9 +2,9 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ILogger<LoginControl> Logger;
 
-@if (User.Identity?.Name != null)
+@if (User?.Identity?.Name != null)
 {
-    <img src="@Avatar"/>
+    <img class="profile-pic" src="@Avatar"/>
     <b>You are logged in as: @GivenName @Surname</b>
     <a href="/Identity/Logout"
        target="_top">
@@ -20,11 +20,10 @@ else
 }
 
 @code {
-    private ClaimsPrincipal User;
-    private string GivenName;
-    private string Surname;
-    private string Avatar;
-
+    private ClaimsPrincipal? User;
+    private string? GivenName;
+    private string? Surname;
+    private string? Avatar;
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -32,7 +31,6 @@ else
         {
             User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
 
-            // Try to get the GivenName
             var givenName = User.FindFirst(ClaimTypes.GivenName);
             GivenName = givenName != null ? givenName.Value : User.Identity?.Name ?? "Unknown";
 
@@ -47,69 +45,4 @@ else
             Logger.LogError(e, "Failed to resolve the authenticated user");
         }
     }
-
 }
-@* @page "/login"
-@using System.Security.Claims
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor _httpContextAccessor
-@inject HttpClient Http
-
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com">
-
-<script>
-    gapi.load('auth 2', function(){
-        gapi.auth2.init();
-    })
-</script>
-
-<div id="signin"></div>
-@if (User?.Identity?.Name != null)
-{
-    <b>Logged in as @GivenName @Surname. Click here to Logout</b>
-}
-else
-{
-     <b>Login</b> 
-}
-@code {
-    private ClaimsPrincipal? User;
-    private string GivenName = "";
-    private string Surname = "";
-    private string Avatar = "";
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        try
-        {
-            User = _httpContextAccessor.HttpContext?.User;
-
-            var givenName = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.GivenName);
-
-            if (givenName != null)
-            {
-                GivenName = givenName.Value;
-            }
-            else
-            {
-                GivenName = User?.Identity?.Name ?? "";
-            }
-
-            var surname = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Surname);
-
-            if (surname != null)
-            {
-                Surname = surname.Value;
-            }
-            else
-            {
-                Surname = "";
-            }
-        }
-        catch
-        {
-            throw new NotImplementedException();    
-        }
-    }
-} *@
