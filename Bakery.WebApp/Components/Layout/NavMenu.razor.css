@@ -3,16 +3,16 @@
 /*Humburger css*/
 
 
-body {
+/*body {
     margin: 0;
-    padding: 0;
+    padding: 0;*/
     /* make it look decent enough */
-    background: #232323;
+    /*background: #232323;
     color: #cdcdcd;
     font-family: "Avenir Next", "Avenir", sans-serif;
-    display: inline-block; /* Make the hamburger inline */
-    margin-right: 20px; /* Add some space between hamburger and cart */
-}
+    display: inline-block;*/ /* Make the hamburger inline */
+    /*margin-right: 20px;*/ /* Add some space between hamburger and cart */
+/*}
 
 #menuToggle {
     display: relative;
@@ -43,16 +43,16 @@ body {
         top: -7px;
         left: -5px;
         cursor: pointer;
-        opacity: 0; /* hide this */
-        z-index: 2; /* and place it over the hamburger */
+        opacity: 0;*/ /* hide this */
+        /*z-index: 2;*/ /* and place it over the hamburger */
 
-        -webkit-touch-callout: none;
-    }
+        /*-webkit-touch-callout: none;
+    }*/
 
     /*
  * Just a quick hamburger
  */
-    #menuToggle span {
+    /*#menuToggle span {
         display: block;
         width: 33px;
         height: 4px;
@@ -71,38 +71,38 @@ body {
 
         #menuToggle span:nth-last-child(2) {
             transform-origin: 0% 100%;
-        }
+        }*/
 
     /* 
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-    #menuToggle input:checked ~ span {
+    /*#menuToggle input:checked ~ span {
         opacity: 1;
         transform: rotate(45deg) translate(-2px, -1px);
         background: #232323;
-    }
+    }*/
 
         /*
  * But let's hide the middle one.
  */
-        #menuToggle input:checked ~ span:nth-last-child(3) {
+        /*#menuToggle input:checked ~ span:nth-last-child(3) {
             opacity: 0;
             transform: rotate(0deg) scale(0.2, 0.2);
-        }
+        }*/
 
         /*
  * Ohyeah and the last one should go the other direction
  */
-        #menuToggle input:checked ~ span:nth-last-child(2) {
+        /*#menuToggle input:checked ~ span:nth-last-child(2) {
             transform: rotate(-45deg) translate(0, -1px);
-        }
+        }*/
 
 /*
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu {
+/*#menu {
     position: absolute;
     width: 300px;
     margin: -100px 0 0 -50px;
@@ -110,10 +110,10 @@ body {
     padding-top: 125px;
     background: #ededed;
     list-style-type: none;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;*/
     /* to stop flickering of text in safari */
 
-    transform-origin: 0% 0%;
+    /*transform-origin: 0% 0%;
     transform: translate(-100%, 0);
     transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
@@ -121,31 +121,31 @@ body {
     #menu li {
         padding: 10px 0;
         font-size: 22px;
-    }
+    }*/
 
 /*
  * And let's slide it in from the left
  */
-#menuToggle input:checked ~ ul {
+/*#menuToggle input:checked ~ ul {
     transform: none;
-}
+}*/
 
 /* Cart CSS */
-.btn-cart {
-    display: inline-block; /* Make the cart inline */
-    align-items: center; /* Align items vertically */
-    justify-content: center;
+/*.btn-cart {
+    display: inline-block;*/ /* Make the cart inline */
+    /*align-items: center;*/ /* Align items vertically */
+    /*justify-content: center;
     width: 50px;
     height: 50px;
     border-radius: 10px;
     border: none;
     background-color: transparent;
     position: relative;
-    margin-right: 20px; /* Add some space between hamburger and cart */
-}
+    margin-right: 20px;*/ /* Add some space between hamburger and cart */
+/*}*/
 
     /* Adjust the position of the quantity indicator */
-    .btn-cart::after {
+    /*.btn-cart::after {
         content: attr(data-quantity);
         width: fit-content;
         height: fit-content;
@@ -156,43 +156,43 @@ body {
         opacity: 0;
         visibility: hidden;
         transition: .2s linear;
-        top: calc(100% + 5px); /* Adjust top position */
-    }
+        top: calc(100% + 5px);*/ /* Adjust top position */
+    /*}*/
 
 /* Adjust the position of the cart button icon */
-.icon-cart {
+/*.icon-cart {
     width: 24.38px;
     height: 30.52px;
     transition: .2s linear;
-}
+}*/
 
     /* Adjust the position of the cart button icon path */
-    .icon-cart path {
+    /*.icon-cart path {
         fill: rgb(255, 255, 255);
         transition: .2s linear;
-    }
+    }*/
 
 /* Scale the icon on hover */
-.btn-cart:hover > .icon-cart {
+/*.btn-cart:hover > .icon-cart {
     transform: scale(1.2);
-}
+}*/
 
     /* Change the fill color on hover */
-    .btn-cart:hover > .icon-cart path {
+    /*.btn-cart:hover > .icon-cart path {
         fill: rgb(255, 255, 255);
-    }
+    }*/
 
 /* Show the quantity indicator on hover */
-.btn-cart:hover::after {
+/*.btn-cart:hover::after {
     visibility: visible;
     opacity: 1;
-    top: calc(100% + 2px); /* Adjust top position */
-}
+    top: calc(100% + 2px);*/ /* Adjust top position */
+/*}*/
 
 /* Hide the quantity indicator if there's no content */
-.quantity {
+/*.quantity {
     display: none;
-}
+}*/
 
 
 
