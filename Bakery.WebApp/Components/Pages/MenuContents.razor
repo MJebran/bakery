@@ -6,6 +6,7 @@
 @inject ICategoryService _categoryservice;
 @inject ISizeService _sizeservice;
 @inject IBlobStorageService _blobService;
+@rendermode InteractiveServer
 
 <div class="Container">
     <div class="locationContainer">
@@ -27,7 +28,7 @@
     <div class="categories">
         <!-- Control buttons -->
         <div id="myBtnContainer">
-            <button class="btn" @onclick="() => FilterSelection()">
+            <button class="btn btn-primary" @onclick="() => FilterSelection()">
                 Show all
             </button>
             @foreach (var category in categories)
@@ -61,27 +62,23 @@
     List<Category> categories = new();
     List<Itemtype> items = new();
     List<Itemtype> filterItems = new();
-    private string? selectedCategory = null;
-
     protected override async Task OnInitializedAsync()
     {
         sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
         categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
         items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
-        selectedCategory = "all";
-        FilterSelection(selectedCategory);
+        FilterSelection();
     }
 
     private void FilterSelection(string category = "all")
     {
-        selectedCategory = category;
-        if(selectedCategory != "all")
+        if(category == "all")
         {
-            filterItems = items.Where(item => item.Category.CategoryName == selectedCategory).ToList();
+            filterItems = items;
         }
         else
         {
-            filterItems = items;
+            filterItems = items.Where(item => item.Category.CategoryName == category).ToList();
         }
     }
 }
