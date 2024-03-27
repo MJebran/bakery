@@ -5,7 +5,8 @@ namespace Bakery.WebApp.Authentication;
 
 public interface IBakeryAutheticationService
 {
-    public bool IsAuthenticated { get; }
-    public Task<int> LookUpUserAsync(string email, string name, string surname);
-    public Task<User> GetUser(string email);
+    bool IsAuthenticated {get; set;}
+    Task<User> RegisterUserAsync(string email, string name, string surname);
+    Task<bool> IsUserRegisteredAsync(string email);
+    void AutheticateUser();
 }

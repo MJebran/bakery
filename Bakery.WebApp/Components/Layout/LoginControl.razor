@@ -1,6 +1,7 @@
 ﻿@using System.Security.Claims
+@using Bakery.WebApp.Authentication;
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject ILogger<LoginControl> Logger;
+@inject IBakeryAutheticationService _authenticationService
 
 @if (User?.Identity?.Name != null)
 {
@@ -23,26 +24,31 @@ else
     private ClaimsPrincipal? User;
     private string? GivenName;
     private string? Surname;
+    private string? Email;
     private string? Avatar;
     protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        try
+    {     
+        User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+
+        var givenName = User.FindFirst(ClaimTypes.GivenName);
+        GivenName = givenName?.Value ?? "Unknown";
+
+        var surname = User.FindFirst(ClaimTypes.Surname);
+        Surname = surname?.Value ?? "Unknown";
+
+        var avatar = User.FindFirst("urn:google:image");
+        Avatar = avatar != null ? avatar.Value : "";
+
+        var email = User.FindFirst(ClaimTypes.Email);
+        Email = email?.Value ?? "unknown";
+
+        if(await _authenticationService.IsUserRegisteredAsync(Email))
         {
-            User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
-
-            var givenName = User.FindFirst(ClaimTypes.GivenName);
-            GivenName = givenName != null ? givenName.Value : User.Identity?.Name ?? "Unknown";
-
-            var surname = User.FindFirst(ClaimTypes.Surname);
-            Surname = surname != null ? surname.Value : User.Identity?.Name ?? "Unknown";
-
-            var avatar = User.FindFirst("urn:google:image");
-            Avatar = avatar != null ? avatar.Value : "";
+            _authenticationService.AutheticateUser();
         }
-        catch (Exception e)
+        else
         {
-            Logger.LogError(e, "Failed to resolve the authenticated user");
+            await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
         }
     }
 }
