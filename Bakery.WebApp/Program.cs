@@ -29,6 +29,7 @@ builder.Services
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
     .AddSingleton<IBlobStorageService, BlobService>()
     .AddScoped<IBakeryAutheticationService, BakeryAuthenticationService>()
+    .AddScoped<HttpClient>()
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
     .AddAuthentication().AddGoogle(options =>
     {
@@ -38,27 +39,22 @@ builder.Services
         options.ClaimActions.MapJsonKey("urn:google:image", "picture");
     });
 
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<HttpClient>();
 
 //Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCascadingAuthenticationState();
-
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
-var app = builder.Build();
+builder.Services.AddCascadingAuthenticationState();
 
-//Swagger
-app.UseSwagger();
-app.UseSwaggerUI();
-app.MapControllers();
+var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -79,6 +75,11 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.MapBlazorHub();
+
+//Swagger
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapControllers();
 
 app.Run();
 
