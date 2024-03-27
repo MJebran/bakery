@@ -45,7 +45,7 @@
             {
                 <div class="filterDiv @item.CategoryId">
                     <div class="purpleFrameItem"></div>
-                    <div class="ImageContainer"></div>
+                    <div class="ImageContainer" style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName.Replace(" ", ""))')"></div>
                     <span class="itemName">@item.ItemName</span>
                 </div>
             }
@@ -317,7 +317,6 @@
         position: absolute;
         left: 29px;
         top: 0px;
-        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/ChocolateCake);
         background-repeat: no-repeat;
         background-size: cover;
     }
