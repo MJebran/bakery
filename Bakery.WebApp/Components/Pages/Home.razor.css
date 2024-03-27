@@ -1,4 +1,10 @@
-﻿.frame {
+﻿.content {
+    object-fit: cover;
+    object-position: center;
+}
+
+
+.frame {
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -6,6 +12,9 @@
     width: 95.5vw; /* Using viewport width to cover the whole screen */
     height: 94vh; /* Using viewport height to cover the whole screen */
     margin: 0;
+    width:100%;
+    height: 100vh;
+
 }
 
 .frame .div {
