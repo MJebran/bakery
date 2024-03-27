@@ -25,10 +25,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: cd ./bakery/Bakery.WepApp && dotnet build --configuration Release
-
+        run: cd ./Bakery.WebApp && dotnet build --configuration Release
+        
       - name: dotnet publish
-        run: cd ./bakery/Bakery.WepApp && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: cd ./Bakery.WebApp && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
