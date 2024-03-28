@@ -65,6 +65,8 @@
     List<Category> categories = new();
     List<Itemtype> items = new();
     List<Itemtype> filterItems = new();
+
+
     protected override async Task OnInitializedAsync()
     {
         sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
