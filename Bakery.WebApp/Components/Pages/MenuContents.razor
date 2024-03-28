@@ -15,7 +15,12 @@
     </div>
 
     <div class="frame">
-        Frame
+        <div class="left-section">
+            <span class="questionText">What would you like to eat?</span>
+        </div>
+        <div class="right-section">
+            <div class="ImageBread"></div>
+        </div>
     </div>
 
     <div class="searchBar">
@@ -46,21 +51,22 @@
                 <div class="filterDiv @item.CategoryId">
                     <div class="purpleFrameItem"></div>
                     <div class="ImageContainer" style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName.Replace(" ", ""))')"></div>
+                    <span class="itemPrice">@item.ItemPrice $</span>
                     <span class="itemName">@item.ItemName</span>
+                    <div class="addContainer"><a href="/customizeItem/@item.ItemTypeId"></a></div>
                 </div>
             }
         </div>
 </div>
 </div>
 
-
-
-
 @code {
     List<Size> sizes = new();
     List<Category> categories = new();
     List<Itemtype> items = new();
     List<Itemtype> filterItems = new();
+
+
     protected override async Task OnInitializedAsync()
     {
         sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
@@ -102,6 +108,14 @@
         background-color: rgba(35, 35, 35, 1);
     }
 
+    .questionText {
+        color: rgba(35, 35, 35, 1);
+        font-family: Futura Bk BT;
+        font-size: 50px;
+        text-align: left;
+        padding-left: 10px;
+    }
+
     .locationText {
         color: rgba(35, 35, 35, 1);
         font-family: Futura Bk BT;
@@ -111,10 +125,23 @@
     }
 
     .frame {
+        display: grid;
         grid-column: 1 / span 2; /* Ocupa dos columnas */
-        grid-row: 2; /* Está en la segunda fila */
+        grid-template-columns: 1fr 1fr; /* Divides the frame into two columns */
+        grid-template-rows: auto; /* Automatically adjusts row height */
         background-color: rgba(250, 232, 212, 1);
         height: 200px;
+        position: relative; /* Added position relative */
+    }
+
+    .left-section {
+        grid-column: 1; /* Left section takes the first column */
+        grid-row: 1; /* Top position */
+    }
+
+    .right-section {
+        grid-column: 2; /* Right section takes the second column */
+        grid-row: 1; /* Top position */
     }
 
     .searchBar {
@@ -189,13 +216,26 @@
         left: 0;
     }
 
+    .itemPrice {
+        color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 43px;
+        height: 14.637096405029297px;
+        position: absolute;
+        left: 13px;
+        top: 160px;
+        font-family: Futura-Bold;
+        text-align: left;
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+    
     .itemName {
         color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
         width: 142px;
         height: 17.564516067504883px;
         position: absolute;
         left: 10px;
-        top: 157.10484313964844px;
+        top: 130px;
         font-family: Futura Bk BT;
         text-align: left;
         font-size: 15px;
@@ -311,7 +351,6 @@
     }
 
     .ImageContainer {
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         width: 123px;
         height: 136.61289978027344px;
         position: absolute;
@@ -320,4 +359,33 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    .ImageBread {
+        width: 100%; /* Adjusted width to fit container */
+        height: 100%; /* Adjusted height to fit container */
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menupagebrad.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .questionText {
+        color: rgba(35, 35, 35, 1);
+        font-family: Futura Bk BT;
+        font-size: 50px;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .addContainer {
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/plus.png);
+        width: 33px;
+        height: 32.20161437988281px;
+        position: absolute;
+        left: 147px;
+        top: 154px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
 </style>
