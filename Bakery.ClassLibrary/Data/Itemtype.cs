@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bakery.WebApp.Data;
 
 public partial class Itemtype
-{
-    [Required(ErrorMessage = "Item Id is required.")] 
-    public int ItemTypeId { get; set; }
+{    public int ItemTypeId { get; set; }
 
     [Required(ErrorMessage = "Item Name is required.")] 
     public string? ItemName { get; set; }

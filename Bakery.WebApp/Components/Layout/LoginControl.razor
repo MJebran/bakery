@@ -44,7 +44,7 @@ else
 
         if(await _authenticationService.IsUserRegisteredAsync(Email))
         {
-            _authenticationService.AutheticateUser();
+            _authenticationService.AutheticateUser(Email, GivenName, Surname);
         }
         else
         {

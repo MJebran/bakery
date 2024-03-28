@@ -28,7 +28,7 @@ builder.Services
     .AddSingleton<ICustomItemService, CustomItemService>()
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
     .AddSingleton<IBlobStorageService, BlobService>()
-    .AddScoped<IBakeryAutheticationService, BakeryAuthenticationService>()
+    .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
     .AddScoped<HttpClient>()
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
     .AddAuthentication().AddGoogle(options =>

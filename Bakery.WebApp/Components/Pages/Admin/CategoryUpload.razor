@@ -1,53 +1,32 @@
-﻿@using Bakery.ClassLibrary.Data
+@using Bakery.ClassLibrary.Data
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Services
-@inject IToppingService _toppingService
+@inject ICategoryService _categoryservice
 @inject IBlobStorageService _blobService
 @rendermode InteractiveServer
 
-<h3>Add a Topping</h3>
+<h3>Add a Category</h3>
 
-<EditForm Model="@toppingToAdd" OnValidSubmit="AddTopping" FormName=>
+<EditForm Model="@categoryToAdd" OnValidSubmit="AddCategory" FormName=>
     <DataAnnotationsValidator />
     <div class="form-group">
         <label>
-            Topping Name:
-            <InputText @bind-Value="toppingToAdd!.ToppingName" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingName)" class="text-danger"/>
+            Category Name:
+            <InputText @bind-Value="categoryToAdd!.CategoryName" class="form-control"/>
+            <ValidationMessage For="@(() => categoryToAdd!.CategoryName)" class="text-danger"/>
         </label>
     </div>
     <div class="form-group">
         <label>
-            Topping Price:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingPrice" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingPrice)" class="text-danger"/>          
+            Category Description:
+            <InputText @bind-Value="categoryToAdd!.CategoryDescription" class="form-control"/>
+            <ValidationMessage For="@(() => categoryToAdd!.CategoryDescription)" class="text-danger"/>          
         </label>
     </div>
     <div class="form-group">
         <label>
-            Toppping Calories:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingCalories" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingCalories)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping Weight:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingWeight" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingWeight)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping Unit:
-            <InputTextArea @bind-Value="toppingToAdd!.ToppingUnit" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingUnit)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping File:
+            Category File:
             <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
         </label>
     </div>
@@ -57,7 +36,7 @@
 </EditForm>
 
 @code {
-    public Topping? toppingToAdd {get; set;} = new();
+    public Category? categoryToAdd {get; set;} = new();
     private List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
     private List<FileUploadViewModel> fileUploadViewModels = new();
@@ -67,11 +46,11 @@
 
         this.StateHasChanged();
     }
-    public async Task AddTopping()
+    public async Task AddCategory()
     {
-        if(toppingToAdd is not null)
+        if(categoryToAdd is not null)
         {
-            await _toppingService.AddTopping(toppingToAdd);
+            await _categoryservice.AddCategory(categoryToAdd);
 
             await OnUploadSubmit();
         }
@@ -82,7 +61,7 @@
         {
             foreach (var file in selectedFiles)
             {
-                var trustedFileNameForFileStorage = toppingToAdd?.ToppingName??"".Replace(" ", "");
+                var trustedFileNameForFileStorage = categoryToAdd?.CategoryName??"".Replace(" ", "");
                 var blobUrl = await _blobService.UploadFileToBlobAsync(trustedFileNameForFileStorage, file.ContentType, file.OpenReadStream(20971520));
                 if (blobUrl != null)
                 {
@@ -100,4 +79,3 @@
     }
 
 }
-

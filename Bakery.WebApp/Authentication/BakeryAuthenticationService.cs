@@ -10,9 +10,15 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
     public BakeryAuthenticationService(IUserService _userService) { this._userService = _userService; }
     IUserService _userService { get; set; }
     public bool IsAuthenticated {get; set;}
-    public void AutheticateUser()
+    public string authenticatedName {get; set;}
+    public string authenticatedSurname {get; set;}
+    public string authenticatedEmail {get; set;}
+    public void AutheticateUser(string email, string name, string surname)
     {
         IsAuthenticated = true;
+        authenticatedName = name;
+        authenticatedEmail = email;
+        authenticatedSurname = surname;
     }
 
     public async Task<User> RegisterUserAsync(string email, string name, string surname)
@@ -26,7 +32,7 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 
         await _userService.AddUser(newUser);
 
-        AutheticateUser();
+        AutheticateUser(email, name, surname);
 
         return newUser;
     }

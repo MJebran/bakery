@@ -1,140 +1,29 @@
-﻿@page "/itemUpload"
-@using Bakery.ClassLibrary.Data
-@using Bakery.ClassLibrary.Services
-@using Bakery.WebApp.Data
-@using Bakery.WebApp.Services
-@inject IItemTypeService _itemservice
-@inject ICategoryService _categoryservice
-@inject ISizeService _sizeservice
-@inject IBlobStorageService _blobService
+﻿@page "/managerDashboard"
+@using Bakery.WebApp.Authentication
+@inject IBakeryAutheticationService _authenticationService;
 @rendermode InteractiveServer
 
-<h3>Add an Item</h3>
+<h3>Welcome Back @_authenticationService.authenticatedName!</h3>
 
-<EditForm Model="@itemToAdd" OnValidSubmit="AddItem" FormName=>
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>
-            Item Name:
-            <InputText @bind-Value="itemToAdd!.ItemName" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemName)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Price:
-            <InputNumber @bind-Value="itemToAdd!.ItemPrice" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemPrice)" class="text-danger"/>          
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Calories:
-            <InputNumber @bind-Value="itemToAdd!.ItmeCalories" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItmeCalories)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Weight:
-            <InputNumber @bind-Value="itemToAdd!.ItemWeight" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemWeight)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Description:
-            <InputTextArea @bind-Value="itemToAdd!.ItemDescription" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemDescription)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Size:
-            <InputSelect @bind-Value="sizeId" class="form-control">
-                <option value="0">--Select--</option>
-                @foreach (var size in sizes)
-                {
-                    <option value="@size.SizeId.ToString()">@size.SizeName</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => itemToAdd!.SizeId)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Category:
-            <InputSelect @bind-Value="categoryId" class="form-control">
-                <option value="0">--Select--</option>
-                @foreach (var category in categories)
-                {
-                    <option value=@category.CategoryId.ToString()>@category.CategoryName</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => itemToAdd!.CategoryId)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item File:
-            <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
-        </label>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</EditForm>
+<button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
+<button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>
+<button @onclick='() => propertyToDisplayed = "Category"'>Add A Category</button>
+
+@if(propertyToDisplayed == "Item")
+{
+    <ItemTypeUpload></ItemTypeUpload>
+}
+
+@if(propertyToDisplayed == "Topping")
+{
+    <ToppingUpload></ToppingUpload>
+}
+
+@if(propertyToDisplayed == "Category")
+{
+    <CategoryUpload></CategoryUpload>
+}
 
 @code {
-    List<Size> sizes = new();
-    List<Category> categories = new();
-    public Itemtype? itemToAdd {get; set;} = new();
-    private List<IBrowserFile> loadedFiles = new();
-    IReadOnlyList<IBrowserFile>? selectedFiles;
-    private List<FileUploadViewModel> fileUploadViewModels = new();
-    public string sizeId {get; set;} = "";
-    public string categoryId {get; set;} = "";
-    
-    protected override async Task OnInitializedAsync()
-    {
-        sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
-        categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
-    }
-    private void OnInputFileChange(InputFileChangeEventArgs e)
-    {
-        selectedFiles = e.GetMultipleFiles();
-        this.StateHasChanged();
-    }
-    public async Task AddItem()
-    {
-        if(itemToAdd is not null)
-        {
-            await _itemservice.AddItemtype(itemToAdd);
-
-            await OnUploadSubmit();
-        }
-    }
-    private async Task OnUploadSubmit()
-    {
-        if(selectedFiles is not null)
-        {
-            foreach (var file in selectedFiles)
-            {
-                var trustedFileNameForFileStorage = itemToAdd?.ItemName??"".Replace(" ", "");
-                var blobUrl = await _blobService.UploadFileToBlobAsync(trustedFileNameForFileStorage, file.ContentType, file.OpenReadStream(20971520));
-                if (blobUrl != null)
-                {
-                    FileUploadViewModel fileUploadViewModel = new FileUploadViewModel()
-                        {
-                            FileName = trustedFileNameForFileStorage,
-                            FileStorageUrl = blobUrl,
-                            ContentType = file.ContentType,
-                        };
-
-                    fileUploadViewModels.Add(fileUploadViewModel);
-                }
-            }
-        }
-    }
-
+    string propertyToDisplayed {get; set;} = "";
 }
