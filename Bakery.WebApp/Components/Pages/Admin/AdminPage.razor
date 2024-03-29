@@ -3,7 +3,7 @@
 @inject IBakeryAutheticationService _authenticationService;
 @rendermode InteractiveServer
 
-<h3>Welcome Back @_authenticationService.authenticatedName!</h3>
+<h3>Welcome Back @_authenticationService.GetAuthenticatedUser().UserName!</h3>
 
 <button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
 <button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>

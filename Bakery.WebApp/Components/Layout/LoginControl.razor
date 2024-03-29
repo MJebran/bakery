@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @using Bakery.WebApp.Authentication;
+@using Bakery.WebApp.Data;
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IBakeryAutheticationService _authenticationService
 
@@ -44,11 +45,13 @@ else
 
         if(await _authenticationService.IsUserRegisteredAsync(Email))
         {
-            _authenticationService.AutheticateUser(Email, GivenName, Surname);
+            await _authenticationService.AutheticateUserAsync(Email);
         }
         else
         {
             await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
+
+            await _authenticationService.AutheticateUserAsync(Email);
         }
     }
 }

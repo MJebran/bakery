@@ -1,7 +1,9 @@
 ﻿@page "/cart"
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
+@using Bakery.WebApp.Authentication
 @inject IPurchaseService _cart;
+@inject IBakeryAutheticationService _authenticationService;
 
 
 <div class="container">
@@ -54,11 +56,13 @@
 @code{
 
 	List<Purchase> purchases = new();
+	User user {get; set;} = new();
 	Purchase cart = new();
 	int UserId;
 
 	protected override async Task OnInitializedAsync()
 	{
+		user = _authenticationService.GetAuthenticatedUser();
 		purchases = (await _cart.GetAllPurchase()).ToList<Purchase>();
 	}
 

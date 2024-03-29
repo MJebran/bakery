@@ -1,24 +1,20 @@
 ﻿using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bakery.WebApp.Authentication;
 
 public class BakeryAuthenticationService : IBakeryAutheticationService
 {
     public BakeryAuthenticationService(IUserService _userService) { this._userService = _userService; }
-    IUserService _userService { get; set; }
+    private IUserService _userService { get; set; }
+    private User authenticatedUser {get; set;}
     public bool IsAuthenticated {get; set;}
-    public string authenticatedName {get; set;}
-    public string authenticatedSurname {get; set;}
-    public string authenticatedEmail {get; set;}
-    public void AutheticateUser(string email, string name, string surname)
+    public async Task AutheticateUserAsync(string email)
     {
+        var users = await _userService.GetAllUsers();
+        authenticatedUser = users.Where(u => u.UserEmail == email).First<User>();
+        
         IsAuthenticated = true;
-        authenticatedName = name;
-        authenticatedEmail = email;
-        authenticatedSurname = surname;
     }
 
     public async Task<User> RegisterUserAsync(string email, string name, string surname)
@@ -32,8 +28,6 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 
         await _userService.AddUser(newUser);
 
-        AutheticateUser(email, name, surname);
-
         return newUser;
     }
 
@@ -43,4 +37,6 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 
         return users.FirstOrDefault(u => u.UserEmail == email) != null;
     }
+
+    public User GetAuthenticatedUser() {return authenticatedUser;}
 }

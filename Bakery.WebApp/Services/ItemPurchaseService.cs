@@ -7,10 +7,10 @@ namespace Bakery.WebApp.Services
 {
     public class ItemPurchaseService(IDbContextFactory<PostgresContext> dbFactory) : IItemPurchaseService
     {
-        public async Task AddItempurchase(Itempurchase size)
+        public async Task AddItempurchase(Itempurchase itempurchase)
         {
             var context = await dbFactory.CreateDbContextAsync();
-            context.Itempurchases.Add(size);
+            context.Itempurchases.Add(itempurchase);
             context.SaveChanges();
         }
 
