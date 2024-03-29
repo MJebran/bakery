@@ -88,12 +88,12 @@ namespace BakeryTests
             var customitem = new Customitem()
             {
                 CustomItemId = 1,
-                CustomItemToppingQuantity = 1,
+                //CustomItemToppingQuantity = 1,
                 ItemId = 1,
-                ToppingId = 1,
+                //ToppingId = 1,
                 Item = new Itemtype(),
                 Itempurchases = new List<Itempurchase>(),
-                Topping = new Topping()
+                //Topping = new Topping()
             };
 
             //Act 
@@ -135,7 +135,7 @@ namespace BakeryTests
                 ToppingPrice = 1,
                 ToppingCalories = 1,
                 ToppingWeight = 1,
-                Customitems = new List<Customitem>()
+                //Customitems = new List<Customitem>()
             };
 
             //Act 
