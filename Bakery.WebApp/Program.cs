@@ -27,6 +27,7 @@ builder.Services
     .AddSingleton<IPurchaseService, PurchaseService>()
     .AddSingleton<ICustomItemService, CustomItemService>()
     .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
+    .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
     .AddSingleton<IBlobStorageService, BlobService>()
     .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()

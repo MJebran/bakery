@@ -1,8 +1,9 @@
-﻿@page "/cart"
+﻿@page "/cart/{purchaseId}"
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Authentication
-@inject IPurchaseService _cart;
+@inject IPurchaseService _cartService;
+@inject IItemPurchaseService _itemPurchaseService;
 @inject IBakeryAutheticationService _authenticationService;
 
 
@@ -21,65 +22,55 @@
 					</tr>
 				</thead>
 			</table>
-			@if(cart is not null)
-			{
-				@foreach(var cartItem in cart.Itempurchases)
+			@foreach (var itemToPurchase in itemPurchaseQuantity)
 				{
 					<tr>
-						<td>@cartItem.ItempurchaseId</td>
+						<div>
+							<img style="height:40px"
+									src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{itemToPurchase.Key.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")" />
+						</div>
+					<td>@itemToPurchase.Key.ItempurchaseItem.Item.ItemName</td>
+					<button @onclick="() => IncreasingAmountItem(itemToPurchase.Key)">+</button>
+					<button @onclick="() => DecreasingAmountItem(itemToPurchase.Key)">-</button>
 					</tr>
 				}
-			}
-
-
-			@* <div id="graycolor">
-				<div id="brownborder">
-					<form>
-						<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-						<input type="number" id="number" value="0" />
-						<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-					</form>
-
-					<button typ="button">Edit</button>
-					<button typ="button" @onclick="() => DeleteSingleItemFromCart(item)">Delete</button>
-
-				</div>
-				<div id="imagecss"></div>
-				<span id="imagetitle">Birthday cake</span>
-
-				<button type="button" class="editbutton">Checkout</button>
-			</div> *@
 		</div>
 	</div>
 </div>
 
 @code{
 
-	List<Purchase> purchases = new();
-	User user {get; set;} = new();
-	Purchase cart = new();
-	int UserId;
+	List<Itempurchase> purchases = new();
+	public string? purchaseId { get; set; }
+	List<Itempurchase> userPurchase = new();
+	Dictionary<Itempurchase, int> itemPurchaseQuantity{ get; set; } = new();
 
 	protected override async Task OnInitializedAsync()
 	{
-		user = _authenticationService.GetAuthenticatedUser();
-		purchases = (await _cart.GetAllPurchase()).ToList<Purchase>();
+		purchases = (await _itemPurchaseService.GetAllItempurchase()).ToList();
 	}
 
-
-	private async Task DeleteSingleItemFromCart(int id)
-	{
-		//await _itemPurchase.DeleteItempurchase(id);
-	}
 	private async Task CurrentCart()
 	{
-		var userPurchase= purchases.Where(c => c.PurchaseUserId == UserId).ToList();
-		cart = userPurchase.Where(p => p.Ispayed == false).FirstOrDefault();
+		userPurchase = purchases.Where(c => c.PurchaseId == Int32.Parse(purchaseId ?? "")).ToList();
+		foreach(var eachItemToPurchase in userPurchase)
+		{
+			itemPurchaseQuantity.Add(eachItemToPurchase, 1);
+		}
 	}
 
+	private void DecreasingAmountItem(Itempurchase itempurchase){
 
-	
+		if (itemPurchaseQuantity[itempurchase] > 1)
+		{
+			itemPurchaseQuantity[itempurchase] -= 1;
+		}
+	}
+	private void IncreasingAmountItem(Itempurchase itempurchase)
+	{
 
+		itemPurchaseQuantity[itempurchase] += 1;
+	}
 }
 
 @* <style>

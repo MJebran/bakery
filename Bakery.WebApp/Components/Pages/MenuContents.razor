@@ -50,10 +50,12 @@
             {
                 <div class="filterDiv @item.CategoryId">
                     <div class="purpleFrameItem"></div>
-                    <div class="ImageContainer" style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName.Replace(" ", ""))')"></div>
+                    <div class="ImageContainer" style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')"></div>
                     <span class="itemPrice">@item.ItemPrice $</span>
                     <span class="itemName">@item.ItemName</span>
-                    <div class="addContainer"><a href="/customizeItem/@item.ItemTypeId"></a></div>
+                    <a href="/customizeItem/@item.ItemTypeId">                   
+                    <div class="addContainer"></div>
+                    </a>
                 </div>
             }
         </div>

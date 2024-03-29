@@ -35,7 +35,11 @@ namespace Bakery.WebApp.Services
         public async Task<Itempurchase> GetItempurchaseById(int id)
         {
             var context = await dbFactory.CreateDbContextAsync();
-            var itempurchase = await context.Itempurchases.Where(item => item.ItempurchaseId == id).FirstOrDefaultAsync();
+            var itempurchase = await context.Itempurchases
+                .Where(item => item.ItempurchaseId == id)
+                .Include(c => c.ItempurchaseItem)
+                .ThenInclude(i => i.Item)
+                .FirstOrDefaultAsync();
             return itempurchase;  
         }
 
