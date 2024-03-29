@@ -1,29 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bakery.WebApp.Data;
 
 public partial class Itemtype
-{    public int ItemTypeId { get; set; }
+{
+    public int ItemTypeId { get; set; }
 
-    [Required(ErrorMessage = "Item Name is required.")] 
     public string? ItemName { get; set; }
 
-    [Required(ErrorMessage = "Item Price is required.")] 
     public decimal? ItemPrice { get; set; }
 
-    [Required(ErrorMessage = "Item Calories is required.")] 
     public int? ItmeCalories { get; set; }
 
-    [Required(ErrorMessage = "Item Weight is required.")] 
     public decimal? ItemWeight { get; set; }
 
-    [Required(ErrorMessage = "Item Description is required.")] 
     public string? ItemDescription { get; set; }
 
-    [Range(1, 100000, ErrorMessage = "Item Category is required")]
     public int CategoryId { get; set; }
 
-    [Range(1, 100000, ErrorMessage = "Item Size is required")]
     public int SizeId { get; set; }
 
     public virtual Category Category { get; set; } = null!;

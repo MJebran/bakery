@@ -19,6 +19,8 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Customitem> Customitems { get; set; }
 
+    public virtual DbSet<Customitemtopping> Customitemtoppings { get; set; }
+
     public virtual DbSet<Favoriteitem> Favoriteitems { get; set; }
 
     public virtual DbSet<Itempurchase> Itempurchases { get; set; }
@@ -35,9 +37,8 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    //we do not need this 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseNpgsql("Name=db");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseNpgsql("Name=db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -63,19 +64,34 @@ public partial class PostgresContext : DbContext
             entity.ToTable("customitem", "bakery");
 
             entity.Property(e => e.CustomItemId).HasColumnName("custom_item_id");
-            entity.Property(e => e.CustomItemToppingQuantity).HasColumnName("custom_item_topping_quantity");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
-            entity.Property(e => e.ToppingId).HasColumnName("topping_id");
 
             entity.HasOne(d => d.Item).WithMany(p => p.Customitems)
                 .HasForeignKey(d => d.ItemId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("customitem_item_id_fkey");
+        });
 
-            entity.HasOne(d => d.Topping).WithMany(p => p.Customitems)
+        modelBuilder.Entity<Customitemtopping>(entity =>
+        {
+            entity.HasKey(e => e.CustomItemToppingId).HasName("customitemtopping_pkey");
+
+            entity.ToTable("customitemtopping", "bakery");
+
+            entity.Property(e => e.CustomItemToppingId).HasColumnName("custom_item_topping_id");
+            entity.Property(e => e.CustomItemId).HasColumnName("custom_item_id");
+            entity.Property(e => e.CustomItemToppingQuantity).HasColumnName("custom_item_topping_quantity");
+            entity.Property(e => e.ToppingId).HasColumnName("topping_id");
+
+            entity.HasOne(d => d.CustomItem).WithMany(p => p.Customitemtoppings)
+                .HasForeignKey(d => d.CustomItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("customitemtopping_custom_item_id_fkey");
+
+            entity.HasOne(d => d.Topping).WithMany(p => p.Customitemtoppings)
                 .HasForeignKey(d => d.ToppingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("customitem_topping_id_fkey");
+                .HasConstraintName("customitemtopping_topping_id_fkey");
         });
 
         modelBuilder.Entity<Favoriteitem>(entity =>
