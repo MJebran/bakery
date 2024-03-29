@@ -10,9 +10,9 @@ namespace Bakery.WebApp.Services
     public class ToppingController : ControllerBase
     {
         IToppingService _service;
-        public ToppingController(IToppingService services)
+        public ToppingController(IToppingService service)
         {
-            _service = services;
+            _service = service;
         }
 
         [HttpGet("toppings")]
