@@ -8,6 +8,8 @@
 <button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
 <button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>
 <button @onclick='() => propertyToDisplayed = "Category"'>Add A Category</button>
+<button @onclick='() => propertyToDisplayed = "User"'>View Users</button>
+
 
 @if(propertyToDisplayed == "Item")
 {
@@ -22,6 +24,11 @@
 @if(propertyToDisplayed == "Category")
 {
     <CategoryUpload></CategoryUpload>
+}
+
+@if(propertyToDisplayed == "User")
+{
+    <ViewUser></ViewUser>
 }
 
 @code {

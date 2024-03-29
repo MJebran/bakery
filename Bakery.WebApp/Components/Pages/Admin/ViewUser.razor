@@ -1,0 +1,20 @@
+@using Bakery.ClassLibrary.Data
+@using Bakery.ClassLibrary.Services
+@using Bakery.WebApp.Data
+@using Bakery.WebApp.Services
+@inject IUserService _userService
+@rendermode InteractiveServer
+
+<h3>View Users</h3>
+
+
+
+@code {
+    List<User> users {get; set;} = new();
+    protected override async Task OnInitializedAsync()
+    {
+        users = (await _userService.GetAllUsers()).ToList<User>();
+
+    }
+
+}
