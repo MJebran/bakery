@@ -28,7 +28,7 @@ namespace Bakery.WebApp.Services
         public async Task<IEnumerable<Customitem>> GetAllCustomitem()
         {
             var context = await dbfactory.CreateDbContextAsync();
-            var customitems = await context.Customitems.ToListAsync();
+            var customitems = await context.Customitems.Include(c => c.Item).ToListAsync();
             return customitems;
         }
 

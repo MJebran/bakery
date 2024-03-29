@@ -1,87 +1,152 @@
-@page "/customizeItem/{ItemId}"
+@page "/customizeItem/{itemId}"
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Services
+@using Bakery.WebApp.Authentication
 @inject IItemTypeService _itemservice
 @inject IToppingService _toppingservice
+@inject ICustomItemService _customItemService
+@inject IPurchaseService _purchaseservice
+@inject IItemPurchaseService _itemPurchaseService
+@inject IBakeryAutheticationService _authenticationService
 @rendermode InteractiveServer
 
-@if(ItemToDisplay is not null)
+@if (baseItem is not null)
 {
-<div>
+    <div>
     <diV>
-        <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{ItemToDisplay.ItemName.Replace(" ", "")}")"/>
+        <img
+            src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{baseItem.ItemName.Replace(" ", "")}")" />
     </diV>
     <div>
-        @if(toppingToQuantity is not null)
-        {
-            @foreach(var topAndQtity in toppingToQuantity)
+
+        @foreach (Topping topping in toppingsToDisplay)
             {
                 <div>
-                    <button @onclick="() => decreaseQuantity(topAndQtity.Key)">-</button>
-                    <div>        
-                        <img style="height:40px"src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{topAndQtity.Key.ToppingName.Replace(" ", "")}")"/>
+                    <button @onclick="() => DecreaseToppingAmount(topping)">-</button>
+                    <div>
+                        <img style="height:40px"
+                            src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{topping.ToppingName.Replace(" ", "")}")" />
                     </div>
-                    <div>@topAndQtity.Value</div>
-                    <button @onclick="() => increaseQuantity(topAndQtity.Key)">+</button>
+                    <div>@topping.ToppingName</div>
+                    <button @onclick="() => IncreaseToppingAmount(topping)">+</button>
                 </div>
             }
-        }
-        <button>Order Now</button>
-        <div>Total: @computeTotal()</div>
+            <button @onclick=AddToCart>Order Now</button>
+            <div>Total: @ComputeTotalPrice()</div>
+        </div>
     </div>
-</div>
 }
 
 @code {
     [Parameter]
-    public string? ItemId {get; set;}
-    public Itemtype? ItemToDisplay {get; set;}
-    public Dictionary<Topping, int>? toppingToQuantity {get; set;}
+    public string? baseItemId { get; set; }
+    public User? user { get; set; }
+    public List<Customitem> userCustomItems { get; set; } = new();
+    public List<Topping> toppingsToDisplay {get; set;} = new();
+    public Itemtype? baseItem { get; set; }
     protected override async Task OnInitializedAsync()
     {
         var items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
-        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId??"")).First<Itemtype>();
+        baseItem = items
+        .Where(i => i.ItemTypeId == Int32.Parse(baseItemId ?? ""))
+        .First<Itemtype>();
 
-        toppingToQuantity = new();
-        var toppings = (await _toppingservice.GetAllToppings()).ToList<Topping>();
+        toppingsToDisplay = (await _toppingservice.GetAllToppings()).ToList<Topping>();
 
-        foreach(var topping in toppings)
+        var user = _authenticationService.GetAuthenticatedUser();
+
+        foreach (var topping in toppingsToDisplay)
         {
-            toppingToQuantity.Add(topping, 0);
+            userCustomItems.Add(new Customitem()
+                {
+                    ItemId = baseItem.ItemTypeId,
+                    ToppingId = topping.ToppingId,
+                    CustomItemToppingQuantity = 0
+                });
         }
     }
 
-    public void increaseQuantity(Topping topping)
+    public void IncreaseToppingAmount(Topping topping)
     {
-        if(toppingToQuantity is not null)
-        {
-            toppingToQuantity[topping] += 1;
-        } 
+        userCustomItems
+        .Where(c => c.ToppingId == topping.ToppingId)
+        .First<Customitem>().CustomItemToppingQuantity += 1;
     }
 
-    public void decreaseQuantity(Topping topping)
+    public void DecreaseToppingAmount(Topping topping)
     {
-        if(toppingToQuantity is not null && toppingToQuantity[topping] > 0)
+        var customItemForTopping = userCustomItems.
+        Where(c => c.ToppingId == topping.ToppingId)
+        .First<Customitem>();
+
+        if (customItemForTopping.CustomItemToppingQuantity > 0)
         {
-            toppingToQuantity[topping] -= 1;
-        }   
+            customItemForTopping.CustomItemToppingQuantity -= 1;
+        }
     }
 
-    public decimal computeTotal()
+    public async Task<decimal> ComputeTotalPrice()
     {
         decimal total = 0;
 
-        if(toppingToQuantity is not null)
+        var toppings = (await _toppingservice.GetAllToppings()).ToList<Topping>();
+
+        foreach (var customItem in userCustomItems)
         {
-            foreach(var topAndQtity in toppingToQuantity)
-            {
-                total += (decimal)(topAndQtity.Key.ToppingPrice * topAndQtity.Value);
-            }
+            total += (decimal)(toppings
+            .Where(t => t.ToppingId == customItem.ToppingId)
+            .FirstOrDefault<Topping>()
+            ?.ToppingPrice ?? 0.0m);
         }
 
-        total += (decimal)ItemToDisplay.ItemPrice;
+        total += (decimal)(userCustomItems
+        .FirstOrDefault<Customitem>()
+        ?.Item.ItemPrice ?? 0.0m);
 
         return total;
+    }
+    public async Task AddToCart()
+    {
+        var purchases = (await _purchaseservice.GetAllPurchase()).ToList<Purchase>();
+
+        var userCart = purchases
+        .Where(p => p.PurchaseUserId == user?.UserId && p.Ispayed == false)
+        .First<Purchase>();
+
+        if (userCart is null)
+        {
+            await CreateCartForUser();
+            await AddToCart();
+        }
+
+        await AddCustomItems();
+
+        await _itemPurchaseService.AddItempurchase(new Itempurchase(){
+            ItempurchaseId = userCustomItems?.FirstOrDefault<Customitem>().CustomItemId ?? 0,
+            ItempurchaseQuantity = 1,
+            PurchaseId = userCart?.PurchaseId ?? 0
+        });
+    }
+
+    public async Task CreateCartForUser()
+    {
+        await _purchaseservice.AddPurchase(new Purchase()
+            {
+                PurchaseUserId = user?.UserId ?? 0,
+                Ispayed = false
+            });
+    }
+
+    public async Task AddCustomItems()
+    {
+        foreach(var customItem in userCustomItems)
+        {
+            if(customItem.CustomItemToppingQuantity > 0)
+            {
+                await _customItemService.AddCustomitem(customItem);
+
+            }
+        }
     }
 }

@@ -28,7 +28,10 @@ namespace Bakery.WebApp.Services
         public async Task<IEnumerable<Purchase>> GetAllPurchase()
         {
             var context = await factory.CreateDbContextAsync();
-            var purchases =  context.Purchases.ToList();
+            var purchases = context.Purchases
+            .Include(p => p.Itempurchases)
+                .ThenInclude(ip => ip.ItempurchaseItem)
+            .ToList();
             return purchases;
         }
 
@@ -37,13 +40,13 @@ namespace Bakery.WebApp.Services
             var context = await factory.CreateDbContextAsync();
             return await context.Purchases.
                 Where(p => p.PurchaseId == id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync() ?? new Purchase();
         }
 
         public async Task UpdatePurchase(int id)
         {
             var context = await factory.CreateDbContextAsync();
-            Purchase purchase =  new Purchase()
+            Purchase purchase = new Purchase()
             {
                 PurchaseId = id
             };
