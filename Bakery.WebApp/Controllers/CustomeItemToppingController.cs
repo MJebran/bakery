@@ -15,13 +15,13 @@ namespace Bakery.WebApp.Controllers
         {
             _service = service;
         }
-        [HttpGet("toppings")]
+        [HttpGet("custometoppingitem")]
         public async Task<IEnumerable<Customitemtopping>> GetAllAvailableToppings()
         {
             return await _service.GetAllCustomeItemTopping();
         }
 
-        [HttpPost("add/topping")]
+        [HttpPost("add/custometoppingItem")]
         public async Task AddTopping(Customitemtopping s)
         {
             await _service.AddCustomeItemTopping(s);
