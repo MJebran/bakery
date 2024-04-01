@@ -116,7 +116,7 @@
         {
             userCart = purchases
             .Where(p => p.PurchaseUserId == user?.UserId && p.Ispayed == false)
-            .First<Purchase>();
+            .FirstOrDefault<Purchase>();
         }
 
         if (userCart is null)
