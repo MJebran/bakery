@@ -42,5 +42,5 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
     }
 
     public bool UserExists() => authenticatedUser != null;
-    public User GetAuthenticatedUser() { return authenticatedUser;}
+    public User GetAuthenticatedUser() { return authenticatedUser; }
 }
