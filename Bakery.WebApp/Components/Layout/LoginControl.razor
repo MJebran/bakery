@@ -41,7 +41,7 @@ else
         Avatar = avatar != null ? avatar.Value : "";
 
         var email = User.FindFirst(ClaimTypes.Email);
-        Email = email?.Value ?? "unkown";
+        Email = email?.Value ?? "unknown";
 
         if(await _authenticationService.IsUserRegisteredAsync(Email))
         {
