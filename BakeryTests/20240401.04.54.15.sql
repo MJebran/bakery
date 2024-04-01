@@ -1,5 +1,7 @@
---
+-- new one
 -- PostgreSQL database dump
+create role "azure_pg_admin";
+create role "bakeryadmin";
 --
 
 -- Dumped from database version 16.0
