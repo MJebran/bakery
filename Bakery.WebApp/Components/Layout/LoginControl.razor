@@ -7,7 +7,7 @@
 @if (User?.Identity?.Name != null)
 {
     <img class="profile-pic" src="@Avatar"/>
-    <b>You are logged in as: @GivenName @Surname</b>
+    <b>@GivenName @Surname</b>
     <a href="/Identity/Logout"
        target="_top">
         Logout

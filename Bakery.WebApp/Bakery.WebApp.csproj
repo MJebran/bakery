@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Components\Layout\LoginControl.razor.css" />
     <None Remove="Components\Pages\Home.razor.css" />
     <None Remove="Components\Pages\MenuContents.razor.css" />
     <None Remove="Components\Pages\MenuPage.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Components\Layout\LoginControl.razor.css" />
     <Content Include="Components\Pages\Home.razor.css" />
     <Content Include="Components\Pages\MenuContents.razor.css" />
   </ItemGroup>
