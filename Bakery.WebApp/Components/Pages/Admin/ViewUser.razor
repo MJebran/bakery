@@ -2,18 +2,56 @@
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Services
 @inject IUserService _userService
+@inject NavigationManager _navigationManager
 @rendermode InteractiveServer
 
 <h3>View Users</h3>
 
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">User Name</th>
+            <th scope="col">User Email</th>
+            <th scope="col">User Role</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>
+                    @user.UserId
+                </td>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    @user.UserEmail
+                </td>
+                <td>
+                    @user.UserRole.RoleName
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" @onclick="() => DeleteUser(user)">Delete User</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 
 @code {
-    List<User> users {get; set;} = new();
+    List<User> users { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
         users = (await _userService.GetAllUsers()).ToList<User>();
-
     }
-
+    private async Task DeleteUser(User userToDelete)
+    {
+        await _userService.DeleteUser(userToDelete.UserId);
+        _navigationManager.Refresh();
+    }
 }

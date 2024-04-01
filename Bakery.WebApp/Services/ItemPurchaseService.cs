@@ -28,7 +28,12 @@ namespace Bakery.WebApp.Services
         public async Task<IEnumerable<Itempurchase>> GetAllItempurchase()
         {
             var context = await dbFactory.CreateDbContextAsync();
-            var itempurchases = await context.Itempurchases.ToListAsync();
+            var itempurchases = await context.Itempurchases
+            .Include(ip => ip.ItempurchaseItem)
+                .ThenInclude(c => c.Item)
+            .Include(ip => ip.ItempurchaseItem)
+                .ThenInclude(c => c.Customitemtoppings)
+            .ToListAsync();
             return itempurchases;
         }
 
