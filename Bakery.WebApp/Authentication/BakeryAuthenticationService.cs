@@ -15,7 +15,7 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
         {
             UserEmail = email,
             UserName = $"{name} {surname}",
-            UserRoleId = 1
+            UserRoleId = 2
         };
 
         await _userService.AddUser(newUser);

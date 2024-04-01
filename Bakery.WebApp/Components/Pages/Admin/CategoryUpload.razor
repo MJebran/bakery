@@ -60,7 +60,7 @@
         {
             foreach (var file in selectedFiles)
             {
-                var trustedFileNameForFileStorage = categoryToAdd?.CategoryName??"".Replace(" ", "");
+                var trustedFileNameForFileStorage = (categoryToAdd?.CategoryName??"").Replace(" ", "");
                 var blobUrl = await _blobService.UploadFileToBlobAsync(trustedFileNameForFileStorage, file.ContentType, file.OpenReadStream(20971520));
                 if (blobUrl != null)
                 {

@@ -49,11 +49,11 @@
     <div class="form-group">
         <label>
             Item Size:
-            <InputSelect @bind-Value="sizeId" class="form-control">
+            <InputSelect @bind-Value="itemToAdd!.SizeId" class="form-control">
                 <option value="0">--Select--</option>
                 @foreach (var size in sizes)
                 {
-                    <option value="@size.SizeId.ToString()">@size.SizeName</option>
+                    <option value="@size.SizeId">@size.SizeName</option>
                 }
             </InputSelect>
             <ValidationMessage For="@(() => itemToAdd!.SizeId)" class="text-danger"/>
@@ -62,11 +62,11 @@
     <div class="form-group">
         <label>
             Item Category:
-            <InputSelect @bind-Value="categoryId" class="form-control">
+            <InputSelect @bind-Value="itemToAdd!.CategoryId" class="form-control">
                 <option value="0">--Select--</option>
                 @foreach (var category in categories)
                 {
-                    <option value=@category.CategoryId.ToString()>@category.CategoryName</option>
+                    <option value=@category.CategoryId>@category.CategoryName</option>
                 }
             </InputSelect>
             <ValidationMessage For="@(() => itemToAdd!.CategoryId)" class="text-danger"/>
@@ -90,8 +90,6 @@
     private List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
     private List<FileUploadViewModel> fileUploadViewModels = new();
-    public string sizeId {get; set;} = "";
-    public string categoryId {get; set;} = "";
     
     protected override async Task OnInitializedAsync()
     {
@@ -118,7 +116,8 @@
         {
             foreach (var file in selectedFiles)
             {
-                var trustedFileNameForFileStorage = itemToAdd?.ItemName??"".Replace(" ", "");
+                var trustedFileNameForFileStorage = (itemToAdd?.ItemName ?? "").Replace(" ", "");
+                Console.WriteLine(trustedFileNameForFileStorage);
                 var blobUrl = await _blobService.UploadFileToBlobAsync(trustedFileNameForFileStorage, file.ContentType, file.OpenReadStream(20971520));
                 if (blobUrl != null)
                 {
