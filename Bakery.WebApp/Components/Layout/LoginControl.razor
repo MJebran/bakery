@@ -41,19 +41,13 @@ else
         Avatar = avatar != null ? avatar.Value : "";
 
         var email = User.FindFirst(ClaimTypes.Email);
-        Email = email?.Value ?? "unknown";
+        Email = email?.Value ?? "";
 
-        if(await _authenticationService.IsUserRegisteredAsync(Email))
+        if(!await _authenticationService.IsUserAuthenticatedAsync(Email))
         {
-            await _authenticationService.AutheticateUserAsync(Email);
-        }
-        else
-        {
-            if(Email != "unknown")
+            if(Email != "unknown" && Email != "")
             {
-                await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
-
-                await _authenticationService.AutheticateUserAsync(Email);
+                await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);            
             }
         }
     }

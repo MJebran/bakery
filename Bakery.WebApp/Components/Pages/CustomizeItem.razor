@@ -40,7 +40,7 @@
                 }
             }
         </div>
-        
+
         @if(ErrorMesage is not null)
         {
             <div class="alert alert-danger">
@@ -118,7 +118,7 @@
 
     public async Task AddToCart()
     {
-        if (!_authenticationService.IsUserAuthenthicated())
+        if (!_authenticationService.UserExists())
         {
             ReturnErrorMessage();
             return;      
@@ -136,6 +136,7 @@
         {
             await CreateCartForUser();
             await AddToCart();
+            return;
         }
 
         await _customItemService.AddCustomitem(userCustomItem);

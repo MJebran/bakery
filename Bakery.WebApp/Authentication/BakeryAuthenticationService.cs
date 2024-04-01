@@ -1,4 +1,5 @@
-﻿using Bakery.ClassLibrary.Services;
+﻿using System.Reflection.Metadata.Ecma335;
+using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 
 namespace Bakery.WebApp.Authentication;
@@ -7,16 +8,7 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 {
     public BakeryAuthenticationService(IUserService _userService) { this._userService = _userService; }
     private IUserService _userService { get; set; }
-    private User authenticatedUser {get; set;}
-    public bool IsAuthenticated {get; set;}
-    public async Task AutheticateUserAsync(string email)
-    {
-        var users = await _userService.GetAllUsers();
-        authenticatedUser = users.Where(u => u.UserEmail == email).First<User>();
-        
-        IsAuthenticated = true;
-    }
-
+    private User? authenticatedUser {get; set;}
     public async Task<User> RegisterUserAsync(string email, string name, string surname)
     {
         User newUser = new()
@@ -28,17 +20,27 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 
         await _userService.AddUser(newUser);
 
+        authenticatedUser = newUser;
+
         return newUser;
     }
 
-    public async Task<bool> IsUserRegisteredAsync(string email)
+    public async Task<bool> IsUserAuthenticatedAsync(string email)
     {
-        var users = await _userService.GetAllUsers();
+        var user = (await _userService.GetAllUsers()).FirstOrDefault(u => u.UserEmail == email);
 
-        return users.FirstOrDefault(u => u.UserEmail == email) != null;
+        if(user is not null)
+        {
+            authenticatedUser = user;
+            return true;
+        }
+        else
+        {
+            authenticatedUser = null;
+            return false;
+        }
     }
 
-    public User GetAuthenticatedUser() {return authenticatedUser;}
-
-    public bool IsUserAuthenthicated() {return IsAuthenticated;}
+    public bool UserExists() => authenticatedUser != null;
+    public User GetAuthenticatedUser() { return authenticatedUser;}
 }

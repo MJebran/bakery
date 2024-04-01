@@ -5,7 +5,6 @@
 @inject IItemPurchaseService _itemPurchaseService;
 @inject ICustomItemService _customItemService
 @inject ICustomeItemToppingService _customItemToppingService
-@inject IBakeryAutheticationService _authenticationService;
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
@@ -54,7 +53,6 @@
 	public string? cartId { get; set; }
 	List<Itempurchase>? userPurchase { get; set; }
 	Dictionary<Itempurchase, int>? itemPurchaseQuantity { get; set; } = new();
-
 	protected override async Task OnInitializedAsync()
 	{
 		var purchases = (await _itemPurchaseService.GetAllItempurchase()).ToList();
