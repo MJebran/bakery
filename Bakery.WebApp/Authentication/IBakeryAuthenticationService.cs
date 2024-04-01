@@ -10,4 +10,5 @@ public interface IBakeryAutheticationService
     Task<bool> IsUserRegisteredAsync(string email);
     Task AutheticateUserAsync(string email);
     User GetAuthenticatedUser();
+    bool IsUserAuthenthicated();
 }

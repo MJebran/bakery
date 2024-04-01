@@ -32,16 +32,16 @@ else
         User = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
 
         var givenName = User.FindFirst(ClaimTypes.GivenName);
-        GivenName = givenName?.Value ?? "Unknown";
+        GivenName = givenName?.Value ?? "";
 
         var surname = User.FindFirst(ClaimTypes.Surname);
-        Surname = surname?.Value ?? "Unknown";
+        Surname = surname?.Value ?? "";
 
         var avatar = User.FindFirst("urn:google:image");
         Avatar = avatar != null ? avatar.Value : "";
 
         var email = User.FindFirst(ClaimTypes.Email);
-        Email = email?.Value ?? "unknown";
+        Email = email?.Value ?? "unkown";
 
         if(await _authenticationService.IsUserRegisteredAsync(Email))
         {
@@ -49,9 +49,12 @@ else
         }
         else
         {
-            await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
+            if(Email != "unkown")
+            {
+                await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
 
-            await _authenticationService.AutheticateUserAsync(Email);
+                await _authenticationService.AutheticateUserAsync(Email);
+            }
         }
     }
 }

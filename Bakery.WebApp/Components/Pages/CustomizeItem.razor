@@ -40,6 +40,13 @@
                 }
             }
         </div>
+        
+        @if(ErrorMesage is not null)
+        {
+            <div class="alert alert-danger">
+                @ErrorMesage
+            </div>
+        }
     </div>
 }
 
@@ -50,6 +57,7 @@
     public Customitem userCustomItem { get; set; } = new();
     public Itemtype? baseItem { get; set; }
     public Purchase? userCart { get; set; }
+    public string? ErrorMesage {get; set;} = null;
     Dictionary<Topping, int>? toppingToQuantity { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -110,6 +118,11 @@
 
     public async Task AddToCart()
     {
+        if (!_authenticationService.IsUserAuthenthicated())
+        {
+            ReturnErrorMessage();
+            return;      
+        }
         var purchases = (await _purchaseservice.GetAllPurchase()).ToList<Purchase>();
 
         if (purchases.Count() > 0)
@@ -165,5 +178,10 @@
                 }
             }
         }
+    }
+
+    public void ReturnErrorMessage()
+    {
+        ErrorMesage = "You're not logged in!";
     }
 }

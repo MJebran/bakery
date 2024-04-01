@@ -39,4 +39,6 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
     }
 
     public User GetAuthenticatedUser() {return authenticatedUser;}
+
+    public bool IsUserAuthenthicated() {return IsAuthenticated;}
 }
