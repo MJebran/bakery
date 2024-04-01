@@ -9,7 +9,9 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<div>
+@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
+{
+	<div>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -21,10 +23,8 @@
 				<th scope="col">Remove Item</th>
 			</tr>
 		</thead>
-		@if (itemPurchaseQuantity != null)
-		{
-			<tbody>
-				@foreach (var itemToPurchase in itemPurchaseQuantity)
+		<tbody>
+			@foreach (var itemToPurchase in itemPurchaseQuantity)
 				{
 					<tr>
 						<td>
@@ -37,13 +37,16 @@
 						<td>@itemToPurchase.Value</td>
 						<td><button @onclick="() => IncreasingAmountItem(itemToPurchase.Key)">+</button></td>
 						<td><button @onclick="() => DecreasingAmountItem(itemToPurchase.Key)">-</button></td>
-						<td><button class="btn btn-danger" @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button></td>
+						<td><button class="btn btn-danger" @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
+						</td>
 					</tr>
 				}
 			</tbody>
-		}
-	</table>
-</div>
+		</table>
+	</div>
+}else{
+	<div>You have no items in your Cart</div>
+}
 
 
 @code {
