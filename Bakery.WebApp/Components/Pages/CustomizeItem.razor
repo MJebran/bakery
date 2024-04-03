@@ -12,65 +12,416 @@
 @inject ICustomeItemToppingService _customItemToppingService
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
+
+
+
 <div class="background-page">
-<div class="bottom-back">
-<a href="/menuContents">
-<div class="back">
-                Back
-</div>
-</a>
-</div>
-<div class="ImagineCustomer">image</div>
-<div class="size">size</div>
-<div class="description">description</div>
+    <div class="bottom-back">
+        <a href="/menuContents">
+            <div class="back">Back</div>
+        </a>
+    </div>
+
+    <div class="ImagineCustomer">
+        @if (baseItem is not null)
+        {
+            <div class="imaginecontainer">
+                <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{baseItem.ItemName?.Replace(" ", "")}")" />
+            </div>
+        }
+    </div>
+
+    <div class="size">
+        <div class="myBtnContainer">
+            <button class="btn" @onclick="() => FilterSelection('S')">
+                S
+                <div class="sizeButton S"></div>
+            </button>
+            <button class="btn" @onclick="() => FilterSelection('M')">
+                M
+                <div class="sizeButton M"></div>
+            </button>
+            <button class="btn" @onclick="() => FilterSelection('L')">
+                L
+                <div class="sizeButton L"></div>
+            </button>
+        </div>
+    </div>
+
+    <div class="description">
+        <div id="e15_506"></div>
+        <div id="e15_507">
+            <div id="e15_508"></div>
+            <span id="e15_509">Add to cart</span>
+        </div>
+
+        @if (baseItem is not null)
+        {
+            <div id="e15_510">
+                <span id="e15_511">@baseItem.ItmeCalories</span> @*This is the calories*@
+                <div id="e15_512"></div>
+            </div>
+            <div id="e15_513">
+                <span id="e15_514">40 - 50 min</span> @*This is time*@
+                <div id="e15_515"></div>
+            </div>
+            <div id="e15_516">
+                <span id="e15_517"></span>
+                <div id="e15_518"></div>
+            </div>
+            <span id="e15_519">
+                @baseItem.ItemDescription @*This is a description*@
+            </span>
+            <div id="e15_520">
+                <div id="e15_521"></div>
+                <span id="e15_522">$39.21</span> @*This is the price*@
+            </div>
+        }
+        description
+    </div>
+
+
 </div>
  
 <style>
-    .background-page {
-        background-image: linear-gradient(0deg, rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1) 0%,rgba(255, 255, 255, 0) 100%);
-        width: 100%;
-        height: 1031px;im do
+.background-page {
+    background-image:linear-gradient(0deg, rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1) 0%,rgba(255, 255, 255, 0) 100%) ;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-template-rows: auto auto auto;
+    gap: 10px;
+}
+
+
+.ImagineCustomer{
+     display: flex;
+     grid-column: 1 / span 2;
+     grid-row: 2;
+     justify-content: center;
+     align-items: center;
+    }
+
+.size{
+    grid-column: 1 / span 2;
+    grid-row: 3;
+}
+.description {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+    background-color: blue;
+}
+
+.bottom-back {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    background-color: green;
+}
+
+.back {
+    background-color: rgba(236, 158, 73, 1);
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    left: 40px;
+    top: 80px;
+}
+
+.imagineContainer{
+    width: 408px;
+    height: 408px;
+    position: absolute;
+    left: 513px;
+    top: 69px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imaginecontainer img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block; 
+}
+
+    .myBtnContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn{
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+        background-color: rgba(221, 225, 236, 1);
+        width: 78px;
+        height: 68px;
+    }
+
+    .btn:hover {
+        background-color: #ddd;
+    }
+
+    .containerDescription {
+        box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 255, 255, 1);
+        width: 974px;
+        height: 62.0999755859375px;
+        position: absolute;
+        left: 239px;
+        top: 577px;
+        
+    }
+
+    #e15_506 {
+        background-color: rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1);
+        width: 974.7000122070312px;
+        height: 489.25px;
+        position: absolute;
+        left: 239px;
+        top: 691.2000122070312px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    #e15_507 {
+        width: 297.3224182128906px;
+        height: 90.79906463623047px;
+        position: absolute;
+        left: 379.09375px;
+        top: 1127.5px;
+    }
+
+    #e15_508 {
+        box-shadow: 0px 7.121494770050049px 7.121494770050049px rgba(0, 0, 0, 0.25);
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 297.3224182128906px;
+        height: 90.79906463623047px;
         position: absolute;
         left: 0px;
         top: 0px;
+        border-radius: Symbol(figma.mixed)px;
     }
- 
-    .bottom-back {
-        grid-column: 1 / span 2;
-        grid-row: 1;
-        background-color: aqua;
-        position: relative;
-         }
- 
-    .ImagineCustomer {
-        grid-column: 1 / span 2;
-        grid-row: 2;
-        background-color: red;
+
+    #e15_509 {
+        color: rgba(255, 255, 255, 1);
+        width: 154.89251708984375px;
+        height: 39.16822052001953px;
+        position: absolute;
+        left: 71.2149429321289px;
+        top: 26.705575942993164px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 32.04672622680664px;
+        letter-spacing: 0;
     }
- 
-    .size {
-        grid-column: 1 / span 2;
-        grid-row: 3;
-        background-color: green;
+
+    #e15_510 {
+        width: 67.65420532226562px;
+        height: 98.09859466552734px;
+        position: absolute;
+        left: 464.14990234375px;
+        top: 581px;
     }
- 
-    .description {
-        grid-column: 1 / span 2;
-        grid-row: 4;
-        background-color: yellow;
+
+    #e15_511 {
+        color: rgba(0, 0, 0, 1);
+        width: 67.65420532226562px;
+        height: 23.678972244262695px;
+        position: absolute;
+        left: 0.00019531250291038305px;
+        top: 74.41961669921875px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 20.2962589263916px;
+        letter-spacing: 0;
     }
- 
-    .back {
-        background-color: rgba(236, 158, 73, 1);
-        width: 50px;
-        height: 50px;
-        positi35px;
-        top: -10px;
-        }
+
+    #e15_512 {
+        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
+        width: 54.12335968017578px;
+        height: 54.12335968017578px;
+        position: absolute;
+        left: 6.766161918640137px;
+        top: -0.00000610351571594947px;
+        background-image: url(images/flame.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #e15_513 {
+        width: 108.24671936035156px;
+        height: 98.09859466552734px;
+        position: absolute;
+        left: 665.55029296875px;
+        top: 581px;
+    }
+
+    #e15_514 {
+        color: rgba(0, 0, 0, 1);
+        width: 108.24671936035156px;
+        height: 23.678972244262695px;
+        position: absolute;
+        left: -0.00019531250291038305px;
+        top: 74.41961669921875px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 20.2962589263916px;
+        letter-spacing: 0;
+    }
+
+    #e15_515 {
+        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
+        width: 55.81471633911133px;
+        height: 55.81471633911133px;
+        position: absolute;
+        left: 25.370092391967773px;
+        top: -0.00000610351571594947px;
+        background-image: url(images/clock.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #e15_516 {
+        width: 59.19742965698242px;
+        height: 98.09859466552734px;
+        position: absolute;
+        left: 908.75px;
+        top: 581px;
+    }
+
+    #e15_517 {
+        color: rgba(0, 0, 0, 1);
+        width: 59.19742965698242px;
+        height: 23.678972244262695px;
+        position: absolute;
+        left: 0.00009765625145519152px;
+        top: 74.41961669921875px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 20.2962589263916px;
+        letter-spacing: 0;
+    }
+
+    #e15_518 {
+        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
+        width: 55.81471633911133px;
+        height: 55.81471633911133px;
+        position: absolute;
+        left: 1.690893530845642px;
+        top: -0.00000610351571594947px;
+        background-image: url(images/weighing_machine.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #e15_519 {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 699.6851806640625px;
+        height: 154.31651306152344px;
+        position: absolute;
+        left: 420.4501953125px;
+        top: 712.1000366210938px;
+        text-align: left;
+        font-size: 31.56474494934082px;
+        letter-spacing: 0;
+    }
+
+    #e15_520 {
+        width: 297.3224182128906px;
+        height: 90.79906463623047px;
+        position: absolute;
+        left: 726.2666015625px;
+        top: 1127.5px;
+    }
+
+    #e15_521 {
+        background-color: rgba(255, 255, 255, 0.5400000214576721);
+        width: 297.3224182128906px;
+        height: 90.79906463623047px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    #e15_522 {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 105.04205322265625px;
+        height: 39.16822052001953px;
+        position: absolute;
+        left: 96.13992309570312px;
+        top: 26.705575942993164px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 32.04672622680664px;
+        letter-spacing: 0;
+    }
+
+    #e15_523 {
+        width: 167px;
+        height: 54px;
+        position: absolute;
+        left: 557.35009765625px;
+        top: 911.9000244140625px;
+    }
+
+    #e15_524 {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        width: 167px;
+        height: 54px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    #e15_525 {
+        color: rgba(255, 255, 255, 1);
+        width: 87px;
+        height: 23.294116973876953px;
+        position: absolute;
+        left: 40px;
+        top: 15.882354736328125px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 18px;
+        letter-spacing: 0;
+    }
+
+    #e15_526 {
+        width: 158.64999389648438px;
+        height: 51.29999923706055px;
+        position: absolute;
+        left: 750.10009765625px;
+        top: 910.6500244140625px;
+    }
+
+    #e15_527 {
+        background-color: rgba(255, 255, 255, 0.5400000214576721);
+        width: 158.64999389648438px;
+        height: 51.29999923706055px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-radius: Symbol(figma.mixed)px;
+    }
+
+    #e15_528 {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 56.04999923706055px;
+        height: 22.129411697387695px;
+        position: absolute;
+        left: 51.29999923706055px;
+        top: 15.088236808776855px;
+        font-family: Futura Bk BT;
+        text-align: left;
+        font-size: 17.100000381469727px;
+        letter-spacing: 0;
+    }
 </style>
-tiene menú contextual
-@if (baseItem is not null)
-{
+
+@* @if (baseItem is not null) *@
+@* {
     <div>
     <diV>
         <img
@@ -103,7 +454,7 @@ tiene menú contextual
                 @ErrorMesage
             </div>
         }
-    </div>
+    </div> *@
 }
 
 @code {
@@ -237,6 +588,10 @@ tiene menú contextual
         }
     }
 
+    public char FilterSelection(char size)
+    {
+        return size;
+    }
     public void ReturnErrorMessage()
     {
         ErrorMesage = "You're not logged in!";
