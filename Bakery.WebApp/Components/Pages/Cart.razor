@@ -8,44 +8,36 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
-{
-	<div>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col">Item</th>
-				<th scope="col">Name</th>
-				<th scope="col">Quantity</th>
-				<th scope="col">Increase Quantity</th>
-				<th scope="col">Decrease Quantity</th>
-				<th scope="col">Remove Item</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var itemToPurchase in itemPurchaseQuantity)
-				{
-					<tr>
-						<td>
-							<div>
-								<img style="height:40px"
-									src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{itemToPurchase.Key.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")" />
-							</div>
-						</td>
-						<td>@itemToPurchase.Key.ItempurchaseItem.Item.ItemName</td>
-						<td>@itemToPurchase.Value</td>
-						<td><button @onclick="() => IncreasingAmountItem(itemToPurchase.Key)">+</button></td>
-						<td><button @onclick="() => DecreasingAmountItem(itemToPurchase.Key)">-</button></td>
-						<td><button class="btn btn-danger" @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
-}else{
-	<div>You have no items in your Cart</div>
-}
+<div class="item-itemcnt">
+	@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
+	{
+		@foreach (var itemToPurchase in itemPurchaseQuantity)
+		{
+			<div class="item-cnt">
+				<div class="item-img">
+					<img
+						src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{itemToPurchase.Key.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")" />
+				</div>
+				<div class="item-ttl">
+					@itemToPurchase.Key.ItempurchaseItem.Item.ItemName
+				</div>
+				<div class="item-bar">
+					<button class="item-btn" @onclick="() => DecreasingAmountItem(itemToPurchase.Key)">-</button>
+					<div class="item-ct">@itemToPurchase.Value</div>
+					<button class="item-btn" @onclick="() => IncreasingAmountItem(itemToPurchase.Key)">+</button>
+				</div>
+				<div class="item-rmv">
+					<button @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<div>You have no items in your Cart</div>
+	}
+</div>
+
 
 
 @code {
@@ -91,146 +83,3 @@
 		NavigationManager.NavigateTo($"/cart/{itempurchase.PurchaseId}", forceLoad: true);
 	}
 }
-
-@* <style>
-
-
-
-
-.editbutton {
-border-radius: 10px 10px 0 10px;
-border: none;
-background-color: rgba(236, 158, 73, 1);
-color: white;
-padding: 10px 20px;
-cursor: pointer;
-text-align: center;
-margin: 0 auto; /* Center horizontally */
-}
-
-/* Hover effect */
-button:hover {
-background-color: rgba(236, 158, 73, 0.8); /* Adjust opacity on hover */
-}
-
-
-/* counter */
-form {
-width: 300px;
-margin: 0 auto;
-text-align: right;
-padding-top: 80px; /* Increased padding to move the form lower */
-}
-
-/* Adjust text alignment for child elements */
-form .counter-text {
-text-align: left;
-}
-
-
-.value-button {
-display: inline-block;
-border: 1px solid #ddd;
-margin: 0px;
-width: 40px;
-height: 20px;
-text-align: center;
-vertical-align: middle;
-padding: 11px 0;
-background: #eee;
--webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
-
-.value-button:hover {
-cursor: pointer;
-}
-
-form #decrease {
-margin-right: -4px;
-border-radius: 8px 0 0 8px;
-}
-
-form #increase {
-margin-left: -4px;
-border-radius: 0 8px 8px 0;
-}
-
-form #input-wrap {
-margin: 0px;
-padding: 0px;
-}
-
-input#number {
-text-align: center;
-border: none;
-border-top: 1px solid #ddd;
-border-bottom: 1px solid #ddd;
-margin: 0px;
-width: 40px;
-height: 40px;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
--webkit-appearance: none;
-margin: 0;
-}
-/* end of counter */
-
-#graycolor {
-background-color: rgba(240, 240, 240, 1); /* Adjusted the color */
-width: 100%; /* Cover entire width of viewport */
-height: 100%; /* Cover entire height of viewport */
-position: absolute;
-top: 0; /* Align to the top of the viewport */
-right: 0; /* Align to the right of the viewport */
-bottom: 0; /* Align to the bottom of the viewport */
-left: 0; /* Align to the left of the viewport */
-}
-
-
-#brownborder {
-background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
-width: 503.1000061035156px;
-height: 200.1999969482422px;
-position: absolute;
-left: 511px;
-top: 233px;
-border-top-left-radius: 26.000001907348633px;
-border-top-right-radius: 26.000001907348633px;
-border-bottom-left-radius: 26.000001907348633px;
-border-bottom-right-radius: 26.000001907348633px;
-}
-
-#imagecss {
-width: 148.1999969482422px;
-height: 148.1999969482422px;
-position: absolute;
-left: 540.900390625px;
-top: 259px;
-background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/SpecialWeddingCake);
-background-repeat: no-repeat;
-background-size: cover;
-}
-
-/* Title */
-#imagetitle {
-color: rgba(35, 35, 35, 1); /* Adjusted color */
-width: 161.98px;
-height: 32.76px;
-position: absolute;
-left: 724px;
-top: 250px; /* Adjusted top position */
-font-family: Futura Bk BT;
-text-align: center;
-font-size: 27.3px;
-letter-spacing: 0;
-margin-top: 20px; /* Added margin */
-}
-
-</style> *@
