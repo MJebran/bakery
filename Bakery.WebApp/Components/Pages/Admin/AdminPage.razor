@@ -1,9 +1,12 @@
 ﻿@page "/managerDashboard"
 @using Bakery.WebApp.Authentication
 @inject IBakeryAutheticationService _authenticationService;
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<h3>Welcome Back @_authenticationService.GetAuthenticatedUser().UserName!</h3>
+@if( _authenticationService.GetAuthenticatedUser()?.UserRole.RoleName != "admin"){NavigationManager.NavigateTo("/");}
+
+<h3>Welcome Back @_authenticationService.GetAuthenticatedUser()?.UserName!</h3>
 
 <button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
 <button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>
