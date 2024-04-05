@@ -1,6 +1,5 @@
 .item-itemcnt{
     display: flex;
-    flex-direction: column;
 
     justify-content: center;
     align-items: center;
@@ -10,36 +9,53 @@
 
 .item-cnt{
     flex: 1;
-    max-width: 50%;
+    max-width: 30%;
+    max-height: 20ch;
+
     background-color: #FAE8D4;
     display: grid;
+
     grid-template-areas:
-    'img ttl ttl ttl ttl'
-    'img bar bar bar .'
-    'img rmv rmv rmv.';
+    'img ttl'
+    'img bar'
+    'img rmv';
+
     padding: 2ch;
     gap: 2ch;
-    border-radius: 2ch;
+    border-radius: 3ch;
+
+    grid-template-rows: 15% 30% 30%;
+    grid-template-columns: 40% 50%; 
 }
 
 .item-img { 
     grid-area: img;
+    max-height: 100%;
+    max-width: 100%;
 }
 
-.item-ttl { grid-area: ttl; }
-
-.item-rmv { 
-    grid-area: rmv;
-    background-color: #EC9E49; 
+.item-ttl { 
+    grid-area: ttl;
+    font-family: 'Futura Bk BT';
+    
+    overflow: hidden;
 }
+
 
 .item-bar { 
     grid-area: bar;
     background-color: #EC9E49;
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    border-radius: 3ch 3ch 0ch 3ch;    
+
+    max-width: 60%;
+    max-height: 100%;
+
+    box-shadow: 0 2px 4px black; 
 }
 
 .item-btn{
@@ -47,15 +63,59 @@
     color: white;
     display: inline; 
     background: none;
+    width: 33%;
+
+    font-size: x-large;
 }
 
 .item-ct{
     background-color:#FAE8D4;
     display: inline; 
+    width: 33%;
+    text-align: center;
+
+    border-radius: 0.5ch;
 }
 
 .item-img img{ 
-    grid-area: img;
-    width: 10ch;
-    height: 10ch;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.item-rmv { 
+    grid-area: rmv;
+    background-color: #EC9E49; 
+    border: none;
+
+    border-radius: 3ch 3ch 0ch 3ch;    
+
+    max-width: 60%;
+    max-height: 100%;
+    font-size: large;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 4px black; 
+}
+
+.item-rmv button{ 
+    border: none;
+    background-color: transparent;
+    max-width: 100%;
+    max-height: 100%;
+
+    font-family: 'Futura Bk BT';
+
+    color: white;
+}
+
+@media screen and (max-width: 1120px) {
+    .item-itemcnt{
+        display: block;
+    
+        gap: 2ch;
+    }
+    .item-cnt{
+        max-width: 50%;
+    }
 }
