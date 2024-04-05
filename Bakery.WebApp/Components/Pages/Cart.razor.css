@@ -1,5 +1,7 @@
 .item-itemcnt{
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 
     justify-content: center;
     align-items: center;
@@ -8,8 +10,10 @@
 }
 
 .item-cnt{
-    flex: 1;
-    max-width: 30%;
+    display: block;
+    flex-grow: 1;
+
+    width: 30%;
     max-height: 20ch;
 
     background-color: #FAE8D4;
@@ -110,12 +114,22 @@
 }
 
 @media screen and (max-width: 1120px) {
-    .item-itemcnt{
-        display: block;
     
-        gap: 2ch;
-    }
     .item-cnt{
-        max-width: 50%;
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    
+    .item-cnt{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    
+    .item-cnt{
+        width: 80%;
     }
 }
