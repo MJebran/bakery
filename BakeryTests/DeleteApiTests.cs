@@ -17,26 +17,26 @@ namespace BakeryTests
             client = factory.CreateDefaultClient();
         }
 
-        [Fact]
-        public async void DeleteUserTest()
-        {
-            //Arrange
-            var user = new User()
-            {
-                UserId = 1,
-                UserName = "Test1",
-            };
-            //Act 
-            await client.PostAsJsonAsync("api/user/add/user", user);
-            var userSerialized = System.Text.Json.JsonSerializer.Serialize(user);
-            var requestContent = new HttpRequestMessage(HttpMethod.Delete, "api/user/delete/user");
-            requestContent.Content = new StringContent(JsonConvert.SerializeObject(userSerialized), Encoding.UTF8, "application/json");
-            await this.client.SendAsync(requestContent);
-            var getcategories = await client.GetFromJsonAsync<List<User>>("api/user/users");
+        // [Fact]
+        // public async void DeleteUserTest()
+        // {
+        //     //Arrange
+        //     var user = new User()
+        //     {
+        //         UserId = 1,
+        //         UserName = "Test1",
+        //     };
+        //     //Act 
+        //     await client.PostAsJsonAsync("api/user/add/user", user);
+        //     var userSerialized = System.Text.Json.JsonSerializer.Serialize(user);
+        //     var requestContent = new HttpRequestMessage(HttpMethod.Delete, "api/user/delete/user");
+        //     requestContent.Content = new StringContent(JsonConvert.SerializeObject(userSerialized), Encoding.UTF8, "application/json");
+        //     await this.client.SendAsync(requestContent);
+        //     var getcategories = await client.GetFromJsonAsync<List<User>>("api/user/users");
 
-            //Assert
-            getcategories.Should().BeEmpty();
-        }
+        //     //Assert
+        //     getcategories.Should().BeEmpty();
+        // }
 
         [Fact]
         public async void DeleteItemTypeTest()

@@ -2,9 +2,15 @@
 @using Bakery.ClassLibrary.Services;
 @using Bakery.WebApp.Data;
 @using Bakery.WebApp.Services
-@inject IItemTypeService _itemservice;
-@inject ICategoryService _categoryservice;
-@inject ISizeService _sizeservice;
+@inject IMenuContentsLogic _menuContentService
+@rendermode InteractiveServer
+
+<h3> xddd</h3>
+
+@* @page "/menuContents"
+@using Bakery.ClassLibrary.LogicInterfaces
+@using Bakery.ClassLibrary.Services;
+@inject IMenuContentsLogic _menuContentService;
 @inject IBlobStorageService _blobService;
 @rendermode InteractiveServer
 
@@ -33,12 +39,10 @@
     <div class="categories">
         <!-- Control buttons -->
         <div id="myBtnContainer">
-            <button class="btn btn-primary" @onclick="() => FilterSelection()">
-                Show all
-            </button>
-            @foreach (var category in categories)
+        <button class="btn btn-primary" @onclick="@(() => _menuContentService.FilterSelection("all"))">Filter All</button>
+            @foreach (var category in _menuContentService.categories)
             {
-                <button class="btn" @onclick="() => FilterSelection(category.CategoryName)">
+                <button class="btn" @onclick="() => _menuContentService.FilterSelection(category.CategoryName)">
                     @category.CategoryName
                     <div class="@category.CategoryName"></div>
                 </button>
@@ -46,7 +50,7 @@
             <!-- The filterable elements -->
         </div>
         <div class="container">
-            @foreach (var item in filterItems)
+            @foreach (var item in _menuContentService.filterItems)
             {
                 <div class="filterDiv @item.CategoryId">
                     <div class="purpleFrameItem"></div>
@@ -60,35 +64,7 @@
             }
         </div>
 </div>
-</div>
-
-@code {
-    List<Size> sizes = new();
-    List<Category> categories = new();
-    List<Itemtype> items = new();
-    List<Itemtype> filterItems = new();
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
-        categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
-        items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
-        FilterSelection();
-    }
-
-    private void FilterSelection(string category = "all")
-    {
-        if(category == "all")
-        {
-            filterItems = items;
-        }
-        else
-        {
-            filterItems = items.Where(item => item.Category.CategoryName == category).ToList();
-        }
-    }
-}
+</div> *@
 
 <style>
     .Container {
