@@ -2,13 +2,14 @@
 @using Bakery.ClassLibrary.Services;
 @using Bakery.WebApp.Data;
 @using Bakery.WebApp.Services
-@inject IItemTypeService _itemservice;
-@inject ICategoryService _categoryservice;
-@inject ISizeService _sizeservice;
-@inject IBlobStorageService _blobService;
+@using Bakery.WebApp.Logic;
+@inject MenuContentsLogic _menuContentService
 @rendermode InteractiveServer
 
-<div class="Container">
+@if (loaded)
+{
+
+    <div class="Container">
     <div class="locationContainer">
         <div class="location"></div>
         <span class="locationText">Manti, Utah</span>
@@ -33,77 +34,64 @@
     <div class="categories">
         <!-- Control buttons -->
         <div id="myBtnContainer">
-            <button class="btn btn-primary" @onclick="() => FilterSelection()">
-                Show all
-            </button>
-            @foreach (var category in categories)
-            {
-                <button class="btn" @onclick="() => FilterSelection(category.CategoryName)">
-                    @category.CategoryName
-                    <div class="@category.CategoryName"></div>
-                </button>
-            }
-            <!-- The filterable elements -->
+            <button class="btn btn-primary" @onclick="@(() => _menuContentService.FilterSelection("all"))">Filter
+                All</button>
+            @foreach (var category in _menuContentService.categories)
+                {
+                    <button class="btn" @onclick="() => _menuContentService.FilterSelection(category.CategoryName)">
+                        @category.CategoryName
+                        <div class="@category.CategoryName"></div>
+                    </button>
+                }
+                <!-- The filterable elements -->
+            </div>
+            <div class="container">
+                @foreach (var item in _menuContentService.filterItems)
+                {
+                    <div class="filterDiv @item.CategoryId">
+                        <div class="purpleFrameItem"></div>
+                        <div class="ImageContainer"
+                            style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')">
+                        </div>
+                        <span class="itemPrice">@item.ItemPrice $</span>
+                        <span class="itemName">@item.ItemName</span>
+                        <a href="/customizeItem/@item.ItemTypeId">
+                            <div class="addContainer"></div>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="container">
-            @foreach (var item in filterItems)
-            {
-                <div class="filterDiv @item.CategoryId">
-                    <div class="purpleFrameItem"></div>
-                    <div class="ImageContainer" style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')"></div>
-                    <span class="itemPrice">@item.ItemPrice $</span>
-                    <span class="itemName">@item.ItemName</span>
-                    <a href="/customizeItem/@item.ItemTypeId">                   
-                    <div class="addContainer"></div>
-                    </a>
-                </div>
-            }
-        </div>
-</div>
-</div>
+    </div>
 
-@code {
-    List<Size> sizes = new();
-    List<Category> categories = new();
-    List<Itemtype> items = new();
-    List<Itemtype> filterItems = new();
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        sizes = (await _sizeservice.GetAllSizes()).ToList<Size>();
-        categories = (await _categoryservice.GetAllCategories()).ToList<Category>();
-        items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
-        FilterSelection();
-    }
-
-    private void FilterSelection(string category = "all")
-    {
-        if(category == "all")
-        {
-            filterItems = items;
-        }
-        else
-        {
-            filterItems = items.Where(item => item.Category.CategoryName == category).ToList();
-        }
-    }
 }
 
+@code {
+    bool loaded = false;
+    protected override async Task OnInitializedAsync()
+    {
+        await _menuContentService.InitializeAsync();
+        loaded = true;
+    }
+}
 <style>
     .Container {
         background-color: rgba(240, 240, 240, 1);
         width: 100%;
         height: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columnas automáticas con un mínimo de 200px */
-        grid-template-rows: auto auto auto; /* Filas automáticas */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Columnas automáticas con un mínimo de 200px */
+        grid-template-rows: auto auto auto;
+        /* Filas automáticas */
         gap: 10px;
     }
 
     .locationContainer {
-        grid-column: 1 / span 2; /* Ocupa dos columnas */
-        grid-row: 1; /* Está en la primera fila */
+        grid-column: 1 / span 2;
+        /* Ocupa dos columnas */
+        grid-row: 1;
+        /* Está en la primera fila */
     }
 
     .location {
@@ -128,27 +116,37 @@
 
     .frame {
         display: grid;
-        grid-column: 1 / span 2; /* Ocupa dos columnas */
-        grid-template-columns: 1fr 1fr; /* Divides the frame into two columns */
-        grid-template-rows: auto; /* Automatically adjusts row height */
+        grid-column: 1 / span 2;
+        /* Ocupa dos columnas */
+        grid-template-columns: 1fr 1fr;
+        /* Divides the frame into two columns */
+        grid-template-rows: auto;
+        /* Automatically adjusts row height */
         background-color: rgba(250, 232, 212, 1);
         height: 200px;
-        position: relative; /* Added position relative */
+        position: relative;
+        /* Added position relative */
     }
 
     .left-section {
-        grid-column: 1; /* Left section takes the first column */
-        grid-row: 1; /* Top position */
+        grid-column: 1;
+        /* Left section takes the first column */
+        grid-row: 1;
+        /* Top position */
     }
 
     .right-section {
-        grid-column: 2; /* Right section takes the second column */
-        grid-row: 1; /* Top position */
+        grid-column: 2;
+        /* Right section takes the second column */
+        grid-row: 1;
+        /* Top position */
     }
 
     .searchBar {
-        grid-column: 1 / span 2; /* Ocupa dos columnas */
-        grid-row: 3; /* Está en la tercera fila */
+        grid-column: 1 / span 2;
+        /* Ocupa dos columnas */
+        grid-row: 3;
+        /* Está en la tercera fila */
         display: flex;
         justify-content: center;
     }
@@ -175,9 +173,9 @@
         grid-row: 4;
     }
 
-    .itemtype{
-        grid-column: 1 / span 2; 
-        grid-row: 5; 
+    .itemtype {
+        grid-column: 1 / span 2;
+        grid-row: 5;
     }
 
     .container {
@@ -230,7 +228,7 @@
         font-size: 14px;
         letter-spacing: 0;
     }
-    
+
     .itemName {
         color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
         width: 142px;
@@ -246,8 +244,10 @@
 
     #myBtnContainer {
         display: flex;
-        justify-content: center; /* Centrar horizontalmente los elementos */
-        align-items: center; /* Centrar verticalmente los elementos */
+        justify-content: center;
+        /* Centrar horizontalmente los elementos */
+        align-items: center;
+        /* Centrar verticalmente los elementos */
     }
 
     .btn {
@@ -263,29 +263,35 @@
         border-top-right-radius: 45px;
         border-bottom-left-radius: 7.5px;
         border-bottom-right-radius: 45px;
-        position: relative; /* Ensure the button is a positioned parent */
-        overflow: hidden; /* Ensure the circle stays within the button */
+        position: relative;
+        /* Ensure the button is a positioned parent */
+        overflow: hidden;
+        /* Ensure the circle stays within the button */
     }
-    .inner-circle-select{
+
+    .inner-circle-select {
         border-radius: 50%;
         background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; 
-        top: 15px; 
+        left: 9px;
+        top: 15px;
         background-image: none;
         background-repeat: no-repeat;
         background-position: center;
     }
+
     .Cake {
         border-radius: 50%;
         background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; /* Adjust according to your preference */
-        top: 15px; /* Adjust according to your preference */
+        left: 9px;
+        /* Adjust according to your preference */
+        top: 15px;
+        /* Adjust according to your preference */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
         background-repeat: no-repeat;
         background-position: center;
@@ -297,8 +303,10 @@
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; /* Adjust according to your preference */
-        top: 15px; /* Adjust according to your preference */
+        left: 9px;
+        /* Adjust according to your preference */
+        top: 15px;
+        /* Adjust according to your preference */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
         background-repeat: no-repeat;
         background-position: center;
@@ -310,8 +318,10 @@
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; /* Adjust according to your preference */
-        top: 15px; /* Adjust according to your preference */
+        left: 9px;
+        /* Adjust according to your preference */
+        top: 15px;
+        /* Adjust according to your preference */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
         background-repeat: no-repeat;
         background-position: center;
@@ -323,8 +333,10 @@
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; /* Adjust according to your preference */
-        top: 15px; /* Adjust according to your preference */
+        left: 9px;
+        /* Adjust according to your preference */
+        top: 15px;
+        /* Adjust according to your preference */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
         background-repeat: no-repeat;
         background-position: center;
@@ -336,8 +348,10 @@
         width: 79.5px;
         height: 79.5px;
         position: absolute;
-        left: 9px; /* Adjust according to your preference */
-        top: 15px; /* Adjust according to your preference */
+        left: 9px;
+        /* Adjust according to your preference */
+        top: 15px;
+        /* Adjust according to your preference */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cookies.png);
         background-repeat: no-repeat;
         background-position: center;
@@ -363,8 +377,10 @@
     }
 
     .ImageBread {
-        width: 100%; /* Adjusted width to fit container */
-        height: 100%; /* Adjusted height to fit container */
+        width: 100%;
+        /* Adjusted width to fit container */
+        height: 100%;
+        /* Adjusted height to fit container */
         background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menupagebrad.png);
         background-repeat: no-repeat;
         background-size: cover;
@@ -389,5 +405,5 @@
         background-repeat: no-repeat;
         background-position: center;
     }
-}
+    }
 </style>

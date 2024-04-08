@@ -1,11 +1,12 @@
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Authentication;
-using Bakery.WebApp.Components;
 using Bakery.WebApp.Data;
 using Bakery.WebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Bakery.WebApp.Logic;
+using Bakery.WebApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ builder.Services
     .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
     .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
+    .AddSingleton<MenuContentsLogic>()
     .AddSingleton<IBlobStorageService, BlobService>()
     .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
     .AddScoped<HttpClient>()
