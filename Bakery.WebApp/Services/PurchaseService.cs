@@ -31,6 +31,11 @@ namespace Bakery.WebApp.Services
             var purchases = context.Purchases
             .Include(p => p.Itempurchases)
                 .ThenInclude(ip => ip.ItempurchaseItem)
+                    .ThenInclude(ci => ci.Item)
+            .Include(p => p.Itempurchases)
+                .ThenInclude(ip => ip.ItempurchaseItem)
+                    .ThenInclude(ci => ci.Customitemtoppings)
+                        .ThenInclude(cit => cit.Topping)
             .ToList();
             return purchases;
         }
