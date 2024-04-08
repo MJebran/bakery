@@ -48,101 +48,90 @@
         </div>
     </div>
 
-    <div class="description">
-        <div id="e15_506"></div>
-        <div id="e15_507">
-            <div id="e15_508"></div>
-            <span id="e15_509">Add to cart</span>
-        </div>
 
-        @if (baseItem is not null)
-        {
-            <div id="e15_510">
-                <span id="e15_511">@baseItem.ItmeCalories</span> @*This is the calories*@
-                <div id="e15_512"></div>
+
+    <div class="description d-flex justify-content-center">
+        <div class="descriptionBox">
+            <div class="descriptionBoxPink">
+                @if (baseItem is not null)
+                {
+                    @if (toppingToQuantity is not null)
+                    {
+                        @foreach (var toppingAndQuantity in toppingToQuantity)
+                        {
+                            <div class="ingredientContainer">
+                                <div class="item-decrease">
+                                    <button @onclick="() => DecreaseToppingAmount(toppingAndQuantity.Key)">-</button>
+                                </div>
+                                <div class="item-img">
+                                    <img style="height:40px"
+                                         src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{toppingAndQuantity.Key.ToppingName?.Replace(" ", "")}")" />
+                                </div>
+                                <div class="item-ttl">
+                                    <div>@toppingAndQuantity.Key.ToppingName</div>
+                                </div>
+                                <div class="item-ctl">@toppingAndQuantity.Value</div>
+                                <div class="item-increase">
+                                    <button @onclick="() => IncreaseToppingAmount(toppingAndQuantity.Key)">+</button>
+                                </div>
+                            </div>
+                            <button class="addCart" @onclick="async () => await AddToCart()"> Order Now </button>
+                            <div class="priceCart">Total: @ComputeTotalPrice()</div>
+                        }
+                    }
+                }
             </div>
-            <div id="e15_513">
-                <span id="e15_514">40 - 50 min</span> @*This is time*@
-                <div id="e15_515"></div>
-            </div>
-            <div id="e15_516">
-                <span id="e15_517"></span>
-                <div id="e15_518"></div>
-            </div>
-            <span id="e15_519">
-                @baseItem.ItemDescription @*This is a description*@
-            </span>
-            <div id="e15_520">
-                <div id="e15_521"></div>
-                <span id="e15_522">$39.21</span> @*This is the price*@
-            </div>
-        }
-        description
+        </div>
     </div>
 
 
 </div>
- 
+
 <style>
-.background-page {
-    background-image:linear-gradient(0deg, rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1) 0%,rgba(255, 255, 255, 0) 100%) ;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    grid-template-rows: auto auto auto;
-    gap: 10px;
-}
-
-
-.ImagineCustomer{
-     display: flex;
-     grid-column: 1 / span 2;
-     grid-row: 2;
-     justify-content: center;
-     align-items: center;
+    .background-page {
+        background-image: linear-gradient(0deg, rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1) 0%,rgba(255, 255, 255, 0) 100%);
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-rows: auto auto auto;
+        gap: 10px;
     }
 
-.size{
-    grid-column: 1 / span 2;
-    grid-row: 3;
-}
-.description {
-    grid-column: 1 / span 2;
-    grid-row: 4;
-    background-color: blue;
-}
 
-.bottom-back {
-    grid-column: 1 / span 2;
-    grid-row: 1;
-    background-color: green;
-}
+    .ImagineCustomer {
+        display: flex;
+        grid-column: 1 / span 2;
+        grid-row: 2;
+        justify-content: center;
+        align-items: center;
+    }
 
-.back {
-    background-color: rgba(236, 158, 73, 1);
-    width: 27px;
-    height: 27px;
-    position: absolute;
-    left: 40px;
-    top: 80px;
-}
+    .size {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+    }
 
-.imagineContainer{
-    width: 408px;
-    height: 408px;
-    position: absolute;
-    left: 513px;
-    top: 69px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    .bottom-back {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        background-color: green;
+    }
 
-.imaginecontainer img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block; 
-}
+    .back {
+        background-color: rgba(236, 158, 73, 1);
+        width: 27px;
+        height: 27px;
+        position: absolute;
+        left: 40px;
+        top: 80px;
+    }
+
+    .imaginecontainer img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
 
     .myBtnContainer {
         display: flex;
@@ -150,312 +139,176 @@
         align-items: center;
     }
 
-    .btn{
+    .btn {
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
         background-color: rgba(221, 225, 236, 1);
         width: 78px;
         height: 68px;
     }
 
-    .btn:hover {
-        background-color: #ddd;
+        .btn:hover {
+            background-color: #ddd;
+        }
+
+    .description {
+        grid-column: 1 / span 2;
+        grid-row: 4;
+        height: 500px;
+        position: relative;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+        height: 250px;
+        border: 100px;
     }
 
-    .containerDescription {
-        box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.25);
-        background-color: rgba(255, 255, 255, 1);
-        width: 974px;
-        height: 62.0999755859375px;
-        position: absolute;
-        left: 239px;
-        top: 577px;
-        
-    }
 
-    #e15_506 {
+    .descriptionBox {
+        box-shadow: 0px 0px 13.530839920043945px rgba(0, 0, 0, 0.25);
         background-color: rgba(254.00000005960464, 206.0000029206276, 201.00000321865082, 1);
-        width: 974.7000122070312px;
-        height: 489.25px;
-        position: absolute;
-        left: 239px;
-        top: 691.2000122070312px;
-        border-radius: Symbol(figma.mixed)px;
+        width: 65%;
+        height: 450px;
+        left: 0;
+        top: 0;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: 13px;
+        border-top-right-radius: 13px;
+        border-bottom-left-radius: 13px;
+        border-bottom-right-radius: 13px;
     }
 
-    #e15_507 {
-        width: 297.3224182128906px;
-        height: 90.79906463623047px;
-        position: absolute;
-        left: 379.09375px;
-        top: 1127.5px;
+    .descriptionBoxPink {
+        background-color: grey;
+        width: 65%;
+        height: 450px;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: 13px;
+        border-top-right-radius: 13px;
+        border-bottom-left-radius: 13px;
+        border-bottom-right-radius: 13px;
     }
 
-    #e15_508 {
-        box-shadow: 0px 7.121494770050049px 7.121494770050049px rgba(0, 0, 0, 0.25);
-        background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
-        width: 297.3224182128906px;
-        height: 90.79906463623047px;
+    .ItemDescription {
+        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+        width: 699px;
+        height: 154px;
+        left: 420px;
+        top: 712px;
+        text-align: left;
+        font-size: 31px;
+        letter-spacing: 0;
+    }
+
+    .back {
+        box-shadow: 0px 5.133833885192871px 5.133833885192871px rgba(0, 0, 0, 0.25);
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        width: 289.0799865722656px;
+        height: 49.93505859375px;
         position: absolute;
         left: 0px;
-        top: 0px;
-        border-radius: Symbol(figma.mixed)px;
+        top: 3.620288848876953px;
     }
 
-    #e15_509 {
-        color: rgba(255, 255, 255, 1);
-        width: 154.89251708984375px;
-        height: 39.16822052001953px;
-        position: absolute;
-        left: 71.2149429321289px;
-        top: 26.705575942993164px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 32.04672622680664px;
-        letter-spacing: 0;
+    .ingredientContainer {
+        display: flex;
+        background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        height: 40px;
+        border-radius: 5px;
+        align-self: center;
+        flex-wrap: wrap;
+        flex-direction: column;
     }
 
-    #e15_510 {
-        width: 67.65420532226562px;
-        height: 98.09859466552734px;
-        position: absolute;
-        left: 464.14990234375px;
-        top: 581px;
+    .item-decrease button,
+    .item-increase button {
+        background-color: transparent;
+        color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        flex-grow: 1;
     }
 
-    #e15_511 {
-        color: rgba(0, 0, 0, 1);
-        width: 67.65420532226562px;
-        height: 23.678972244262695px;
-        position: absolute;
-        left: 0.00019531250291038305px;
-        top: 74.41961669921875px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 20.2962589263916px;
-        letter-spacing: 0;
+        .item-decrease button:hover,
+        .item-increase button:hover {
+            background-color: #C77F33;
+        }
+
+    .item-img img {
+        height: 40px;
     }
 
-    #e15_512 {
-        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
-        width: 54.12335968017578px;
-        height: 54.12335968017578px;
-        position: absolute;
-        left: 6.766161918640137px;
-        top: -0.00000610351571594947px;
-        background-image: url(images/flame.png);
-        background-repeat: no-repeat;
-        background-size: cover;
+    .item-ttl {
+        font-family: 'Futura Bk BT';
+        overflow: hidden;
     }
 
-    #e15_513 {
-        width: 108.24671936035156px;
-        height: 98.09859466552734px;
-        position: absolute;
-        left: 665.55029296875px;
-        top: 581px;
+    .item-ctl {
+        background-color: #FAE8D4;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0 10px;
     }
 
-    #e15_514 {
-        color: rgba(0, 0, 0, 1);
-        width: 108.24671936035156px;
-        height: 23.678972244262695px;
-        position: absolute;
-        left: -0.00019531250291038305px;
-        top: 74.41961669921875px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 20.2962589263916px;
-        letter-spacing: 0;
+    .item-increase button {
+        color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        border-radius: 5px;
     }
 
-    #e15_515 {
-        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
-        width: 55.81471633911133px;
-        height: 55.81471633911133px;
-        position: absolute;
-        left: 25.370092391967773px;
-        top: -0.00000610351571594947px;
-        background-image: url(images/clock.png);
-        background-repeat: no-repeat;
-        background-size: cover;
+        .item-increase button:hover {
+            background-color: #C77F33;
+        }
+
+    .item-rmv button {
+        background-color: #EC9E49;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
-    #e15_516 {
-        width: 59.19742965698242px;
-        height: 98.09859466552734px;
-        position: absolute;
-        left: 908.75px;
-        top: 581px;
-    }
+        .item-rmv button:hover {
+            background-color: #C77F33;
+        }
 
-    #e15_517 {
-        color: rgba(0, 0, 0, 1);
-        width: 59.19742965698242px;
-        height: 23.678972244262695px;
-        position: absolute;
-        left: 0.00009765625145519152px;
-        top: 74.41961669921875px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 20.2962589263916px;
-        letter-spacing: 0;
-    }
-
-    #e15_518 {
-        box-shadow: 0px 6.765419960021973px 6.765419960021973px rgba(0, 0, 0, 0.25);
-        width: 55.81471633911133px;
-        height: 55.81471633911133px;
-        position: absolute;
-        left: 1.690893530845642px;
-        top: -0.00000610351571594947px;
-        background-image: url(images/weighing_machine.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    #e15_519 {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 699.6851806640625px;
-        height: 154.31651306152344px;
-        position: absolute;
-        left: 420.4501953125px;
-        top: 712.1000366210938px;
-        text-align: left;
-        font-size: 31.56474494934082px;
-        letter-spacing: 0;
-    }
-
-    #e15_520 {
-        width: 297.3224182128906px;
-        height: 90.79906463623047px;
-        position: absolute;
-        left: 726.2666015625px;
-        top: 1127.5px;
-    }
-
-    #e15_521 {
-        background-color: rgba(255, 255, 255, 0.5400000214576721);
-        width: 297.3224182128906px;
-        height: 90.79906463623047px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-radius: Symbol(figma.mixed)px;
-    }
-
-    #e15_522 {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 105.04205322265625px;
-        height: 39.16822052001953px;
-        position: absolute;
-        left: 96.13992309570312px;
-        top: 26.705575942993164px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 32.04672622680664px;
-        letter-spacing: 0;
-    }
-
-    #e15_523 {
-        width: 167px;
-        height: 54px;
-        position: absolute;
-        left: 557.35009765625px;
-        top: 911.9000244140625px;
-    }
-
-    #e15_524 {
+    .addCart {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
         width: 167px;
         height: 54px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-radius: Symbol(figma.mixed)px;
+        position: relative;
+        left: -130px;
+        top: 100px;
+        border-radius: 15px;
     }
 
-    #e15_525 {
-        color: rgba(255, 255, 255, 1);
-        width: 87px;
-        height: 23.294116973876953px;
-        position: absolute;
-        left: 40px;
-        top: 15.882354736328125px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 18px;
-        letter-spacing: 0;
-    }
-
-    #e15_526 {
-        width: 158.64999389648438px;
-        height: 51.29999923706055px;
-        position: absolute;
-        left: 750.10009765625px;
-        top: 910.6500244140625px;
-    }
-
-    #e15_527 {
+    .priceCart {
         background-color: rgba(255, 255, 255, 0.5400000214576721);
         width: 158.64999389648438px;
         height: 51.29999923706055px;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        border-radius: Symbol(figma.mixed)px;
-    }
-
-    #e15_528 {
-        color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
-        width: 56.04999923706055px;
-        height: 22.129411697387695px;
-        position: absolute;
-        left: 51.29999923706055px;
-        top: 15.088236808776855px;
-        font-family: Futura Bk BT;
-        text-align: left;
-        font-size: 17.100000381469727px;
-        letter-spacing: 0;
+        position: relative;
+        left: -50px;
+        top: 100px;
+        border-radius: 15px;
     }
 </style>
 
-@if (baseItem is not null)
-{
-    <div>
-    <diV>
-        <img
-            src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{baseItem.ItemName?.Replace(" ", "")}")" />
-    </diV>
-    <div>
-        @if (toppingToQuantity is not null)
-            {
-                @foreach (var toppingAndQuantity in toppingToQuantity)
-                {
-                    <div>
-                        <button @onclick="() => DecreaseToppingAmount(toppingAndQuantity.Key)">-</button>
-                        <div>
-                            <img style="height:40px"
-                                src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{toppingAndQuantity.Key.ToppingName?.Replace(" ", "")}")" />
-                        </div>
-                        <div>@toppingAndQuantity.Key.ToppingName</div>
-                        <div>@toppingAndQuantity.Value</div>
-                        <button @onclick="() => IncreaseToppingAmount(toppingAndQuantity.Key)">+</button>
-                    </div>
-                    <button @onclick="async () => await AddToCart()"> Order Now </button>
-                    <div>Total: @ComputeTotalPrice()</div>
-                }
-            }
-        </div>
 
-        @if(ErrorMesage is not null)
-        {
-            <div class="alert alert-danger">
-                @ErrorMesage
-            </div>
-        }
-    </div>
-}
 
 @code {
     [Parameter]
@@ -464,8 +317,9 @@
     public Customitem userCustomItem { get; set; } = new();
     public Itemtype? baseItem { get; set; }
     public Purchase? userCart { get; set; }
-    public string? ErrorMesage {get; set;} = null;
+    public string? ErrorMesage { get; set; } = null;
     Dictionary<Topping, int>? toppingToQuantity { get; set; }
+    public char? sizeItem { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -490,6 +344,7 @@
         {
             toppingToQuantity?.Add(topping, 0);
         }
+        sizeItem = 'S';
     }
 
     public void IncreaseToppingAmount(Topping topping)
@@ -515,6 +370,19 @@
             foreach (var toppingAndQuantity in toppingToQuantity)
             {
                 total += toppingAndQuantity.Key.ToppingPrice * toppingAndQuantity.Value ?? 0.0m;
+
+                if (sizeItem == 'S')
+                {
+                    total *= 1;
+                }
+                else if (sizeItem == 'M')
+                {
+                    total *= 1.25m;
+                }
+                else if (sizeItem == 'L')
+                {
+                    total *= 1.50m;
+                }
             }
         }
 
@@ -528,7 +396,7 @@
         if (!_authenticationService.UserExists())
         {
             ReturnErrorMessage();
-            return;      
+            return;
         }
         var purchases = (await _purchaseservice.GetAllPurchase()).ToList<Purchase>();
 
@@ -590,6 +458,7 @@
 
     public char FilterSelection(char size)
     {
+        sizeItem = size;
         return size;
     }
     public void ReturnErrorMessage()
