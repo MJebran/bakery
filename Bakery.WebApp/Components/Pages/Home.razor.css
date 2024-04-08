@@ -32,10 +32,31 @@
     width: 156px;
     height: 108px;
     top: 57px;
-    left: calc(50% + 900px); /* this moves the Mene button right and left */
-    /*background-color: #ed95ab;*/
+    left: calc(50% + 900px);  /*this moves the Mene button right and left */
+    background-color: #ed95ab;
     border-radius: 45px 45px 45px 0px;
     box-shadow: 0px 0px 15px #00000040;
+}
+
+    /*.frame .overlap {
+        position: absolute;
+        width: 156px;
+        height: 108px;
+        top: 57px;
+        left: 50%;*/ /* Center horizontally */
+        /*transform: translateX(-50%);*/ /* Center the element based on its width */
+        /* Optionally adjust other properties for responsiveness */
+        /*border-radius: 45px 45px 45px 0px;
+        box-shadow: 0px 0px 15px #00000040;
+    }*/
+
+@media (max-width: 600px) {
+    .frame .overlap {
+        width: 120px; /* Adjust width for smaller screens */
+        height: 84px; /* Adjust height proportionally */
+        top: 30px; /* Adjust top spacing */
+        /* Optionally adjust other properties */
+    }
 }
 
 .frame .overlap-2 {
@@ -145,7 +166,7 @@
 
 .overlap {
     position: relative;
-    padding: 2vw 4.4vw; /* Adjusted padding to be relative to viewport width */
+    /*padding: 2vw 4.4vw;*/ /* Adjusted padding to be relative to viewport width */
     border-radius: 2.4vw; /* Adjusted border radius to be relative to viewport width */
     border: none;
     color: #fff;
