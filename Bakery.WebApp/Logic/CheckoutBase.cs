@@ -2,6 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Collections.Immutable;
 
 namespace Bakery.WebApp.Logic;
 public class CheckoutBase : ComponentBase
@@ -9,20 +10,25 @@ public class CheckoutBase : ComponentBase
         [Inject]
         public IJSRuntime Js { get; set; }
         protected List<Itempurchase>? itempurchases { get; set; }
-        protected int TotalQty { get; set; }
+    protected int TotalQty { get; set; }
         protected string? PaymentDescription { get; set; }
         protected decimal PaymentAmount { get; set; }
         protected string DisplayButtons { get; set; } = "block";
+        [Parameter]
+        public string? purchaseId { get; set; }
 
         [Inject]
         public IPurchaseService? _purchaseservice { get; set; }
+        
         public int PurchaseId {get; set;}
 
         protected override async Task OnInitializedAsync()
         {
-            try
+            PurchaseId = int.Parse(purchaseId ?? "0");
+        try
             {
-                itempurchases = (await _purchaseservice.GetAllPurchase()).Where(p => p.PurchaseId == PurchaseId).FirstOrDefault().Itempurchases.ToList<Itempurchase>();
+                var userCart = (await _purchaseservice.GetAllPurchase()).Where(p => p.PurchaseId == PurchaseId).FirstOrDefault();
+                itempurchases = userCart?.Itempurchases.ToList<Itempurchase>();
 
                 if (itempurchases != null && itempurchases.Count() > 0)
                 {
