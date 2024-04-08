@@ -1,6 +1,6 @@
+using Bakery.WebApp.Logic;
 using Bakery.WebApp.Data;
 using FluentAssertions;
-using Bakery.WebApp.Logic;
 
 namespace BakeryTests
 {
@@ -17,6 +17,7 @@ namespace BakeryTests
         {
             //Arrange
             _logicObject = new(itemProvider, categoryProvider, sizeProvider);
+            await _logicObject.InitializeAsync();
 
             string filter = "";
             
@@ -35,6 +36,8 @@ namespace BakeryTests
             await itemProvider.AddItemtype(item1);
 
             _logicObject = new(itemProvider, categoryProvider, sizeProvider);
+            await _logicObject.InitializeAsync();
+
 
             string filter = "notCake";
             
@@ -53,6 +56,7 @@ namespace BakeryTests
             await itemProvider.AddItemtype(item1);
            
             _logicObject = new(itemProvider, categoryProvider, sizeProvider);
+            await _logicObject.InitializeAsync();
 
             string filter = "cake";
             
@@ -74,6 +78,7 @@ namespace BakeryTests
             await itemProvider.AddItemtype(item2);
 
             _logicObject = new(itemProvider, categoryProvider, sizeProvider);
+            await _logicObject.InitializeAsync();
 
             string filter = "cake";
             
@@ -96,7 +101,8 @@ namespace BakeryTests
             await itemProvider.AddItemtype(item2);
             await itemProvider.AddItemtype(item3);
 
-            _logicObject = new(itemProvider, categoryProvider, sizeProvider); 
+            _logicObject = new(itemProvider, categoryProvider, sizeProvider);
+            await _logicObject.InitializeAsync();
 
             string filter = "cake";
             
