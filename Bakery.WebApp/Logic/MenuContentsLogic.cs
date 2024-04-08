@@ -2,7 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 
 namespace Bakery.WebApp.Logic;
-public class MenuContentsLogic : IMenuContentsLogic
+public class MenuContentsLogic
 {
     public List<Size> sizes { get; set; }
     public List<Category> categories { get ; set; }
