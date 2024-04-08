@@ -64,11 +64,11 @@ else
     {
         PurchaseId = int.Parse(purchaseId ?? "0");
     }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Js.InvokeVoidAsync("initialisePayPal");
-        }
-    }
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         await Js.InvokeVoidAsync("initialisePayPal");
+    //     }
+    // }
 }
