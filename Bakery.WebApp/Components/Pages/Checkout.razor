@@ -56,19 +56,4 @@ else
         }
     </div>
 }
-@code {
-    [Parameter]
-    public string? purchaseId { get; set; }
-    private IJSObjectReference? module;
-    protected override async Task OnInitializedAsync()
-    {
-        PurchaseId = int.Parse(purchaseId ?? "0");
-    }
-    // protected override async Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     if (firstRender)
-    //     {
-    //         await Js.InvokeVoidAsync("initialisePayPal");
-    //     }
-    // }
-}
+
