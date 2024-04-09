@@ -37,6 +37,7 @@ namespace Bakery.WebApp.Services
                     .ThenInclude(ci => ci.Customitemtoppings)
                         .ThenInclude(cit => cit.Topping)
             .ToList();
+            
             return purchases;
         }
 

@@ -2,6 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Collections.Immutable;
 
 namespace Bakery.WebApp.Logic;
 public class CheckoutBase : ComponentBase

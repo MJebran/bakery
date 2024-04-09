@@ -32,7 +32,12 @@ else
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th>Price</th>
+                        <th>Topping</th>
+                        <th>Quantity</th>
+                        <th>Topping Quantity</th>
+                        <th>Topping Quantity</th>
+                        <th>Total</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +45,14 @@ else
                     {
                         <tr>
                             <td>@item.ItempurchaseQuantity x @item.ItempurchaseItem.Item.ItemName</td>
+                            <td>
+                                @foreach(var customTopping in item.ItempurchaseItem.Customitemtoppings)
+                                {
+                                    <td>@customTopping.Topping.ToppingName</td>
+                                    <td>@customTopping.CustomItemToppingQuantity</td>
+                                    <td>@(customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) xd</td>
+                            }
+                            </td>
                             <td>@item.ItempurchaseItem.Item.ItemPrice.ToString()</td>
                         </tr>
                     }
@@ -56,4 +69,3 @@ else
         }
     </div>
 }
-
