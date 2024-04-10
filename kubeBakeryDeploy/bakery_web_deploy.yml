@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kakey1
+  name: kakey1-web-deployment
+  labels:
+    app: kakey1-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kakey1-web
+  template:
+    metadata:
+      labels:
+        app: kakey1-web
+    spec:
+      containers:
+      - name: kakey1-web
+        image: 144.17.92.12:5000/kakey1/kakey1-web:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: db
+          value: Server=bakerydb;Database=postgres;Port=5432;User ID=postgres;Password=Password@123;
+        - name: Authentication:Google:ClientId
+          value: 1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com
+        - name: Authentication:Google:ClientSecret
+          value: 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

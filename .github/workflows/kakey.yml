@@ -1,0 +1,20 @@
+name: kakeyProcess
+on: [push] 
+jobs: 
+  DeployingPipeline: 
+    runs-on: kakeylabel
+    steps: 
+     - uses: actions/checkout@v4
+    #  - name: "cleaning"
+    #    run: |
+    #     rm -rf ./kakey1TicketsRUs
+    #  - name: "cloning"
+    #    run: git clone https://github.com/kakey1Blanco1/kakey1TicketsRUs.git
+     - name: deploy
+       run: |                
+        docker build -t 144.17.92.12:5000/kakey1/kakey1-web:1 .
+        docker push 144.17.92.12:5000/kakey1/kakey1-web:1
+
+        kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
+        kubectl apply -f kubeBakeryDeploy/
+    #   kubectl delete configmap blazor-web-postgres-init -n kakey1
