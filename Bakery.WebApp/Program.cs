@@ -76,7 +76,10 @@ app.UseHttpsRedirection()
 
 app.MapRazorPages();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddAdditionalAssemblies(typeof(Bakery.ClassLibrary.Components.Home).Assembly);
+
+
 
 //app.MapBlazorHub();
 
