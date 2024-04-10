@@ -15,6 +15,7 @@ public class CheckoutBase : ComponentBase
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
     protected decimal PaymentAmount { get; set; }
+    protected decimal TaxAmount {get; set;}
     protected string DisplayButtons { get; set; } = "block";
 
     [Parameter]
@@ -49,6 +50,7 @@ public class CheckoutBase : ComponentBase
                     PaymentAmount += customitem.Item.ItemPrice * itempurchase.ItempurchaseQuantity ?? 0m;
 
                 }
+                TaxAmount = (int)Math.Round(PaymentAmount) - PaymentAmount;
                 PaymentAmount = (int)Math.Round(PaymentAmount);
                 TotalQty = 10;
                 PaymentDescription = "Some random description xdd";

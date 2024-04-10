@@ -29,10 +29,7 @@ export function initialisePayPal() {
             return actions.order.capture().then(function (orderData) {
 
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                const element = document.getElementById('paypal-button-container');
-                element.innerHTML = '';
-                element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                window.location.href = "/thankYou";
             });
         },
 
