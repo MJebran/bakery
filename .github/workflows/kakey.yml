@@ -18,3 +18,4 @@ jobs:
         kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
         kubectl apply -f kubeBakeryDeploy/
     #   kubectl delete configmap blazor-web-postgres-init -n kakey1
+    #
