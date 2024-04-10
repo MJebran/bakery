@@ -22,7 +22,7 @@ spec:
         - containerPort: 8080
         env:
         - name: db
-          value: Server=bakerydb;Database=postgres;Port=5432;User ID=postgres;Password=Password@123;
+          value: Server=blazor-web-db-service;Database=postgres;Port=5432;User ID=postgres;Password=Password@123;
         - name: Authentication_Google_ClientId
           value: "1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com"
         - name: Authentication_Google_ClientSecret
