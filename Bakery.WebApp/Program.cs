@@ -37,8 +37,8 @@ builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
     .AddAuthentication().AddGoogle(options =>
     {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("Client Id not found");
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("Client secret not found");
+        options.ClientId = builder.Configuration["Authentication_Google_ClientId"] ?? throw new Exception("Client Id not found");
+        options.ClientSecret = builder.Configuration["Authentication_Google_ClientSecret"] ?? throw new Exception("Client secret not found");
         options.ClaimActions.MapJsonKey("urn:google:profile", "link");
         options.ClaimActions.MapJsonKey("urn:google:image", "picture");
     });
