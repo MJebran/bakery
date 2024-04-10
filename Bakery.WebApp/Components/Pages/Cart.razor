@@ -8,10 +8,10 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<div class="item-itemcnt">
-	@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
-	{
-		@foreach (var itemToPurchase in itemPurchaseQuantity)
+@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
+{
+	<div class="item-itemcnt">
+	@foreach (var itemToPurchase in itemPurchaseQuantity)
 		{
 			<div class="item-cnt">
 				<div class="item-img">
@@ -30,28 +30,34 @@
 					<button @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
 				</div>
 			</div>
-
 		}
+	</div>
 
-		<div>
-			<a href="/Checkout/@cartId">
-			Checkout
+	<div class="checkout-cnt">
+		<div class="checkout-btn">
+			<a href="/Checkout/@cartId" style="text-decoration: none">
+			Check Out
 			</a>
 		</div>
-	}
-	else
-	{
-		<div>You have no items in your Cart</div>
-	}
-</div>
 
+		<div class="total-cnt">
+			Total
+			$@ComputeTotal()
+		</div>
+	</div>
 
+}
+else
+{
+	<div>You have no items in your Cart</div>
+}
 
 @code {
 	[Parameter]
 	public string? cartId { get; set; }
 	List<Itempurchase>? userPurchase { get; set; }
 	Dictionary<Itempurchase, int>? itemPurchaseQuantity { get; set; } = new();
+
 	protected override async Task OnInitializedAsync()
 	{
 		var purchases = (await _itemPurchaseService.GetAllItempurchase()).ToList();
@@ -87,6 +93,29 @@
 			await _customItemToppingService.DeleteCustomeItemTopping(customtopping.CustomItemToppingId);
 		}
 		await _customItemService.DeleteCustomitem(itempurchase.ItempurchaseItem.CustomItemId);
+
 		NavigationManager.NavigateTo($"/cart/{itempurchase.PurchaseId}", forceLoad: true);
 	}
+
+	private decimal ComputeTotal()
+	{
+		decimal total = 0;
+
+		if (itemPurchaseQuantity is not null)
+		{
+			foreach (var item in itemPurchaseQuantity)
+			{
+				var pricePerItem = item.Key.ItempurchaseItem.Item.ItemPrice;
+				foreach (var topping in item.Key.ItempurchaseItem.Customitemtoppings)
+				{
+					pricePerItem += topping.CustomItemToppingQuantity * topping.Topping.ToppingPrice;
+				}
+				pricePerItem *= item.Value;
+				total += pricePerItem ?? 0m;
+			}
+		}
+
+		return total;
+	}
+
 }

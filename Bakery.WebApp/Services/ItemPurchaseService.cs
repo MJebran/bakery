@@ -30,9 +30,10 @@ namespace Bakery.WebApp.Services
             var context = await dbFactory.CreateDbContextAsync();
             var itempurchases = await context.Itempurchases
             .Include(ip => ip.ItempurchaseItem)
-                .ThenInclude(c => c.Item)
+                    .ThenInclude(ci => ci.Item)
             .Include(ip => ip.ItempurchaseItem)
-                .ThenInclude(c => c.Customitemtoppings)
+                    .ThenInclude(ci => ci.Customitemtoppings)
+                        .ThenInclude(cit => cit.Topping)
             .ToListAsync();
             return itempurchases;
         }

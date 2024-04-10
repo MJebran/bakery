@@ -113,10 +113,54 @@
     color: white;
 }
 
+.checkout-cnt{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; 
+}
+
+.checkout-cnt div{
+    margin: 1ch 2ch;
+
+    box-sizing: border-box; 
+
+    border-radius: 2ch 2ch 0ch 2ch; 
+    
+    box-shadow: 0 2px 4px black;
+
+    font-family: 'Futura Bk BT';
+
+    font-size: x-large;
+
+    height: 5ch;
+
+    display: flex; 
+
+    align-items: center; 
+  
+    justify-content: center; 
+  
+    flex:0.2
+}
+
+.checkout-btn{
+    background-color: #EC9E49; 
+}
+
+.total-cnt{
+    background-color: lightgray;
+}
+
+
 @media screen and (max-width: 1120px) {
     
     .item-cnt{
         width: 40%;
+    }
+
+    .checkout-cnt div{
+        font-size: large;
     }
 }
 
@@ -125,11 +169,29 @@
     .item-cnt{
         width: 60%;
     }
+
+    .checkout-cnt{
+        width: 100%;
+    }
+
+    .checkout-cnt div{
+        flex: 0.25;
+    }
 }
 
 @media screen and (max-width: 620px) {
     
     .item-cnt{
         width: 80%;
+    }
+
+    .checkout-cnt div{
+        font-size: medium;
+        flex: 0.4;
+
+    }
+
+    .checkout-cnt{
+        width: 100%;
     }
 }

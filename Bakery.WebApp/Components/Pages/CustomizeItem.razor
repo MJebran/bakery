@@ -75,9 +75,9 @@
                                     <button @onclick="() => IncreaseToppingAmount(toppingAndQuantity.Key)">+</button>
                                 </div>
                             </div>
+                        }
                             <button class="addCart" @onclick="async () => await AddToCart()"> Order Now </button>
                             <div class="priceCart">Total: @ComputeTotalPrice()</div>
-                        }
                     }
                 }
             </div>
