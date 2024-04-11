@@ -2,7 +2,7 @@
 
 1. April 13
 - Finish up the CSS
-(COMPLETED) Getting PayPal to work 
+- (COMPLETED) Getting PayPal to work 
 - Write integration tests
 - Write UI tests 
 2. April 20
