@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Bakery.Mobile.Services;
+using Bakery.ClassLibrary.Services;
 
 namespace Bakery.Mobile
 {
@@ -13,6 +15,23 @@ namespace Bakery.Mobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+
+            builder.Services.AddMauiBlazorWebView();
+            builder.Services
+            .AddSingleton<ISizeService, SizeService>()
+            .AddSingleton<ISizeService, SizeService>()
+            .AddSingleton<ICategoryService, CategoryService>()
+            .AddSingleton<IToppingService, ToppingService>()
+            .AddSingleton<IRoleService, RoleService>()
+            .AddSingleton<IUserService, UserService>()
+            .AddSingleton<IItemTypeService, ItemTypeService>()
+            .AddSingleton<ICustomItemService, CustomItemService>()
+            .AddSingleton<IPurchaseService, PurchaseService>()
+            .AddSingleton<ICustomItemService, CustomItemService>()
+            .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
+            .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
+            .AddSingleton<IFavoriteItemService, FavoriteItemService>()
+            .AddScoped<HttpClient>();
 
             builder.Services.AddMauiBlazorWebView();
 

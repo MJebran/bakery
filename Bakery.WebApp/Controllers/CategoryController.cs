@@ -22,7 +22,7 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpPost("add/category")]
-        public async Task AddCategory(Category s)
+        public async Task AddCategory([FromBody] Category s)
         {
             await _service.AddCategory(s);
         }

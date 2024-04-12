@@ -22,15 +22,14 @@ namespace Bakery.WebApp.Controllers
         }
 
         [HttpPost("add/custometoppingItem")]
-        public async Task AddTopping(Customitemtopping s)
+        public async Task AddTopping([FromBody] Customitemtopping s)
         {
             await _service.AddCustomeItemTopping(s);
         }
-        [HttpDelete("delete")]
-
-        public async Task DeleteCustomeItemToppingAsync([FromBody] Itemtype item)
+        [HttpDelete("delete/{id}")]
+        public async Task DeleteCustomeItemToppingAsync(int id)
         {
-            await _service.DeleteCustomeItemTopping(item.CategoryId);
+            await _service.DeleteCustomeItemTopping(id);
         }
 
     }

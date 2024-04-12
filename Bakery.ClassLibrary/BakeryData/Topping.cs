@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace Bakery.WebApp.Data;
 
+[Table("Topping")]
 public partial class Topping
 {
+    [PrimaryKey, AutoIncrement]
     public int ToppingId { get; set; }
 
     public string? ToppingName { get; set; }
@@ -17,5 +19,6 @@ public partial class Topping
 
     public string? ToppingUnit { get; set; }
 
+    [OneToMany]
     public virtual ICollection<Customitemtopping> Customitemtoppings { get; set; } = new List<Customitemtopping>();
 }

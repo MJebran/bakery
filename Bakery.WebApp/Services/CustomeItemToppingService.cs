@@ -42,16 +42,5 @@ namespace Bakery.WebApp.Services
                 Where(p => p.CustomItemToppingId == id)
                 .FirstOrDefaultAsync() ?? new Customitemtopping();
         }
-
-        public async Task UpdateCustomeItemTopping(int id)
-        {
-            var context = await factory.CreateDbContextAsync();
-            Customitemtopping customeItemType = new Customitemtopping()
-            {
-                CustomItemToppingId = id
-            };
-            context.Customitemtoppings.Update(customeItemType);
-            context.SaveChanges();
-        }
     }
 }

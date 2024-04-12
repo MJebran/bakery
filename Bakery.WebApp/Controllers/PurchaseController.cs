@@ -31,19 +31,19 @@ namespace Bakery.WebApp.Services
 
         [HttpPost("add/purchase")]
 
-        public async Task AddPurchaseAsycn(Purchase purchase)
+        public async Task AddPurchaseAsycn([FromBody] Purchase purchase)
         {
             await _service.AddPurchase(purchase);
         }
 
-        [HttpDelete("delete/purchase")]
-        public async Task DeletePurchaseAsync([FromBody] int id)
+        [HttpDelete("delete/purchase/{id}")]
+        public async Task DeletePurchaseAsync(int id)
         {
             await _service.DeletePurchase(id);
         }
 
-        [HttpPut("update/purchase")]
-        public async Task UpdatePurchaseAsync([FromBody] int id)
+        [HttpPut("update/purchase/{id}")]
+        public async Task UpdatePurchaseAsync(int id)
         {
             await _service.UpdatePurchase(id);
         }

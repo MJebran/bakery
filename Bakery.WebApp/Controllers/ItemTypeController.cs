@@ -24,23 +24,22 @@ namespace Bakery.WebApp.Controllers
 
         [HttpPost("add/itemtype")]
 
-        public async Task AddItemTypeAsync(Itemtype item)
+        public async Task AddItemTypeAsync([FromBody] Itemtype item)
         {
             await _service.AddItemtype(item);
         }
 
-        [HttpPut("update/itemtype")]
+        [HttpPut("update/itemtype/{id}")]
 
-        public async Task UpdateItemTypeAsync([FromBody] Itemtype item)
+        public async Task UpdateItemTypeAsync(int id)
         {
-            await _service.UpdateItemtype(item.CategoryId);
+            await _service.UpdateItemtype(id);
         }
 
-        [HttpDelete("delete")]
-
-        public async Task DeleteItemTypeAsync([FromBody] Itemtype item)
+        [HttpDelete("delete/{id}")]
+        public async Task DeleteItemTypeAsync(int id)
         {
-            await _service.DeleteItemtype(item.CategoryId);
+            await _service.DeleteItemtype(id);
         }
     }
 }

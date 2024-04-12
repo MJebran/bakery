@@ -29,19 +29,19 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpPost("add/customitem")]
-        public async Task AddCustomItemAsync(Customitem customitem)
+        public async Task AddCustomItemAsync([FromBody] Customitem customitem)
         {
             await _service.AddCustomitem(customitem);
         }
 
         [HttpDelete("delete/customitem/{id}")]
-        public async Task DeleteCustomItemAsync([FromBody] int id)
+        public async Task DeleteCustomItemAsync(int id)
         {
             await _service.DeleteCustomitem(id);
         }
 
         [HttpPut("update/customitem/{id}")]
-        public async Task UpdateCustomItemAsync([FromBody] int id)
+        public async Task UpdateCustomItemAsync(int id)
         {
             await _service.UpdateCustomitem(id);
         }
