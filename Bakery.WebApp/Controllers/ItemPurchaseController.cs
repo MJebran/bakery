@@ -1,6 +1,6 @@
 ﻿using Bakery.WebApp.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Bakery.ClassLibrary.Services;
 
 namespace Bakery.WebApp.Services
 {
@@ -8,9 +8,9 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class ItemPurchaseController : ControllerBase
     {
-        ItemPurchaseService _service;
+        IItemPurchaseService _service;
 
-        public ItemPurchaseController(ItemPurchaseService service)
+        public ItemPurchaseController(IItemPurchaseService service)
         {
             _service = service;
         }
