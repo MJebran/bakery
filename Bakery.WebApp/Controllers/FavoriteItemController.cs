@@ -28,19 +28,19 @@ namespace Bakery.WebApp.Services
         }
         [HttpPost("add/favoriteitem")]
 
-        public async Task AddFAvoriteItemAsycn(Favoriteitem favorite)
+        public async Task AddFAvoriteItemAsycn([FromBody] Favoriteitem favorite)
         {
             await _service.AddFavoriteitem(favorite);
         }
 
-        [HttpDelete("delete/favoriteItem")]
-        public async Task DeletePurchaseAsync([FromBody] int id)
+        [HttpDelete("delete/favoriteItem/{id}")]
+        public async Task DeletePurchaseAsync(int id)
         {
             await _service.DeleteFavoriteitem(id);
         }
 
-        [HttpPut("update/purchase")]
-        public async Task UpdatePurchaseAsync([FromBody] int id)
+        [HttpPut("update/favoriteItem/{id}")]
+        public async Task UpdatePurchaseAsync(int id)
         {
             await _service.UpdateFavoriteitem(id);
         }

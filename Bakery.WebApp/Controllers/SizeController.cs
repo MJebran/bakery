@@ -23,7 +23,7 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpPost("add/size")]
-        public async Task AddSize(Size s)
+        public async Task AddSize([FromBody] Size s)
         {
             await _service.AddSize(s);
         }

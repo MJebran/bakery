@@ -22,7 +22,7 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpPost("add/topping")]
-        public async Task AddTopping(Topping s)
+        public async Task AddTopping([FromBody] Topping s)
         {
             await _service.AddTopping(s);
         }

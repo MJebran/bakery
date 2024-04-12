@@ -11,9 +11,6 @@ public interface ICustomeItemToppingService
 {
     public Task AddCustomeItemTopping(Customitemtopping custome);
     public Task<IEnumerable<Customitemtopping>> GetAllCustomeItemTopping();
-    //public Task DeleteItempurchase(int id);
     public Task<Customitemtopping> GetCustomeItemToppingById(int id);
-    public Task UpdateCustomeItemTopping(int id);
-
     public Task DeleteCustomeItemTopping(int id);
 }

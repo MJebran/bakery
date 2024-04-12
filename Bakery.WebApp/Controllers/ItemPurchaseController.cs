@@ -1,6 +1,6 @@
 ﻿using Bakery.WebApp.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Bakery.ClassLibrary.Services;
 
 namespace Bakery.WebApp.Services
 {
@@ -8,9 +8,9 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class ItemPurchaseController : ControllerBase
     {
-        ItemPurchaseService _service;
+        IItemPurchaseService _service;
 
-        public ItemPurchaseController(ItemPurchaseService service)
+        public ItemPurchaseController(IItemPurchaseService service)
         {
             _service = service;
         }
@@ -28,15 +28,21 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpPost("add/itempurchase")]
-        public async Task AddItemPurchaseAsync(Itempurchase itempurchase)
+        public async Task AddItemPurchaseAsync([FromBody] Itempurchase itempurchase)
         {
             await _service.AddItempurchase(itempurchase);
         }
 
         [HttpDelete("delete/itempurchase/{id}")]
-        public async Task DeleteItemPurchaseAsync([FromBody] int id)
+        public async Task DeleteItemPurchaseAsync(int id)
         {
             await _service.DeleteItempurchase(id);
+        }
+
+        [HttpPut("update/itempurchase/{id}")]
+        public async Task UpdateItemPurchaseAsync(int id)
+        {
+            await _service.UpdateItempurchase(id);
         }
     }
 }

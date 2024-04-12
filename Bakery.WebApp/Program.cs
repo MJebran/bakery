@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Bakery.WebApp.Logic;
 using Bakery.WebApp.Components;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,10 @@ builder.Services.AddHttpClient();
 
 //Swagger
 builder.Services.AddControllers();
+// added this to deal with A possible object cycle was detected.
+builder.Services.AddControllers().AddJsonOptions(x =>
+           x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+//
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
