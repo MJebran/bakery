@@ -84,6 +84,7 @@ public class CheckoutBase : ComponentBase
     }
     public async Task Purchase()
     {
+        //Esto es lo que te digo, osea _emailService esta nulo tengo que ponerlo en iniatization?
         await _emailservice.SendEmailAsync(_authentification.authenticatedUser.UserEmail, itempurchases);
     }
 }
