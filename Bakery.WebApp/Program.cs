@@ -19,6 +19,7 @@ builder.Services
     }).Services
     .AddServerSideBlazor().Services
     .AddSingleton<ISizeService, SizeService>()
+    .AddSingleton<IEmailService, EmailService>()
     .AddSingleton<ISizeService, SizeService>()
     .AddSingleton<ICategoryService, CategoryService>()
     .AddSingleton<IToppingService, ToppingService>()

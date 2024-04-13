@@ -11,7 +11,7 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public IJSRuntime Js { get; set; }
-    protected List<Itempurchase>? itempurchases { get; set; }
+    public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
     protected decimal PaymentAmount { get; set; }
