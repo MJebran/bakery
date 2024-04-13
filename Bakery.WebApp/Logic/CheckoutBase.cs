@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System.Collections.Immutable;
+using Bakery.WebApp.Authentication;
 
 namespace Bakery.WebApp.Logic;
 public class CheckoutBase : ComponentBase
@@ -14,8 +15,12 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public IJSRuntime Js { get; set; }
+
+    [Inject]
     public IEmailService _emailservice { get; set; }
-    public BakeryAuthenticationService _authentification { get; set; }
+
+    [Inject]    
+    public IBakeryAutheticationService _authenticationservice { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
@@ -85,6 +90,7 @@ public class CheckoutBase : ComponentBase
     public async Task Purchase()
     {
         //Esto es lo que te digo, osea _emailService esta nulo tengo que ponerlo en iniatization?
-        await _emailservice.SendEmailAsync(_authentification.authenticatedUser.UserEmail, itempurchases);
+        var User = _authenticationservice.GetAuthenticatedUser();
+        await _emailservice.SendEmailAsync(User.UserEmail ?? throw new Exception("user email not found"), itempurchases);
     }
 }
