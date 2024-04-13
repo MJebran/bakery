@@ -15,38 +15,86 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Product</th>
-                        <th>Topping</th>
                         <th>Quantity</th>
+                        <th>Topping Name</th>
                         <th>Topping Quantity</th>
-                        <th>Topping Quantity</th>
+                        <th>Topping Unit Price</th>
+                        <th>Topping Total</th>
+                        <th>Base Price</th>
                         <th>Total</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in itempurchases)
                     {
                         <tr>
+                            <td>
+                                <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")" style="max-width: 100px; max-height: 100px;" />
+                            </td>
                             <td>@item.ItempurchaseQuantity x @item.ItempurchaseItem.Item.ItemName</td>
+                            <td>@item.ItempurchaseQuantity</td>
                             <td>
                                 @foreach (var customTopping in item.ItempurchaseItem.Customitemtoppings)
                                 {
-                                <td>@customTopping.Topping.ToppingName</td>
-                                <td>@customTopping.CustomItemToppingQuantity</td>
-                                <td>@(customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) xd</td>
+                                    <div>
+                                        <span>@customTopping.Topping.ToppingName</span>
+                                    </div>
                                 }
                             </td>
-                            <td>@item.ItempurchaseItem.Item.ItemPrice.ToString()</td>
+                            <td>
+                                @foreach (var customTopping in item.ItempurchaseItem.Customitemtoppings)
+                                {
+                                    <div>
+                                        <span>@customTopping.CustomItemToppingQuantity</span>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @foreach (var customTopping in item.ItempurchaseItem.Customitemtoppings)
+                                {
+                                    <div>
+                                        <span>@customTopping.Topping.ToppingPrice</span>
+                                    </div>
+                                }
+                            </td>
+
+                            <td>
+                                @{
+                                    decimal totalToppingsPrice = item.ItempurchaseItem.Customitemtoppings.Sum(customTopping => customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) ?? 0;
+                                }
+                                @totalToppingsPrice.ToString("C")
+                            </td>
+                            <td>
+                                @{
+                                    decimal basePrice = item.ItempurchaseItem.Item.ItemPrice ?? 0;
+                                }
+                                @basePrice.ToString("C")
+                            </td>
+
+                            <td>
+                                @{
+                                    decimal totalPrice = basePrice + totalToppingsPrice;
+                                }
+                                @totalPrice.ToString("C")
+                            </td>
                         </tr>
                     }
                     <tr>
                         <td><b>Total</b></td>
-                        <td><b>@TaxAmount.ToString("C")</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><b>@PaymentAmount.ToString("C")</b></td>
                     </tr>
                 </tbody>
             </table>
+
 
             <h3 class="mb-5">Checkout</h3>
             <div class="row">
