@@ -10,7 +10,7 @@ namespace Bakery.WebApp.Services
     public class EmailService(IConfiguration config) : IEmailService
     {
 
-        public async Task SendEmailAsync(string ReceiverEmail, string identifier, List<Itempurchase>? itempurchases)
+        public async Task SendEmailAsync(string ReceiverEmail, List<Itempurchase>? itempurchases)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Auto Emailer", config["googleAccount"]));

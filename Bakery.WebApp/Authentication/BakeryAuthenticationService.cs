@@ -8,7 +8,7 @@ public class BakeryAuthenticationService : IBakeryAutheticationService
 {
     public BakeryAuthenticationService(IUserService _userService) { this._userService = _userService; }
     private IUserService _userService { get; set; }
-    private User? authenticatedUser {get; set;}
+    public User? authenticatedUser {get; set;}
     public async Task<User> RegisterUserAsync(string email, string name, string surname)
     {
         User newUser = new()

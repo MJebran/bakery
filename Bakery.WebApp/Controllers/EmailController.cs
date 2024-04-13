@@ -17,7 +17,7 @@ namespace Bakery.WebApp.Controllers
         [HttpPost("postemail")]
         public async Task SendEmail(string receiverEmail, string identifier, List<Itempurchase>? itempurchases)
         {
-            await emailSender.SendEmailAsync(receiverEmail, identifier, itempurchases);
+            await emailSender.SendEmailAsync(receiverEmail, itempurchases);
         }
     }
 }

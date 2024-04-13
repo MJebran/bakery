@@ -1,6 +1,9 @@
 using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Authentication;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System.Collections.Immutable;
 
@@ -11,6 +14,8 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public IJSRuntime Js { get; set; }
+    public IEmailService _emailservice { get; set; }
+    public BakeryAuthenticationService _authentification { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
@@ -76,5 +81,9 @@ public class CheckoutBase : ComponentBase
             await module.InvokeVoidAsync("initialisePayPal");
         }
 
+    }
+    public async Task Purchase()
+    {
+        await _emailservice.SendEmailAsync(_authentification.authenticatedUser.UserEmail, itempurchases);
     }
 }
