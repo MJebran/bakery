@@ -2,11 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Authentication;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
-using System.Collections.Immutable;
-using Bakery.WebApp.Authentication;
 
 namespace Bakery.WebApp.Logic;
 public class CheckoutBase : ComponentBase
@@ -14,13 +10,13 @@ public class CheckoutBase : ComponentBase
     private IJSObjectReference? module;
 
     [Inject]
-    public IJSRuntime Js { get; set; }
+    public IJSRuntime? Js { get; set; }
 
     [Inject]
-    public IEmailService _emailservice { get; set; }
+    public IEmailService? _emailservice { get; set; }
 
     [Inject]    
-    public IBakeryAutheticationService _authenticationservice { get; set; }
+    public IBakeryAutheticationService? _authenticationservice { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
@@ -41,7 +37,7 @@ public class CheckoutBase : ComponentBase
 
         try
         {
-            itempurchases = (await _purchaseservice.GetAllPurchase()).Where(p => p.PurchaseId == PurchaseId).FirstOrDefault().Itempurchases.ToList<Itempurchase>();
+            itempurchases = (await _purchaseservice!.GetAllPurchase()).Where(p => p.PurchaseId == PurchaseId).FirstOrDefault()?.Itempurchases.ToList<Itempurchase>();
 
             if (itempurchases != null && itempurchases.Count() > 0)
             {
@@ -89,8 +85,7 @@ public class CheckoutBase : ComponentBase
     }
     public async Task Purchase()
     {
-        //Esto es lo que te digo, osea _emailService esta nulo tengo que ponerlo en iniatization?
-        var User = _authenticationservice.GetAuthenticatedUser();
-        await _emailservice.SendEmailAsync(User.UserEmail ?? throw new Exception("user email not found"), itempurchases);
+        var User = _authenticationservice!.GetAuthenticatedUser();
+        await _emailservice!.SendEmailAsync(User?.UserEmail ?? throw new Exception("user email not found"), itempurchases);
     }
 }

@@ -2,11 +2,11 @@
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Services
+@using Bakery.WebApp.Logic
+@inherits ItemDescriptionBase
 @inject IItemTypeService _itemservice
 @rendermode InteractiveServer
 
-@if(ItemToDisplay is not null)
-{
 <div>
     <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{ItemToDisplay.ItemName.Replace(" ", "")}")"/>
     <div class=size-container>S</div>
@@ -22,15 +22,5 @@
         <div>@ItemToDisplay.ItemPrice</div>
     </div>
 </div>
-}
 
-@code {
-    [Parameter]
-    public string? ItemId {get; set;}
-    public Itemtype? ItemToDisplay {get; set;}
-    protected override async Task OnInitializedAsync()
-    {
-        var items = (await _itemservice.GetAllItemtypes()).ToList<Itemtype>();
-        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId??"")).First<Itemtype>();
-    }
-}
+    using Bakery.WebApp.Logic;

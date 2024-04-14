@@ -53,51 +53,9 @@
 <div class="topnav">
     <a class="active" href="#home">Home</a>
     <a href="/menuContents">Menu</a>
-    @if(user is not null && user.UserRole.RoleName == "admin")
+    @if(_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
     {
         <a href="managerDashboard">Upload</a>
     }
     <LoginControl/>
 </div>
-
-
-
-<style>
-    /* Add a black background color to the top navigation */
-    .topnav {
-        background-color: #ffffff;
-        overflow: hidden;
-    }
-
-        /* Style the links inside the navigation bar */
-        .topnav a {
-            float: left;
-            color: #ed95ab;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-            /* Change the color of links on hover */
-            .topnav a:hover {
-                background-color: #ed95ab;
-                color: #f2f2f2;
-            }
-
-            /* Add a color to the active/current link */
-            .topnav a.active {
-                background-color: #ed95ab;
-                color: white;
-            }
-</style>
-
-
-@code{
-    User? user {get; set;}
-    protected override void OnInitialized()
-    {
-        user = _authenticationService.GetAuthenticatedUser();
-    }
-}
-

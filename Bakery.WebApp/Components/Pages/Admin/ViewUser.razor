@@ -1,6 +1,8 @@
 @using Bakery.ClassLibrary.Services
 @using Bakery.WebApp.Data
 @using Bakery.WebApp.Services
+@using Bakery.WebApp.Logic
+@inherits ViewUserBase
 @inject IUserService _userService
 @inject NavigationManager _navigationManager
 @rendermode InteractiveServer
@@ -40,18 +42,3 @@
         }
     </tbody>
 </table>
-
-
-
-@code {
-    List<User> users { get; set; } = new();
-    protected override async Task OnInitializedAsync()
-    {
-        users = (await _userService.GetAllUsers()).ToList<User>();
-    }
-    private async Task DeleteUser(User userToDelete)
-    {
-        await _userService.DeleteUser(userToDelete.UserId);
-        _navigationManager.Refresh();
-    }
-}

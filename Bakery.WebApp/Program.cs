@@ -32,7 +32,6 @@ builder.Services
     .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
     .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
-    .AddSingleton<MenuContentsLogic>()
     .AddSingleton<IBlobStorageService, BlobService>()
     .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
     .AddScoped<HttpClient>()

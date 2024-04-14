@@ -1,18 +1,46 @@
+    /* Add a black background color to the top navigation */
+    .topnav {
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #ed95ab;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        background-color: #ed95ab;
+        color: #f2f2f2;
+    }
+
+    /* Add a color to the active/current link */
+    .topnav a.active {
+        background-color: #ed95ab;
+        color: white;
+    }
+
+    /*Humburger css*/
 
 
-/*Humburger css*/
-
-
-/*body {
+    /*body {
     margin: 0;
     padding: 0;*/
     /* make it look decent enough */
     /*background: #232323;
     color: #cdcdcd;
     font-family: "Avenir Next", "Avenir", sans-serif;
-    display: inline-block;*/ /* Make the hamburger inline */
-    /*margin-right: 20px;*/ /* Add some space between hamburger and cart */
-/*}
+    display: inline-block;*/
+    /* Make the hamburger inline */
+    /*margin-right: 20px;*/
+    /* Add some space between hamburger and cart */
+    /*}
 
 #menuToggle {
     display: relative;
@@ -43,10 +71,12 @@
         top: -7px;
         left: -5px;
         cursor: pointer;
-        opacity: 0;*/ /* hide this */
-        /*z-index: 2;*/ /* and place it over the hamburger */
+        opacity: 0;*/
+    /* hide this */
+    /*z-index: 2;*/
+    /* and place it over the hamburger */
 
-        /*-webkit-touch-callout: none;
+    /*-webkit-touch-callout: none;
     }*/
 
     /*
@@ -83,26 +113,26 @@
         background: #232323;
     }*/
 
-        /*
+    /*
  * But let's hide the middle one.
  */
-        /*#menuToggle input:checked ~ span:nth-last-child(3) {
+    /*#menuToggle input:checked ~ span:nth-last-child(3) {
             opacity: 0;
             transform: rotate(0deg) scale(0.2, 0.2);
         }*/
 
-        /*
+    /*
  * Ohyeah and the last one should go the other direction
  */
-        /*#menuToggle input:checked ~ span:nth-last-child(2) {
+    /*#menuToggle input:checked ~ span:nth-last-child(2) {
             transform: rotate(-45deg) translate(0, -1px);
         }*/
 
-/*
+    /*
  * Make this absolute positioned
  * at the top left of the screen
  */
-/*#menu {
+    /*#menu {
     position: absolute;
     width: 300px;
     margin: -100px 0 0 -50px;
@@ -123,17 +153,19 @@
         font-size: 22px;
     }*/
 
-/*
+    /*
  * And let's slide it in from the left
  */
-/*#menuToggle input:checked ~ ul {
+    /*#menuToggle input:checked ~ ul {
     transform: none;
 }*/
 
-/* Cart CSS */
-/*.btn-cart {
-    display: inline-block;*/ /* Make the cart inline */
-    /*align-items: center;*/ /* Align items vertically */
+    /* Cart CSS */
+    /*.btn-cart {
+    display: inline-block;*/
+    /* Make the cart inline */
+    /*align-items: center;*/
+    /* Align items vertically */
     /*justify-content: center;
     width: 50px;
     height: 50px;
@@ -141,8 +173,9 @@
     border: none;
     background-color: transparent;
     position: relative;
-    margin-right: 20px;*/ /* Add some space between hamburger and cart */
-/*}*/
+    margin-right: 20px;*/
+    /* Add some space between hamburger and cart */
+    /*}*/
 
     /* Adjust the position of the quantity indicator */
     /*.btn-cart::after {
@@ -156,11 +189,12 @@
         opacity: 0;
         visibility: hidden;
         transition: .2s linear;
-        top: calc(100% + 5px);*/ /* Adjust top position */
+        top: calc(100% + 5px);*/
+    /* Adjust top position */
     /*}*/
 
-/* Adjust the position of the cart button icon */
-/*.icon-cart {
+    /* Adjust the position of the cart button icon */
+    /*.icon-cart {
     width: 24.38px;
     height: 30.52px;
     transition: .2s linear;
@@ -172,8 +206,8 @@
         transition: .2s linear;
     }*/
 
-/* Scale the icon on hover */
-/*.btn-cart:hover > .icon-cart {
+    /* Scale the icon on hover */
+    /*.btn-cart:hover > .icon-cart {
     transform: scale(1.2);
 }*/
 
@@ -182,30 +216,15 @@
         fill: rgb(255, 255, 255);
     }*/
 
-/* Show the quantity indicator on hover */
-/*.btn-cart:hover::after {
+    /* Show the quantity indicator on hover */
+    /*.btn-cart:hover::after {
     visibility: visible;
     opacity: 1;
-    top: calc(100% + 2px);*/ /* Adjust top position */
-/*}*/
+    top: calc(100% + 2px);*/
+    /* Adjust top position */
+    /*}*/
 
-/* Hide the quantity indicator if there's no content */
-/*.quantity {
+    /* Hide the quantity indicator if there's no content */
+    /*.quantity {
     display: none;
 }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

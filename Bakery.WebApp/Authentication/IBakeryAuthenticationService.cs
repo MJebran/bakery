@@ -10,4 +10,5 @@ public interface IBakeryAutheticationService
     Task<bool> IsUserAuthenticatedAsync(string email);
     public bool UserExists();
     User? GetAuthenticatedUser();
+    Role? GetAuthenticatedUserRole();
 }
