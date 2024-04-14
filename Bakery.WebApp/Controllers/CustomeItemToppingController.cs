@@ -1,6 +1,6 @@
 ﻿using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
-using Microsoft.AspNetCore.Http;
+using Bakery.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bakery.WebApp.Controllers
@@ -10,15 +10,15 @@ namespace Bakery.WebApp.Controllers
     public class CustomeItemToppingController : ControllerBase
     {
         ICustomeItemToppingService _service;
-
+        BakeryMapper _mapper = new BakeryMapper();
         public CustomeItemToppingController(ICustomeItemToppingService service)
         {
             _service = service;
         }
         [HttpGet("custometoppingitem")]
-        public async Task<IEnumerable<Customitemtopping>> GetAllAvailableToppings()
+        public async Task<IEnumerable<CustomitemtoppingDTO>> GetAllAvailableToppings()
         {
-            return await _service.GetAllCustomeItemTopping();
+            return (await _service.GetAllCustomeItemTopping()).Select(cit => _mapper.CustomItemToppingToCustomItemToppingDto(cit));
         }
 
         [HttpPost("add/custometoppingItem")]

@@ -1,6 +1,6 @@
 ﻿using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
-using Microsoft.AspNetCore.Http;
+using Bakery.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bakery.WebApp.Controllers
@@ -10,6 +10,8 @@ namespace Bakery.WebApp.Controllers
     public class ItemTypeController : ControllerBase
     {
         IItemTypeService _service;
+        BakeryMapper _mapper = new BakeryMapper();
+
         public ItemTypeController(IItemTypeService service)
         {
             _service = service;
@@ -17,9 +19,9 @@ namespace Bakery.WebApp.Controllers
 
         [HttpGet("itemtypes")]
 
-        public async Task<IEnumerable<Itemtype>> GetAllItemTypeAsync()
+        public async Task<IEnumerable<ItemtypeDTO>> GetAllItemTypeAsync()
         {
-            return await _service.GetAllItemtypes();
+            return (await _service.GetAllItemtypes()).Select(it => _mapper.ItemTypeToItemTypeDto(it));
         }
 
         [HttpPost("add/itemtype")]

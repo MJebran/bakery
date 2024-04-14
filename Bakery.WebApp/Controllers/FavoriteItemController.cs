@@ -10,21 +10,22 @@ namespace Bakery.WebApp.Services
     public class FavoriteItemController : ControllerBase
     {
         IFavoriteItemService _service;
+        BakeryMapper _mapper = new BakeryMapper();
         public FavoriteItemController(IFavoriteItemService service)
         {
             _service = service;
         }
         [HttpGet("favoritieitems")]
-        public async Task<IEnumerable<Favoriteitem>> GetAllFavoriteItems()
+        public async Task<IEnumerable<FavoriteitemDTO>> GetAllFavoriteItems()
         {
-            return await _service.GetAllFavoriteitem();
+            return (await _service.GetAllFavoriteitem()).Select(fi => _mapper.FavoriteItemToFavoriteItemDto(fi));
         }
 
         [HttpGet("favoriteitem/{id}")]
 
-        public async Task<Favoriteitem> GetFavoriteItem(int id)
+        public async Task<FavoriteitemDTO> GetFavoriteItem(int id)
         {
-            return await _service.GetFavoriteitemById(id);
+            return _mapper.FavoriteItemToFavoriteItemDto(await _service.GetFavoriteitemById(id));
         }
         [HttpPost("add/favoriteitem")]
 

@@ -9,6 +9,7 @@ namespace Bakery.WebApp.Services
     public class ItemPurchaseController : ControllerBase
     {
         IItemPurchaseService _service;
+        BakeryMapper _mapper = new BakeryMapper();
 
         public ItemPurchaseController(IItemPurchaseService service)
         {
@@ -16,15 +17,15 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpGet("itempurchases")]
-        public async Task<IEnumerable<Itempurchase>> GetAllItemPurchasesAsync()
+        public async Task<IEnumerable<ItempurchaseDTO>> GetAllItemPurchasesAsync()
         {
-            return await _service.GetAllItempurchase();
+            return (await _service.GetAllItempurchase()).Select(ip => _mapper.ItemPurchaseToItemPurchaseDto(ip));
         }
 
         [HttpGet("itempurchase/{id}")]
-        public async Task<Itempurchase> GetItemPurchaseByIdAsync(int id)
+        public async Task<ItempurchaseDTO> GetItemPurchaseByIdAsync(int id)
         {
-            return await _service.GetItempurchaseById(id);
+            return _mapper.ItemPurchaseToItemPurchaseDto(await _service.GetItempurchaseById(id));
         }
 
         [HttpPost("add/itempurchase")]

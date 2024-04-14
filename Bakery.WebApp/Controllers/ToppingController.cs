@@ -10,15 +10,16 @@ namespace Bakery.WebApp.Services
     public class ToppingController : ControllerBase
     {
         IToppingService _service;
+        BakeryMapper _mapper = new BakeryMapper();
         public ToppingController(IToppingService service)
         {
             _service = service;
         }
 
         [HttpGet("toppings")]
-        public async Task<IEnumerable<Topping>> GetAllAvailableToppings()
+        public async Task<IEnumerable<ToppingDTO>> GetAllAvailableToppings()
         {
-            return await _service.GetAllToppings();
+            return (await _service.GetAllToppings()).Select(t => _mapper.ToppingToToppingDto(t));
         }
 
         [HttpPost("add/topping")]

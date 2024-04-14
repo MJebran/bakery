@@ -10,22 +10,22 @@ namespace Bakery.WebApp.Services
     public class CustomItemController : ControllerBase
     {
         ICustomItemService _service; 
-
+        BakeryMapper _mapper = new BakeryMapper();
         public CustomItemController(ICustomItemService service) // is for linking 
         {
             _service = service;
         }
 
         [HttpGet("customitems")]
-        public async Task<IEnumerable<Customitem>> GetALLCustomItemsAsync()
+        public async Task<IEnumerable<CustomItemDTO>> GetALLCustomItemsAsync()
         {
-            return await _service.GetAllCustomitem();
+            return (await _service.GetAllCustomitem()).Select(ci => _mapper.CustomItemToCustomItemDto(ci));
         }
 
         [HttpGet("customitem/{id}")]
-        public async Task<Customitem> GetCustomItemByIdAsync(int id)
+        public async Task<CustomItemDTO> GetCustomItemByIdAsync(int id)
         {
-            return await _service.GetCustomeItemById(id);
+            return _mapper.CustomItemToCustomItemDto(await _service.GetCustomeItemById(id));
         }
 
         [HttpPost("add/customitem")]

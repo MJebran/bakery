@@ -10,15 +10,16 @@ namespace Bakery.WebApp.Services
     public class UserController : ControllerBase
     {
         IUserService _service;
+        BakeryMapper _mapper = new BakeryMapper();
         public UserController(IUserService service)
         {
             _service = service;
         }
 
         [HttpGet("users")]
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            return await _service.GetAllUsers();
+            return (await _service.GetAllUsers()).Select(u => _mapper.UserToUserDto(u));
         }
 
         [HttpPost("/add/user")]

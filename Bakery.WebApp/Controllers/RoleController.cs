@@ -10,6 +10,7 @@ namespace Bakery.WebApp.Services
     public class RoleController : ControllerBase
     {
         IRoleService _service;
+        BakeryMapper _mapper = new BakeryMapper();
 
         public RoleController(IRoleService service)
         {
@@ -17,13 +18,9 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpGet("roles")]
-        public async Task<IEnumerable<Role>> GetRolesAsync() 
+        public async Task<IEnumerable<RoleDTO>> GetRolesAsync() 
         {
-            return await _service.GetAllRoles();
+            return (await _service.GetAllRoles()).Select(r => _mapper.RoleToRoleDto(r));
         }
-
-
-
-
     }
 }

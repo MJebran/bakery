@@ -11,15 +11,16 @@ namespace Bakery.WebApp.Services
     public class SizeController : ControllerBase
     {
         ISizeService _service;
+        BakeryMapper _mapper = new BakeryMapper();
         public SizeController(ISizeService services)
         {
             _service = services;
         }
 
         [HttpGet("sizes")]
-        public async Task<IEnumerable<Size>> GetAllAvailableSizes()
+        public async Task<IEnumerable<SizeDTO>> GetAllAvailableSizes()
         {
-            return await _service.GetAllSizes();
+            return (await _service.GetAllSizes()).Select(s => _mapper.SizeToSizeDto(s));
         }
 
         [HttpPost("add/size")]

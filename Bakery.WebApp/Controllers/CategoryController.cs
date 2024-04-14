@@ -10,15 +10,17 @@ namespace Bakery.WebApp.Services
     public class CategoryController : ControllerBase
     {
         ICategoryService _service;
+        BakeryMapper _mapper = new BakeryMapper();
+
         public CategoryController(ICategoryService services)
         {
             _service = services;
         }
 
         [HttpGet("categories")]
-        public async Task<IEnumerable<Category>> GetAllAvailableCategories()
+        public async Task<IEnumerable<CategoryDTO>> GetAllAvailableCategories()
         {
-            return await _service.GetAllCategories();
+            return (await _service.GetAllCategories()).Select(c => _mapper.CategoryToCategoryDto(c));
         }
 
         [HttpPost("add/category")]
