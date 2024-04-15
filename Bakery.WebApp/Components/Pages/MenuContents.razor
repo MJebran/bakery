@@ -34,13 +34,12 @@
     <div class="categories">
         <!-- Control buttons -->
         <div id="myBtnContainer">
-            <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter
-                All</button>
+            <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter All</button>
             @foreach (var category in categories)
             {
-                <button class="btn" @onclick="() => FilterSelection(category.CategoryName)">
+                <button class="btn" id="cat-cont " @onclick="() => FilterSelection(category.CategoryName)">
                     @category.CategoryName
-                    <div class="@category.CategoryName"></div>
+                    <div style="background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(category.CategoryName.ToLower()).png);" class="@category.CategoryName"></div>
                 </button>
             }
             <!-- The filterable elements -->

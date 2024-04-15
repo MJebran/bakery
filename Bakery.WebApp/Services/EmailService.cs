@@ -91,7 +91,7 @@ namespace Bakery.WebApp.Services
 
             bodyBuilder.HtmlBody += $@"</tbody>
             </table>
-            <p>-- TicketUR</p>
+            <p>-- Kakey Bakery</p>
         </body>
     </html>";
 
