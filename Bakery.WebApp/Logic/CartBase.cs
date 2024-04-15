@@ -87,14 +87,8 @@ public class CartBase : ComponentBase
 		{
 			foreach (var item in itemPurchaseToQuantity)
 			{
-				var itemQuantity = item.Value;
-
 				decimal pricePerItem = 0;
-
-				pricePerItem += ComputeTotalForItem(item.Key);
-				pricePerItem += ComputeTotalForToppings(item.Key.ItempurchaseItem.Customitemtoppings);
-				pricePerItem *= itemQuantity;
-				
+				pricePerItem += ComputeTotalForItem(item.Key, item.Value);	
 				total += pricePerItem;
 			}
 		}
@@ -114,11 +108,12 @@ public class CartBase : ComponentBase
 		return total;
 	}
 
-	protected decimal ComputeTotalForItem(Itempurchase itempurchase)
+	protected decimal ComputeTotalForItem(Itempurchase itempurchase, int itemQuantity)
 	{
 		decimal total = 0;
-
 		total += itempurchase.ItempurchaseItem.Item.ItemPrice ?? 0;
+		total += ComputeTotalForToppings(itempurchase.ItempurchaseItem.Customitemtoppings);
+		total *= itemQuantity;
 
 		return total;
 	}
