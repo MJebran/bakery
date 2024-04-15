@@ -9,7 +9,7 @@ public class MenuContentsBase : ComponentBase
     protected List<Size> sizes { get; set; } = new();
     protected List<Category> categories { get ; set; } = new();
     protected List<Itemtype> items { get; set; } = new();
-    protected List<Itemtype> filterItems { get; set; } = new();
+    public List<Itemtype> filterItems { get; set; } = new();
 
     [Inject]
     IItemTypeService? _itemservice {get; set;}
@@ -27,7 +27,7 @@ public class MenuContentsBase : ComponentBase
         FilterSelection();
     }
 
-    protected void FilterSelection(string category = "all")
+    public void FilterSelection(string category = "all")
     {
         if(category == "all")
         {

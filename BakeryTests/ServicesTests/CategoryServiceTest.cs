@@ -1,8 +1,7 @@
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
-using BakeryTests;
-using System.Net.Http.Json;
 
+namespace BakeryTests.ServiceTests;
 class CategoryServiceTest : ICategoryService
 {
     public List<Category> categories {get; set;}
@@ -13,11 +12,12 @@ class CategoryServiceTest : ICategoryService
     public async Task AddCategory(Category category)
     {
         categories.Add(category);
-
+        await Task.CompletedTask;
     }
 
     public async Task<IEnumerable<Category>> GetAllCategories()
     {
+        await Task.CompletedTask;
         return categories;
     }
 }

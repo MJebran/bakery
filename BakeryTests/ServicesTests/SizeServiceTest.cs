@@ -1,7 +1,6 @@
 using Bakery.ClassLibrary.Services;
-using Bakery.WebApp.Data;
-using BakeryTests;
-using System.Net.Http.Json;
+
+namespace BakeryTests.ServiceTests;
 
 class SizeServiceTest : ISizeService
 {
@@ -13,10 +12,12 @@ class SizeServiceTest : ISizeService
     public async Task AddSize(Bakery.WebApp.Data.Size size)
     {
         sizes.Add(size);
+        await Task.CompletedTask;
     }
 
     public async Task<IEnumerable<Bakery.WebApp.Data.Size>> GetAllSizes()
     {
+        await Task.CompletedTask;
         return sizes;
     }
 }
