@@ -5,79 +5,120 @@ using Microsoft.AspNetCore.Components;
 namespace Bakery.WebApp.Logic;
 public class CartBase : ComponentBase
 {
-    [Parameter]
+	[Parameter]
 	public string? cartId { get; set; }
 
-    [Inject]
-    IItemPurchaseService? _itemPurchaseService {get; set;}
+	[Inject]
+	IItemPurchaseService? _itemPurchaseService { get; set; }
 
-    [Inject]
-    ICustomItemService? _customItemService {get; set;}
+	[Inject]
+	ICustomItemService? _customItemService { get; set; }
 
-    [Inject]
-    ICustomeItemToppingService? _customItemToppingService {get; set;}
+	[Inject]
+	ICustomeItemToppingService? _customItemToppingService { get; set; }
 
-    [Inject]
-    NavigationManager? NavigationManager {get; set;}
+	[Inject]
+	NavigationManager? NavigationManager { get; set; }
 	List<Itempurchase>? userPurchases { get; set; }
-	public Dictionary<Itempurchase, int>? itemPurchaseQuantity { get; set; } = new();
+	public Dictionary<Itempurchase, int> itemPurchaseToQuantity { get; set; } = new();
+	bool HasAtLeastOneInCart(Itempurchase itempurchase) => itemPurchaseToQuantity?[itempurchase] > 1;
 
 	protected override async Task OnInitializedAsync()
 	{
 		var purchases = (await _itemPurchaseService!.GetAllItempurchase()).ToList();
-		userPurchases = purchases.Where(c => c.PurchaseId == Int32.Parse(cartId ?? "")).ToList();
+		userPurchases = purchases.Where(c => c.PurchaseId == int.Parse(cartId ?? "")).ToList();
 
 		foreach (var purchaseItem in userPurchases)
 		{
-			itemPurchaseQuantity?.Add(purchaseItem, 1);
+			itemPurchaseToQuantity.Add(purchaseItem, 1);
 		}
 	}
 
 	protected void DecreasingAmountItem(Itempurchase itempurchase)
 	{
-		if (itemPurchaseQuantity?[itempurchase] > 1)
+		if (HasAtLeastOneInCart(itempurchase))
 		{
-			itemPurchaseQuantity[itempurchase] -= 1;
+			itemPurchaseToQuantity[itempurchase] -= 1;
 		}
 	}
 
 	protected void IncreasingAmountItem(Itempurchase itempurchase)
 	{
-		if (itemPurchaseQuantity is not null)
-		{
-			itemPurchaseQuantity[itempurchase] += 1;
-		}
+		itemPurchaseToQuantity[itempurchase] += 1;
 	}
 
 	protected async Task RemoveFromCart(Itempurchase itempurchase)
 	{
-		await _itemPurchaseService!.DeleteItempurchase(itempurchase.ItempurchaseId);
-		foreach (var customtopping in itempurchase.ItempurchaseItem.Customitemtoppings)
-		{
-			await _customItemToppingService!.DeleteCustomeItemTopping(customtopping.CustomItemToppingId);
-		}
-		await _customItemService!.DeleteCustomitem(itempurchase.ItempurchaseItem.CustomItemId);
+		await DeleteItemPurchase(itempurchase);
+		await DeleteCustomItemToppings(itempurchase.ItempurchaseItem.Customitemtoppings);
+		await DeleteCustomItem(itempurchase.ItempurchaseItem.CustomItemId);
 
-		NavigationManager!.NavigateTo($"/cart/{itempurchase.PurchaseId}", forceLoad: true);
+		RefreshCartPage(itempurchase.PurchaseId);
+	}
+
+	private async Task DeleteItemPurchase(Itempurchase itempurchase)
+	{
+		await _itemPurchaseService!.DeleteItempurchase(itempurchase.ItempurchaseId);
+	}
+
+	private async Task DeleteCustomItemToppings(IEnumerable<Customitemtopping> customToppings)
+	{
+		foreach (var customTopping in customToppings)
+		{
+			await _customItemToppingService!.DeleteCustomeItemTopping(customTopping.CustomItemToppingId);
+		}
+	}
+
+	private async Task DeleteCustomItem(int customItemId)
+	{
+		await _customItemService!.DeleteCustomitem(customItemId);
+	}
+
+	private void RefreshCartPage(int purchaseId)
+	{
+		NavigationManager!.NavigateTo($"/cart/{purchaseId}", forceLoad: true);
 	}
 
 	protected decimal ComputeTotal()
 	{
 		decimal total = 0;
 
-		if (itemPurchaseQuantity is not null)
+		if(itemPurchaseToQuantity is not null)
 		{
-			foreach (var item in itemPurchaseQuantity)
+			foreach (var item in itemPurchaseToQuantity)
 			{
-				var pricePerItem = item.Key.ItempurchaseItem.Item.ItemPrice;
-				foreach (var topping in item.Key.ItempurchaseItem.Customitemtoppings)
-				{
-					pricePerItem += topping.CustomItemToppingQuantity * topping.Topping.ToppingPrice;
-				}
-				pricePerItem *= item.Value;
-				total += pricePerItem ?? 0m;
+				var itemQuantity = item.Value;
+
+				decimal pricePerItem = 0;
+
+				pricePerItem += ComputeTotalForItem(item.Key);
+				pricePerItem += ComputeTotalForToppings(item.Key.ItempurchaseItem.Customitemtoppings);
+				pricePerItem *= itemQuantity;
+				
+				total += pricePerItem;
 			}
 		}
+
+		return total;
+	}
+
+	protected decimal ComputeTotalForToppings(IEnumerable<Customitemtopping> toppings)
+	{
+		decimal total = 0;
+
+		foreach (var topping in toppings)
+		{
+			total += topping.CustomItemToppingQuantity ?? 0 * topping.Topping.ToppingPrice ?? 0;
+		}
+
+		return total;
+	}
+
+	protected decimal ComputeTotalForItem(Itempurchase itempurchase)
+	{
+		decimal total = 0;
+
+		total += itempurchase.ItempurchaseItem.Item.ItemPrice ?? 0;
 
 		return total;
 	}

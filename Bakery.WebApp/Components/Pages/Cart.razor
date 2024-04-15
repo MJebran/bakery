@@ -10,10 +10,10 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-@if (itemPurchaseQuantity != null && itemPurchaseQuantity.Count() > 0)
+@if (itemPurchaseToQuantity != null && itemPurchaseToQuantity.Count() > 0)
 {
 	<div class="item-itemcnt">
-	@foreach (var itemToPurchase in itemPurchaseQuantity)
+	@foreach (var itemToPurchase in itemPurchaseToQuantity)
 		{
 			<div class="item-cnt">
 				<div class="item-img">
