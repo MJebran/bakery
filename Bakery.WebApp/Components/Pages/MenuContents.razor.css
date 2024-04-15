@@ -205,80 +205,83 @@
     background-position: center;
 }
 
-.Cake {
+#cat-cont button div {
     border-radius: 50%;
     background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
     width: 79.5px;
     height: 79.5px;
     position: absolute;
     left: 9px;
-    /* Adjust according to your preference */
     top: 15px;
-    /* Adjust according to your preference */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .Cake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
     background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
-.Cupcake {
+/* .Cupcake {
     border-radius: 50%;
     background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
     width: 79.5px;
     height: 79.5px;
     position: absolute;
     left: 9px;
-    /* Adjust according to your preference */
     top: 15px;
-    /* Adjust according to your preference */
     background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
-.Slidecake {
+/* .Slidecake {
     border-radius: 50%;
     background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
     width: 79.5px;
     height: 79.5px;
     position: absolute;
     left: 9px;
-    /* Adjust according to your preference */
     top: 15px;
-    /* Adjust according to your preference */
     background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
-.Donut {
+/* .Donut {
     border-radius: 50%;
     background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
     width: 79.5px;
     height: 79.5px;
     position: absolute;
     left: 9px;
-    /* Adjust according to your preference */
     top: 15px;
-    /* Adjust according to your preference */
-    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
-.Cookie {
+/* .Cookie {
     border-radius: 50%;
     background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
     width: 79.5px;
     height: 79.5px;
     position: absolute;
     left: 9px;
-    /* Adjust according to your preference */
     top: 15px;
-    /* Adjust according to your preference */
     background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cookies.png);
     background-repeat: no-repeat;
     background-position: center;
-}
+} */
+
 
 .btn:hover {
     background-color: #ddd;
