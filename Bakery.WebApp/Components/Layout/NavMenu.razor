@@ -53,6 +53,7 @@
 <div class="topnav">
     <a class="active" href="#home">Home</a>
     <a href="/menuContents">Menu</a>
+    <a href="/about">About Us</a>
     @if(_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
     {
         <a href="managerDashboard">Upload</a>
