@@ -7,31 +7,41 @@
 @inject IBlobStorageService _blobService
 @rendermode InteractiveServer
 
-<h3>Add a Category</h3>
 
-<EditForm Model="@categoryToAdd" OnValidSubmit="AddCategory" FormName=>
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>
-            Category Name:
-            <InputText @bind-Value="categoryToAdd!.CategoryName" class="form-control"/>
-            <ValidationMessage For="@(() => categoryToAdd!.CategoryName)" class="text-danger"/>
-        </label>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="width: 80%; max-width: 600px; padding: 20px; background-color: #fff; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+
+            <h3 style="text-align: center;">Add a Category</h3>
+
+            <EditForm Model="@categoryToAdd" OnValidSubmit="AddCategory" FormName=>
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>
+                        Category Name:
+                        <InputText @bind-Value="categoryToAdd!.CategoryName" class="form-control"/>
+                        <ValidationMessage For="@(() => categoryToAdd!.CategoryName)" class="text-danger"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Category Description:
+                        <InputText @bind-Value="categoryToAdd!.CategoryDescription" class="form-control"/>
+                        <ValidationMessage For="@(() => categoryToAdd!.CategoryDescription)" class="text-danger"/>          
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Category File:
+                        <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
+                    </label>
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </EditForm>
+
+
+        </div>
     </div>
-    <div class="form-group">
-        <label>
-            Category Description:
-            <InputText @bind-Value="categoryToAdd!.CategoryDescription" class="form-control"/>
-            <ValidationMessage For="@(() => categoryToAdd!.CategoryDescription)" class="text-danger"/>          
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Category File:
-            <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
-        </label>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</EditForm>
+</body>

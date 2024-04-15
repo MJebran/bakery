@@ -9,78 +9,86 @@
 @inject IBlobStorageService _blobService
 @rendermode InteractiveServer
 
-<h3>Add an Item</h3>
+<body> 
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="width: 80%; max-width: 600px; padding: 20px; background-color: #fff; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+            <h3 style="text-align: center;">Add an Item</h3>
 
-<EditForm Model="@itemToAdd" OnValidSubmit="AddItem" FormName=>
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>
-            Item Name:
-            <InputText @bind-Value="itemToAdd!.ItemName" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemName)" class="text-danger"/>
-        </label>
+                <EditForm Model="@itemToAdd" OnValidSubmit="AddItem" FormName=>
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label>
+                            Item Name:
+                            <InputText @bind-Value="itemToAdd!.ItemName" class="form-control"/>
+                            <ValidationMessage For="@(() => itemToAdd!.ItemName)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Price:
+                            <InputNumber @bind-Value="itemToAdd!.ItemPrice" class="form-control"/>
+                            <ValidationMessage For="@(() => itemToAdd!.ItemPrice)" class="text-danger"/>          
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Calories:
+                            <InputNumber @bind-Value="itemToAdd!.ItmeCalories" class="form-control"/>
+                            <ValidationMessage For="@(() => itemToAdd!.ItmeCalories)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Weight:
+                            <InputNumber @bind-Value="itemToAdd!.ItemWeight" class="form-control"/>
+                            <ValidationMessage For="@(() => itemToAdd!.ItemWeight)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Description:
+                            <InputTextArea @bind-Value="itemToAdd!.ItemDescription" class="form-control"/>
+                            <ValidationMessage For="@(() => itemToAdd!.ItemDescription)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Size:
+                            <InputSelect @bind-Value="itemToAdd!.SizeId" class="form-control">
+                                <option value="0">--Select--</option>
+                                @foreach (var size in sizes)
+                                {
+                                    <option value="@size.SizeId">@size.SizeName</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => itemToAdd!.SizeId)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item Category:
+                            <InputSelect @bind-Value="itemToAdd!.CategoryId" class="form-control">
+                                <option value="0">--Select--</option>
+                                @foreach (var category in categories)
+                                {
+                                    <option value=@category.CategoryId>@category.CategoryName</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => itemToAdd!.CategoryId)" class="text-danger"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Item File:
+                            <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
+                        </label>
+                    </div>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>
+                </EditForm>
+
+       </div>   
     </div>
-    <div class="form-group">
-        <label>
-            Item Price:
-            <InputNumber @bind-Value="itemToAdd!.ItemPrice" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemPrice)" class="text-danger"/>          
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Calories:
-            <InputNumber @bind-Value="itemToAdd!.ItmeCalories" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItmeCalories)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Weight:
-            <InputNumber @bind-Value="itemToAdd!.ItemWeight" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemWeight)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Description:
-            <InputTextArea @bind-Value="itemToAdd!.ItemDescription" class="form-control"/>
-            <ValidationMessage For="@(() => itemToAdd!.ItemDescription)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Size:
-            <InputSelect @bind-Value="itemToAdd!.SizeId" class="form-control">
-                <option value="0">--Select--</option>
-                @foreach (var size in sizes)
-                {
-                    <option value="@size.SizeId">@size.SizeName</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => itemToAdd!.SizeId)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item Category:
-            <InputSelect @bind-Value="itemToAdd!.CategoryId" class="form-control">
-                <option value="0">--Select--</option>
-                @foreach (var category in categories)
-                {
-                    <option value=@category.CategoryId>@category.CategoryName</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(() => itemToAdd!.CategoryId)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Item File:
-            <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
-        </label>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</EditForm>
+</body>
+

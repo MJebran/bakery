@@ -7,52 +7,60 @@
 @inject IBlobStorageService _blobService
 @rendermode InteractiveServer
 
-<h3>Add a Topping</h3>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="width: 80%; max-width: 600px; padding: 20px; background-color: #fff; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+       
+            <h3 style="text-align: center;">Add a Topping</h3>
 
-<EditForm Model="@toppingToAdd" OnValidSubmit="AddTopping">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>
-            Topping Name:
-            <InputText @bind-Value="toppingToAdd!.ToppingName" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingName)" class="text-danger"/>
-        </label>
+            <EditForm Model="@toppingToAdd" OnValidSubmit="AddTopping">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>
+                        Topping Name:
+                        <InputText @bind-Value="toppingToAdd!.ToppingName" class="form-control"/>
+                        <ValidationMessage For="@(() => toppingToAdd!.ToppingName)" class="text-danger"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Topping Price:
+                        <InputNumber @bind-Value="toppingToAdd!.ToppingPrice" class="form-control"/>
+                        <ValidationMessage For="@(() => toppingToAdd!.ToppingPrice)" class="text-danger"/>          
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Toppping Calories:
+                        <InputNumber @bind-Value="toppingToAdd!.ToppingCalories" class="form-control"/>
+                        <ValidationMessage For="@(() => toppingToAdd!.ToppingCalories)" class="text-danger"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Topping Weight:
+                        <InputNumber @bind-Value="toppingToAdd!.ToppingWeight" class="form-control"/>
+                        <ValidationMessage For="@(() => toppingToAdd!.ToppingWeight)" class="text-danger"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Topping Unit:
+                        <InputTextArea @bind-Value="toppingToAdd!.ToppingUnit" class="form-control"/>
+                        <ValidationMessage For="@(() => toppingToAdd!.ToppingUnit)" class="text-danger"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Topping File:
+                        <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
+                    </label>
+                </div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </EditForm>
+        
+        </div>
     </div>
-    <div class="form-group">
-        <label>
-            Topping Price:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingPrice" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingPrice)" class="text-danger"/>          
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Toppping Calories:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingCalories" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingCalories)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping Weight:
-            <InputNumber @bind-Value="toppingToAdd!.ToppingWeight" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingWeight)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping Unit:
-            <InputTextArea @bind-Value="toppingToAdd!.ToppingUnit" class="form-control"/>
-            <ValidationMessage For="@(() => toppingToAdd!.ToppingUnit)" class="text-danger"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>
-            Topping File:
-            <InputFile OnChange="@OnInputFileChange" single required class="form-control"/>
-        </label>
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</EditForm>
+</body>
