@@ -12,7 +12,7 @@ public class CategoryUploadBase : ComponentBase
 
     [Inject]
     IBlobStorageService? _blobService {get; set;}
-    public Category? categoryToAdd {get; set;} = new();
+    public Category categoryToAdd {get; set;} = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
     protected List<FileUploadViewModel> fileUploadViewModels = new();

@@ -10,7 +10,12 @@ namespace Bakery.WebApp.Services
         public async Task AddCategory(Category category)
         {
             var context = await dbFactory.CreateDbContextAsync();
-            var value = context.Categories.AddAsync(category);
+
+            var categoryWithMaxId = await context.Categories.OrderByDescending(c => c.CategoryId).FirstOrDefaultAsync();
+            var newId = categoryWithMaxId?.CategoryId + 1;
+            category.CategoryId = newId ?? 0;
+            
+            await context.Categories.AddAsync(category);
             await context.SaveChangesAsync();
         }
 
