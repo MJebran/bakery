@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <None Remove="Components\Layout\LoginControl.razor.css" />
+    <None Remove="Components\Pages\Admin\AdminPage.razor.css" />
+    <None Remove="Components\Pages\Admin\CategoryUpload.razor.css" />
+    <None Remove="Components\Pages\Admin\ItemTypeUpload.razor.css" />
+    <None Remove="Components\Pages\Admin\ToppingUpload.razor.CSS" />
+    <None Remove="Components\Pages\Admin\ViewUser.razor.css" />
     <None Remove="Components\Pages\Home.razor.css" />
     <None Remove="Components\Pages\MenuContents.razor.css" />
     <None Remove="Components\Pages\MenuPage.razor.css" />
@@ -16,6 +21,11 @@
 
   <ItemGroup>
     <Content Include="Components\Layout\LoginControl.razor.css" />
+    <Content Include="Components\Pages\Admin\AdminPage.razor.css" />
+    <Content Include="Components\Pages\Admin\CategoryUpload.razor.css" />
+    <Content Include="Components\Pages\Admin\ItemTypeUpload.razor.css" />
+    <Content Include="Components\Pages\Admin\ToppingUpload.razor.css" />
+    <Content Include="Components\Pages\Admin\ViewUser.razor.css" />
     <Content Include="Components\Pages\Home.razor.css" />
     <Content Include="Components\Pages\MenuContents.razor.css" />
   </ItemGroup>
@@ -31,6 +41,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="MimeKit" Version="4.5.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="Riok.Mapperly" Version="3.5.0" />

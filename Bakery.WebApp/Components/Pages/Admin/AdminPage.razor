@@ -6,12 +6,15 @@
 
 @if( _authenticationService?.GetAuthenticatedUserRole()?.RoleName != "admin"){NavigationManager.NavigateTo("/");}
 
-<h3>Welcome Back @_authenticationService?.GetAuthenticatedUser()?.UserName!</h3>
-
-<button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
-<button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>
-<button @onclick='() => propertyToDisplayed = "Category"'>Add A Category</button>
-<button @onclick='() => propertyToDisplayed = "User"'>View Users</button>
+<div class="container">
+    <h3>Welcome Back @_authenticationService?.GetAuthenticatedUser()?.UserName!</h3>
+    <div class="button-container">
+        <button @onclick='() => propertyToDisplayed = "Item"'>Add An Item</button>
+        <button @onclick='() => propertyToDisplayed = "Topping"'>Add A Topping</button>
+        <button @onclick='() => propertyToDisplayed = "Category"'>Add A Category</button>
+        <button @onclick='() => propertyToDisplayed = "User"'>View Users</button>
+    </div>
+</div>
 
 
 @if(propertyToDisplayed == "Item")
@@ -37,3 +40,4 @@
 @code {
     string propertyToDisplayed {get; set;} = "";
 }
+
