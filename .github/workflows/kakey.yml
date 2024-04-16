@@ -8,19 +8,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: "run integration tests"
         run: |
-          cd ./bakery/BakeryTests/
+          cd ./BakeryTests/
           dotnet test
       - name: "run unit tests"
         run: |
-          cd ./bakery/Bakery.XUnitTests/
+          cd ./Bakery.XUnitTests/
           dotnet test 
       # - name: "run linting"
       #   run: |
-      #     cd ./bakery/
+      #     cd ./
       #     docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn 
       - name: "build warnings fail"
         run: |
-          cd ./bakery/
+          cd ./
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
 
       - name: deploy
