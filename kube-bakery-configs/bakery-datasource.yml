@@ -16,7 +16,7 @@ datasources:
 - name: Loki
   type: loki
   access: proxy
-  url: http://carlos-loki-service:3100
+  url: http://kakey1-loki-service:3100
   basicAuth: false
   version: 1
   editable: false
