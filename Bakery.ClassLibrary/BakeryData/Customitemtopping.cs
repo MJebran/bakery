@@ -10,13 +10,13 @@ public partial class Customitemtopping
     public int CustomItemToppingId { get; set; }
 
     public int? CustomItemToppingQuantity { get; set; }
-    
+
     [ForeignKey(typeof(Customitem))]
     public int CustomItemId { get; set; }
-    
+
     [ForeignKey(typeof(Topping))]
     public int ToppingId { get; set; }
-    
+
     [ManyToOne]
     public virtual Customitem CustomItem { get; set; } = null!;
 

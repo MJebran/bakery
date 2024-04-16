@@ -1,25 +1,44 @@
 name: kakeyProcess
-on: [push] 
-jobs: 
-  DeployingPipeline: 
+on:
+  push:
+jobs:
+  DeployingPipeline:
     runs-on: kakeylabel
-    steps: 
-     - uses: actions/checkout@v4
-     - name: deploy
-       run: |                
-        docker build -t 144.17.92.12:5000/kakey1/kakey1-web:2 .
-        docker push 144.17.92.12:5000/kakey1/kakey1-web:2
+    steps:
+      - uses: actions/checkout@v4
+      - name: "run integration tests"
+        run: |
+          cd ./bakery/BakeryTests/
+          dotnet test
+      - name: "run unit tests"
+        run: |
+          cd ./bakery/Bakery.XUnitTests/
+          dotnet test 
+      # - name: "run linting"
+      #   run: |
+      #     cd ./bakery/
+      #     docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn 
+      - name: "build warnings fail"
+        run: |
+          cd ./bakery/
+          docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
 
-        kubectl delete configmap blazor-web-postgres-init -n kakey1
-        kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
+      - name: deploy
+        run: |                
+          docker build -t 144.17.92.12:5000/kakey1/kakey1-web:2 .
+          docker push 144.17.92.12:5000/kakey1/kakey1-web:2
 
-        cd kube-bakery-configs
+          kubectl delete configmap blazor-web-postgres-init -n kakey1
+          kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
 
-        kubectl delete configmap kakey1-otel-config -n kakey1 || true
-        kubectl -n kakey1 create configmap kakey1-otel-config --from-file=bakery-collector-config.yml
+          cd kube-bakery-configs
 
-        kubectl delete configmap kakey1-grafana-datasource-config -n kakey1 || true
-        kubectl -n kakey1 create configmap kakey1-grafana-datasource-config --from-file=bakery-datasource.yml
-        cd ..
+          kubectl delete configmap kakey1-otel-config -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-otel-config --from-file=bakery-collector-config.yml
 
-        kubectl apply -f kubeBakeryDeploy/
+          kubectl delete configmap kakey1-grafana-datasource-config -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-grafana-datasource-config --from-file=bakery-datasource.yml
+          cd ..
+
+          kubectl apply -f kubeBakeryDeploy/
+

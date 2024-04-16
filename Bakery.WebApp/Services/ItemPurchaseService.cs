@@ -46,7 +46,7 @@ namespace Bakery.WebApp.Services
                 .Include(c => c.ItempurchaseItem)
                 .ThenInclude(i => i.Item)
                 .FirstOrDefaultAsync();
-            return itempurchase;  
+            return itempurchase;
         }
 
         public async Task UpdateItempurchase(int id)

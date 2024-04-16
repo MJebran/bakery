@@ -7,9 +7,9 @@ namespace Bakery.WebApp.Logic;
 public class LoginControlBase : ComponentBase
 {
     [Inject]
-    AuthenticationStateProvider? AuthenticationStateProvider {get; set;}
+    AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
     [Inject]
-    IBakeryAutheticationService? _authenticationService {get; set;}
+    IBakeryAutheticationService? _authenticationService { get; set; }
 
     protected ClaimsPrincipal? User;
     protected string? GivenName;
@@ -17,7 +17,7 @@ public class LoginControlBase : ComponentBase
     protected string? Email;
     protected string? Avatar;
     protected override async Task OnInitializedAsync()
-    {     
+    {
         User = (await AuthenticationStateProvider!.GetAuthenticationStateAsync()).User;
 
         var givenName = User.FindFirst(ClaimTypes.GivenName);
@@ -32,11 +32,11 @@ public class LoginControlBase : ComponentBase
         var email = User.FindFirst(ClaimTypes.Email);
         Email = email?.Value ?? "";
 
-        if(!await _authenticationService!.IsUserAuthenticatedAsync(Email))
+        if (!await _authenticationService!.IsUserAuthenticatedAsync(Email))
         {
-            if(Email != "unknown" && Email != "")
+            if (Email != "unknown" && Email != "")
             {
-                await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);            
+                await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
             }
         }
     }

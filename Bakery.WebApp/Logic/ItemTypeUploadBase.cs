@@ -7,23 +7,23 @@ namespace Bakery.WebApp.Logic;
 public class ItemTypeUploadBase : ComponentBase
 {
     [Inject]
-    IItemTypeService? _itemservice {get; set;}
+    IItemTypeService? _itemservice { get; set; }
 
     [Inject]
-    ICategoryService? _categoryservice {get; set;}
+    ICategoryService? _categoryservice { get; set; }
 
     [Inject]
-    ISizeService? _sizeservice {get; set;}
+    ISizeService? _sizeservice { get; set; }
 
     [Inject]
-    IBlobStorageService? _blobService {get; set;}
+    IBlobStorageService? _blobService { get; set; }
     protected List<Size> sizes = new();
     protected List<Category> categories = new();
-    protected Itemtype? itemToAdd {get; set;} = new();
+    protected Itemtype? itemToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
     protected List<FileUploadViewModel> fileUploadViewModels = new();
-    
+
     protected override async Task OnInitializedAsync()
     {
         sizes = (await _sizeservice!.GetAllSizes()).ToList<Size>();
@@ -36,7 +36,7 @@ public class ItemTypeUploadBase : ComponentBase
     }
     protected async Task AddItem()
     {
-        if(itemToAdd is not null)
+        if (itemToAdd is not null)
         {
             await _itemservice!.AddItemtype(itemToAdd);
 
@@ -45,7 +45,7 @@ public class ItemTypeUploadBase : ComponentBase
     }
     protected async Task OnUploadSubmit()
     {
-        if(selectedFiles is not null)
+        if (selectedFiles is not null)
         {
             foreach (var file in selectedFiles)
             {
@@ -54,16 +54,16 @@ public class ItemTypeUploadBase : ComponentBase
                 if (blobUrl != null)
                 {
                     FileUploadViewModel fileUploadViewModel = new FileUploadViewModel()
-                        {
-                            FileName = trustedFileNameForFileStorage,
-                            FileStorageUrl = blobUrl,
-                            ContentType = file.ContentType,
-                        };
+                    {
+                        FileName = trustedFileNameForFileStorage,
+                        FileStorageUrl = blobUrl,
+                        ContentType = file.ContentType,
+                    };
 
                     fileUploadViewModels.Add(fileUploadViewModel);
                 }
             }
         }
     }
-    
+
 }

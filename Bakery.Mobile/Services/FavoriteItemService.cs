@@ -10,7 +10,7 @@ namespace Bakery.Mobile.Services
         HttpClient client = new HttpClient() { BaseAddress = new Uri("https://kakeybakery.azurewebsites.net/") };
         public async Task AddFavoriteitem(Favoriteitem item)
         {
-            await client.PostAsJsonAsync("api/favoriteitem/add/favoriteitem", item); 
+            await client.PostAsJsonAsync("api/favoriteitem/add/favoriteitem", item);
         }
 
         public async Task DeleteFavoriteitem(int id)
@@ -30,7 +30,7 @@ namespace Bakery.Mobile.Services
 
         public async Task UpdateFavoriteitem(int id)
         {
-            await client.PutAsync($"api/favoriteitem/update/favoriteItem/{id}", new StringContent(""));            
+            await client.PutAsync($"api/favoriteitem/update/favoriteItem/{id}", new StringContent(""));
         }
     }
 }

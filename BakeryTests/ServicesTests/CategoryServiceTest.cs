@@ -4,7 +4,7 @@ using Bakery.WebApp.Data;
 namespace BakeryTests.ServiceTests;
 class CategoryServiceTest : ICategoryService
 {
-    public List<Category> categories {get; set;}
+    public List<Category> categories { get; set; }
     public CategoryServiceTest()
     {
         categories = new();

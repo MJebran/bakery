@@ -5,7 +5,7 @@ namespace BakeryTests.ServiceTests;
 
 public class RoleServiceTest : IRoleService
 {
-    List<Role> roles {get; set;}
+    List<Role> roles { get; set; }
     public RoleServiceTest()
     {
         roles = new();

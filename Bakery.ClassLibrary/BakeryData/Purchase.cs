@@ -15,7 +15,7 @@ public partial class Purchase
 
     [ForeignKey(typeof(Purchase))]
     public int PurchaseUserId { get; set; }
-    
+
     [OneToMany]
     public virtual ICollection<Itempurchase> Itempurchases { get; set; } = new List<Itempurchase>();
 

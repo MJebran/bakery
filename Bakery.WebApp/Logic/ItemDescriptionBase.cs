@@ -6,14 +6,14 @@ namespace Bakery.WebApp.Logic;
 public class ItemDescriptionBase : ComponentBase
 {
     [Inject]
-    IItemTypeService? _itemservice {get; set;}
+    IItemTypeService? _itemservice { get; set; }
 
     [Parameter]
-    public string? ItemId {get; set;}
-    protected Itemtype ItemToDisplay {get; set;} = new();
+    public string? ItemId { get; set; }
+    protected Itemtype ItemToDisplay { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
         var items = (await _itemservice!.GetAllItemtypes()).ToList<Itemtype>();
-        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId??"")).First<Itemtype>();
-    }  
+        ItemToDisplay = items.Where(i => i.ItemTypeId == Int32.Parse(ItemId ?? "")).First<Itemtype>();
+    }
 }

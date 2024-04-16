@@ -1,12 +1,12 @@
 class PayPalExecutedResponse
 {
-    public string id {get; set;}
-    public string intent {get; set;}
-    public string state {get; set;}
-    public string cart {get; set;}
-    public Payer payer {get; set;}
-    public Transaction[] transactions {get; set;}
-    public DateTime create_time {get; set;}
+    public string id { get; set; }
+    public string intent { get; set; }
+    public string state { get; set; }
+    public string cart { get; set; }
+    public Payer payer { get; set; }
+    public Transaction[] transactions { get; set; }
+    public DateTime create_time { get; set; }
     public class Amount
     {
         public string total { get; set; }

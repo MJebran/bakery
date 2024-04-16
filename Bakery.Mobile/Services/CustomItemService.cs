@@ -29,7 +29,7 @@ namespace Bakery.Mobile.Services
         }
 
         public async Task UpdateCustomitem(int id)
-        {          
+        {
             await client.PutAsync($"api/customitem/update/customitem/{id}", new StringContent(""));
         }
     }

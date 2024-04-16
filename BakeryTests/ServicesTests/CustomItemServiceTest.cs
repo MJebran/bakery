@@ -5,7 +5,7 @@ namespace BakeryTests.ServiceTests;
 
 public class CustomItemServiceTest : ICustomItemService
 {
-    public List<Customitem>? customitems {get; set;}
+    public List<Customitem>? customitems { get; set; }
     public CustomItemServiceTest()
     {
         customitems = new();

@@ -9,7 +9,7 @@ namespace Bakery.WebApp.Services
     [ApiController]
     public class CustomItemController : ControllerBase
     {
-        ICustomItemService _service; 
+        ICustomItemService _service;
         BakeryMapper _mapper = new BakeryMapper();
         public CustomItemController(ICustomItemService service) // is for linking 
         {

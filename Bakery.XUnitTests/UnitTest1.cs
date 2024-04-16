@@ -15,7 +15,8 @@ namespace Bakery.XUnitTests
         [Fact]
         public async void ManagerCanAddItemType()
         {
-            Itemtype newItem = new Itemtype() {
+            Itemtype newItem = new Itemtype()
+            {
                 ItemName = "test1",
                 ItemPrice = 1,
                 ItmeCalories = 300,
@@ -53,7 +54,7 @@ namespace Bakery.XUnitTests
 
             mockService.Verify(m => m.DeleteItemtype(newItem.CategoryId));
             Assert.NotNull(newItem);
-           
+
         }
 
         [Fact]

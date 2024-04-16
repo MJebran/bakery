@@ -18,7 +18,7 @@ namespace Bakery.WebApp.Services
         }
 
         [HttpGet("roles")]
-        public async Task<IEnumerable<RoleDTO>> GetRolesAsync() 
+        public async Task<IEnumerable<RoleDTO>> GetRolesAsync()
         {
             return (await _service.GetAllRoles()).Select(r => _mapper.RoleToRoleDto(r));
         }

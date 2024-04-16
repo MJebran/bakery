@@ -16,7 +16,7 @@ namespace BakeryTests
         {
             Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
             Services.AddSingleton<ICategoryService, CategoryServiceTest>();
-            Services.AddSingleton<ISizeService, SizeServiceTest>();    
+            Services.AddSingleton<ISizeService, SizeServiceTest>();
 
             // Arrange
             var cut = RenderComponent<MenuContentsBase>();
@@ -28,7 +28,7 @@ namespace BakeryTests
             var filterItemsCount = cut.Instance.filterItems.Count();
             Assert.Equal(0, filterItemsCount);
         }
-        
+
     }
 
 }

@@ -7,18 +7,18 @@ namespace Bakery.WebApp.Logic;
 public class MenuContentsBase : ComponentBase
 {
     protected List<Size> sizes { get; set; } = new();
-    protected List<Category> categories { get ; set; } = new();
+    protected List<Category> categories { get; set; } = new();
     protected List<Itemtype> items { get; set; } = new();
     public List<Itemtype> filterItems { get; set; } = new();
 
     [Inject]
-    IItemTypeService? _itemservice {get; set;}
+    IItemTypeService? _itemservice { get; set; }
 
     [Inject]
-    ICategoryService? _categoryservice {get; set;}
+    ICategoryService? _categoryservice { get; set; }
 
     [Inject]
-    ISizeService? _sizeservice {get; set;}
+    ISizeService? _sizeservice { get; set; }
     protected override async Task OnInitializedAsync()
     {
         categories = (await _categoryservice!.GetAllCategories()).ToList<Category>();
@@ -29,7 +29,7 @@ public class MenuContentsBase : ComponentBase
 
     public void FilterSelection(string category = "all")
     {
-        if(category == "all")
+        if (category == "all")
         {
             filterItems = items;
         }

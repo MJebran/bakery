@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 namespace BakeryTests.ServiceTests;
 class ItemTypeServiceTest : IItemTypeService
 {
-    List<Itemtype> itemtypes {get; set;}
+    List<Itemtype> itemtypes { get; set; }
     public ItemTypeServiceTest()
     {
         itemtypes = new();
@@ -20,7 +20,7 @@ class ItemTypeServiceTest : IItemTypeService
     public async Task DeleteItemtype(int id)
     {
         var itemToRemove = itemtypes.Where(it => it.ItemTypeId == id).FirstOrDefault();
-        itemtypes.Remove(itemToRemove ?? throw new Exception ("No itemtype to remove"));
+        itemtypes.Remove(itemToRemove ?? throw new Exception("No itemtype to remove"));
         await Task.CompletedTask;
     }
 

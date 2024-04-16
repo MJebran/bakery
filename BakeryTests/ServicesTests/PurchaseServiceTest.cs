@@ -5,7 +5,7 @@ namespace BakeryTests.ServiceTests;
 
 public class PurchaseServiceTest : IPurchaseService
 {
-    List<Purchase> purchases {get; set;}
+    List<Purchase> purchases { get; set; }
     public PurchaseServiceTest()
     {
         purchases = new();

@@ -138,11 +138,11 @@ public class CustomizeItemBase : ComponentBase
         await AddCustomItemToppings(userCustomItem);
 
         await _itemPurchaseService!.AddItempurchase(new Itempurchase()
-            {
-                ItempurchaseQuantity = 1,
-                PurchaseId = userCart?.PurchaseId ?? 0,
-                ItempurchaseItemId = userCustomItem.CustomItemId
-            });
+        {
+            ItempurchaseQuantity = 1,
+            PurchaseId = userCart?.PurchaseId ?? 0,
+            ItempurchaseItemId = userCustomItem.CustomItemId
+        });
 
         NavigationManager!.NavigateTo($"/cart/{userCart.PurchaseId}");
     }
@@ -150,10 +150,10 @@ public class CustomizeItemBase : ComponentBase
     protected async Task CreateCartForUser()
     {
         await _purchaseservice!.AddPurchase(new Purchase()
-            {
-                PurchaseUserId = user?.UserId ?? 0,
-                Ispayed = false
-            });
+        {
+            PurchaseUserId = user?.UserId ?? 0,
+            Ispayed = false
+        });
     }
 
     protected async Task AddCustomItemToppings(Customitem baseCustomItem)
@@ -165,11 +165,11 @@ public class CustomizeItemBase : ComponentBase
                 if (toppingAndQuantity.Value > 0)
                 {
                     await _customItemToppingService!.AddCustomeItemTopping(new Customitemtopping()
-                        {
-                            CustomItemId = baseCustomItem.CustomItemId,
-                            ToppingId = toppingAndQuantity.Key.ToppingId,
-                            CustomItemToppingQuantity = toppingAndQuantity.Value
-                        });
+                    {
+                        CustomItemId = baseCustomItem.CustomItemId,
+                        ToppingId = toppingAndQuantity.Key.ToppingId,
+                        CustomItemToppingQuantity = toppingAndQuantity.Value
+                    });
                 }
             }
         }

@@ -61,7 +61,7 @@ namespace BakeryTests
                 ItemTypeId = 1,
                 ItemName = "Test1",
                 ItemPrice = 1,
-                ItmeCalories = 1,   
+                ItmeCalories = 1,
                 ItemWeight = 1,
                 ItemDescription = "this is just a test",
                 SizeId = 1,
@@ -238,7 +238,7 @@ namespace BakeryTests
             //Arrange
             var item = new Bakery.WebApp.Data.Itemtype()
             {
-                ItemTypeId = 1, 
+                ItemTypeId = 1,
                 ItemName = "Test1",
                 ItemPrice = 1,
                 ItmeCalories = 1,

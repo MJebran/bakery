@@ -5,10 +5,10 @@ namespace BakeryTests.ServiceTests;
 
 public class UserServiceTest : IUserService
 {
-    List<User> users {get; set;}
+    List<User> users { get; set; }
     public UserServiceTest()
     {
-        users = new();   
+        users = new();
     }
     public async Task AddUser(User user)
     {

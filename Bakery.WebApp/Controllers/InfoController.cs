@@ -45,7 +45,7 @@ public class InfoController : Controller
                 };
             }
         );
-        
+
         return Json(output);
     }
 }

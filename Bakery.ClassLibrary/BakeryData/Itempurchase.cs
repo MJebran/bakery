@@ -12,7 +12,7 @@ public partial class Itempurchase
 
     [ForeignKey(typeof(Customitem))]
     public int ItempurchaseItemId { get; set; }
-    
+
     [ForeignKey(typeof(Purchase))]
     public int PurchaseId { get; set; }
 

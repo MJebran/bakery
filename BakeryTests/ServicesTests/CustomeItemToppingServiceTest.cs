@@ -5,7 +5,7 @@ namespace BakeryTests.ServiceTests;
 
 public class CustomeItemToppingServiceTest : ICustomeItemToppingService
 {
-    public List<Customitemtopping> customItemToppings {get; set;} 
+    public List<Customitemtopping> customItemToppings { get; set; }
 
     public CustomeItemToppingServiceTest()
     {
@@ -27,7 +27,7 @@ public class CustomeItemToppingServiceTest : ICustomeItemToppingService
     public async Task<IEnumerable<Customitemtopping>> GetAllCustomeItemTopping()
     {
         await Task.CompletedTask;
-        return customItemToppings;  
+        return customItemToppings;
     }
 
     public async Task<Customitemtopping> GetCustomeItemToppingById(int id)

@@ -20,7 +20,7 @@ namespace Bakery.WebApp.Services
             Customitem customitem = new Customitem() // new instance 
             {
                 CustomItemId = id // seting the id to the object, it  sends the value to that object. 
-            };           
+            };
             context.Customitems.Remove(customitem);
             context.SaveChanges();
         }

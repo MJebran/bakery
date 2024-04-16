@@ -14,7 +14,7 @@ public partial class Favoriteitem
 
     [ForeignKey(typeof(Itemtype))]
     public int ItemId { get; set; }
-    
+
     [ManyToOne]
     public virtual Itemtype Item { get; set; } = null!;
 

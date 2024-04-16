@@ -8,7 +8,7 @@ namespace Bakery.WebApp.Services
     {
         public async Task AddUser(User user)
         {
-            var context =  await dbfactory.CreateDbContextAsync();
+            var context = await dbfactory.CreateDbContextAsync();
             var value = await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
         }

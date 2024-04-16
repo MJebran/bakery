@@ -5,7 +5,7 @@ namespace BakeryTests.ServiceTests;
 
 public class ToppingServiceTest : IToppingService
 {
-    List<Topping> toppings {get; set;}
+    List<Topping> toppings { get; set; }
     public ToppingServiceTest()
     {
         toppings = new();

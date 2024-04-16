@@ -10,7 +10,7 @@ namespace Bakery.WebApp.Services
         {
             var context = await factory.CreateDbContextAsync();
             await context.AddAsync(size);
-            await context.SaveChangesAsync();   
+            await context.SaveChangesAsync();
         }
 
         public async Task DeleteFavoriteitem(int id)
@@ -30,15 +30,15 @@ namespace Bakery.WebApp.Services
         {
             var context = await factory.CreateDbContextAsync();
             return await context.Favoriteitems
-                .Where( fv => fv.FavoriteitemId == id)
+                .Where(fv => fv.FavoriteitemId == id)
                 .FirstOrDefaultAsync();
         }
 
         public async Task UpdateFavoriteitem(int id)
         {
             var context = await factory.CreateDbContextAsync();
-            Favoriteitem favorite = new Favoriteitem() 
-            { 
+            Favoriteitem favorite = new Favoriteitem()
+            {
                 FavoriteitemId = id
             };
             context.Update(favorite);

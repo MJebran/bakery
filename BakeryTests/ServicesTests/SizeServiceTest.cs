@@ -4,7 +4,7 @@ namespace BakeryTests.ServiceTests;
 
 class SizeServiceTest : ISizeService
 {
-    List<Bakery.WebApp.Data.Size> sizes {get; set;}
+    List<Bakery.WebApp.Data.Size> sizes { get; set; }
     public SizeServiceTest()
     {
         sizes = new();

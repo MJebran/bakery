@@ -20,14 +20,14 @@ public class bakeryMAUIdb : DbContext
         databaseName = "BakeryDb";
 
         tables = new Type[]{
-            typeof(User), 
+            typeof(User),
             typeof(Category),
-            typeof(Itempurchase), 
+            typeof(Itempurchase),
             typeof(Itemtype),
-            typeof(Role), 
+            typeof(Role),
             typeof(WebApp.Data.Size),
             typeof(Topping),
-            typeof(Purchase), 
+            typeof(Purchase),
             typeof(Favoriteitem),
             typeof(Customitem),
             typeof(Customitemtopping)

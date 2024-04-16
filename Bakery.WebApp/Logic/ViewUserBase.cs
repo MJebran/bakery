@@ -6,10 +6,10 @@ namespace Bakery.WebApp.Logic;
 public class ViewUserBase : ComponentBase
 {
     [Inject]
-    IUserService? _userService {get; set;}
+    IUserService? _userService { get; set; }
 
     [Inject]
-    NavigationManager? _navigationManager {get; set;}
+    NavigationManager? _navigationManager { get; set; }
     protected List<User> users { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
@@ -20,5 +20,5 @@ public class ViewUserBase : ComponentBase
         await _userService!.DeleteUser(userToDelete.UserId);
         _navigationManager!.Refresh();
     }
-    
+
 }

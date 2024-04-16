@@ -15,7 +15,7 @@ public class Login : PageModel
         {
             RedirectUri = Url.Page("./Login",
                 "Callback",
-                new {returnUrl})
+                new { returnUrl })
         });
     }
 

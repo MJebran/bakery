@@ -15,13 +15,13 @@ public class CheckoutBase : ComponentBase
     [Inject]
     public IEmailService? _emailservice { get; set; }
 
-    [Inject]    
+    [Inject]
     public IBakeryAutheticationService? _authenticationservice { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
     protected decimal PaymentAmount { get; set; }
-    protected decimal TaxAmount {get; set;}
+    protected decimal TaxAmount { get; set; }
     protected string DisplayButtons { get; set; } = "block";
 
     [Parameter]

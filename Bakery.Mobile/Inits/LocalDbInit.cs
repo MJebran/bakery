@@ -24,7 +24,7 @@ public class LocalDbInit(IDbLocation dbLocation)
 
     public SQLiteAsyncConnection EstablishConnection()
     {
-        if(!Directory.Exists(dbLocation.BaseDataDirecory)) Directory.CreateDirectory(dbLocation.BaseDataDirecory);
+        if (!Directory.Exists(dbLocation.BaseDataDirecory)) Directory.CreateDirectory(dbLocation.BaseDataDirecory);
 
         var database = new SQLiteAsyncConnection(Path.Combine(dbLocation.BaseDataDirecory, dbLocation.DbName));
 

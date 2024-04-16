@@ -14,7 +14,7 @@ public partial class Customitem
 
     [OneToMany]
     public virtual ICollection<Customitemtopping> Customitemtoppings { get; set; } = new List<Customitemtopping>();
-    
+
     [ManyToOne]
     public virtual Itemtype Item { get; set; } = null!;
 
