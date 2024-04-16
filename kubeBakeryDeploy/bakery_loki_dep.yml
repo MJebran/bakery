@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kakey1
+  name: kakey1-loki-deployment
+  labels:
+    app: kakey1-loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kakey1-loki
+  template:
+    metadata:
+      labels:
+        app: kakey1-loki
+    spec:
+      containers:
+      - name: kakey1-loki
+        image: grafana/loki:2.8.0
+        # command: ['-config.file=/etc/loki/local-config.yaml']
+        ports:
+        - containerPort: 3100

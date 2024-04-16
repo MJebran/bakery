@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kakey1
+  name: kakey1-collector-deployment
+  labels:
+    app: kakey1-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kakey1-collector
+  template:
+    metadata:
+      labels:
+        app: kakey1-collector
+    spec:
+      containers:
+      - name: kakey1-collector
+        image: otel/opentelemetry-collector-contrib:0.75.0
+        # command: ['--config=/etc/otel-collector-config.yaml']
+        ports:
+        - containerPort: 4317
+        volumeMounts:
+        - name: kakey1-otel-config
+          mountPath: /etc/otel-collector-config.yaml
+          subPath: kakey1-collector-config.yml
+
+      volumes:
+      - name: kakey1-otel-config
+        configMap:
+          name: kakey1-otel-config

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kakey1
+  name: kakey1-grafana-service
+spec:
+  type: ClusterIP
+  selector:
+    app: kakey1-grafana
+  ports:
+    - port: 3000
+      targetPort: 3000

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kakey1
+  name: kakey1-grafana-deployment
+  labels:
+    app: kakey1-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kakey1-grafana
+  template:
+    metadata:
+      labels:
+        app: kakey1-grafana
+    spec:
+      containers:
+      - name: kakey1-grafana
+        image: grafana/grafana:9.4.7
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Admin
+        - name: GF_AUTH_DISABLE_LOGIN_FORM
+          value: "true"
+        volumeMounts:
+        - name: datasources
+          mountPath: /etc/grafana/provisioning/datasources/datasource.yml
+          subPath: kakey1-datasource.yml
+
+      volumes:
+      - name: datasources
+        configMap:
+          name: kakey1-grafana-datasource-config

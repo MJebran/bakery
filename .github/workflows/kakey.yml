@@ -5,11 +5,6 @@ jobs:
     runs-on: kakeylabel
     steps: 
      - uses: actions/checkout@v4
-    #  - name: "cleaning"
-    #    run: |
-    #     rm -rf ./kakey1TicketsRUs
-    #  - name: "cloning"
-    #    run: git clone https://github.com/kakey1Blanco1/kakey1TicketsRUs.git
      - name: deploy
        run: |                
         docker build -t 144.17.92.12:5000/kakey1/kakey1-web:2 .
@@ -17,5 +12,14 @@ jobs:
 
         kubectl delete configmap blazor-web-postgres-init -n kakey1
         kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
+
+        cd kube-bakery-configs
+
+        kubectl delete configmap kakey1-otel-config -n kakey1 || true
+        kubectl -n kakey1 create configmap kakey1-otel-config --from-file=bakery-collector-config.yml
+
+        kubectl delete configmap kakey1-grafana-datasource-config -n kakey1 || true
+        kubectl -n kakey1 create configmap kakey1-grafana-datasource-config --from-file=bakery-datasource.yml
+        cd ..
+
         kubectl apply -f kubeBakeryDeploy/
-    #
