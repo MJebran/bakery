@@ -30,7 +30,7 @@ spec:
         volumeMounts:
         - name: datasources
           mountPath: /etc/grafana/provisioning/datasources/datasource.yml
-          subPath: kakey1-datasource.yml
+          subPath: bakery-datasource.yml
 
       volumes:
       - name: datasources
