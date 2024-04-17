@@ -138,6 +138,7 @@
     overflow-y: hidden;
     white-space: nowrap;
     padding: 20px 10%;
+    margin-bottom: 20px;
 }
 
 .btn {
