@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
 using BakeryTests.ServiceTests;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BakeryTests;
 
@@ -36,12 +37,6 @@ public class BakeryWebAPIFactory : WebApplicationFactory<Program>, IAsyncLifetim
             //var connection = _dbContainer.GetConnectionString();
             services.RemoveAll(typeof(DbContextOptions<PostgresContext>));
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
-            services.RemoveAll(typeof(IItemTypeService));
-            services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
-            services.RemoveAll(typeof(ICategoryService));
-            services.AddSingleton<ICategoryService, CategoryServiceTest>();
-            services.RemoveAll(typeof(ISizeService));
-            services.AddSingleton<ISizeService, SizeServiceTest>();
         });
     }
 

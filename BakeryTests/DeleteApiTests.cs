@@ -57,13 +57,13 @@ namespace BakeryTests
             //Act itemtype/add/itemtype
             await client.PostAsJsonAsync("api/itemtype/add/itemtype", product);
             var productSerialized = System.Text.Json.JsonSerializer.Serialize(product);
-            var requestContent = new HttpRequestMessage(HttpMethod.Delete, "api/itemtype/delete/itemtype");
+            var requestContent = new HttpRequestMessage(HttpMethod.Delete, $"api/itemtype/delete/{product.ItemTypeId}");
             requestContent.Content = new StringContent(JsonConvert.SerializeObject(productSerialized), Encoding.UTF8, "application/json");
             await this.client.SendAsync(requestContent);
-            var getcategories = await client.GetFromJsonAsync<List<Itemtype>>("api/itemtype/itemtypes");
+            var getItemType = (await client.GetFromJsonAsync<List<Itemtype>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
 
             //Assert
-            getcategories.Should().BeEmpty();
+            getItemType.Should().BeNull();
         }
 
         //[Fact]
