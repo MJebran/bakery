@@ -2,6 +2,21 @@
 using Bakery.Mobile.Services;
 using Bakery.ClassLibrary.Services;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+
+
+using Bakery.ClassLibrary.Services;
+using Bakery.WebApp.Authentication;
+using Bakery.WebApp.Data;
+
+using Microsoft.EntityFrameworkCore;
+
+using Bakery.WebApp.Logic;
+
+using System.Text.Json.Serialization;
+
+
 namespace Bakery.Mobile
 {
     public static class MauiProgram
@@ -31,7 +46,16 @@ namespace Bakery.Mobile
             .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
             .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
             .AddSingleton<IFavoriteItemService, FavoriteItemService>()
-            .AddScoped<HttpClient>();
+            .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
+            .AddScoped<HttpClient>()
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
+            .AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = builder.Configuration["Authentication_Google_ClientId"] ?? throw new Exception("Client Id not found");
+                options.ClientSecret = builder.Configuration["Authentication_Google_ClientSecret"] ?? throw new Exception("Client secret not found");
+                options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                options.ClaimActions.MapJsonKey("urn:google:image", "picture");
+            });
 
             builder.Services.AddMauiBlazorWebView();
 

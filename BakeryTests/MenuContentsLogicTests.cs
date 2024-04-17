@@ -19,7 +19,7 @@ namespace BakeryTests
             Services.AddSingleton<ISizeService, SizeServiceTest>();
 
             // Arrange
-            var cut = RenderComponent<MenuContentsBase>();
+            var cut = RenderComponent<Bakery.WebApp.Logic.MenuContentsBase>();
 
             // Act
             await cut.InvokeAsync(() => cut.Instance.FilterSelection());
