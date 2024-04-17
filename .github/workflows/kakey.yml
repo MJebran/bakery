@@ -9,6 +9,8 @@ jobs:
       - name: "run integration tests"
         run: |
           cd ./BakeryTests/
+          dotnet workload install maui-tizen
+          dotnet workload restore
           dotnet test
       # - name: "run unit tests"
       #   run: |
