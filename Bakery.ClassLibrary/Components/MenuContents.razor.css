@@ -1,0 +1,333 @@
+﻿.Container {
+    background-color: rgba(240, 240, 240, 1);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Columnas automáticas con un mínimo de 200px */
+    grid-template-rows: auto auto auto;
+    /* Filas automáticas */
+    gap: 10px;
+}
+
+.locationContainer {
+    grid-column: 1 / span 2;
+    /* Ocupa dos columnas */
+    grid-row: 1;
+    /* Está en la primera fila */
+}
+
+.location {
+    background-color: rgba(35, 35, 35, 1);
+}
+
+.questionText {
+    color: rgba(35, 35, 35, 1);
+    font-family: Futura Bk BT;
+    font-size: 50px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.locationText {
+    color: rgba(35, 35, 35, 1);
+    font-family: Futura Bk BT;
+    font-size: 30px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.frame {
+    display: grid;
+    grid-column: 1 / span 2;
+    /* Ocupa dos columnas */
+    grid-template-columns: 1fr 1fr;
+    /* Divides the frame into two columns */
+    grid-template-rows: auto;
+    /* Automatically adjusts row height */
+    background-color: rgba(250, 232, 212, 1);
+    height: 200px;
+    position: relative;
+    /* Added position relative */
+}
+
+.left-section {
+    grid-column: 1;
+    /* Left section takes the first column */
+    grid-row: 1;
+    /* Top position */
+}
+
+.right-section {
+    grid-column: 2;
+    /* Right section takes the second column */
+    grid-row: 1;
+    /* Top position */
+}
+
+.searchBar {
+    grid-column: 1 / span 2;
+    /* Ocupa dos columnas */
+    grid-row: 3;
+    /* Está en la tercera fila */
+    display: flex;
+    justify-content: center;
+}
+
+.InputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    border-radius: 30px;
+    font-size: 13.4px;
+}
+
+.categories {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+}
+
+.itemtype {
+    grid-column: 1 / span 2;
+    grid-row: 5;
+}
+
+.container {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filterDiv {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(236, 158, 73, 1);
+    width: 179px;
+    height: 187px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 2px;
+    display: none;
+    left: 1px;
+    top: 48px;
+    position: relative;
+    display: block;
+}
+
+.purpleFrameItem {
+    background-color: rgba(243.00000071525574, 228.0000016093254, 254.00000005960464, 1);
+    width: 179px;
+    height: 100.50806427001953px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.itemPrice {
+    color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+    width: 43px;
+    height: 14.637096405029297px;
+    position: absolute;
+    left: 13px;
+    top: 160px;
+    font-family: Futura-Bold;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+.itemName {
+    color: rgba(35.26172026991844, 35.26172026991844, 35.26172026991844, 1);
+    width: 142px;
+    height: 17.564516067504883px;
+    position: absolute;
+    left: 10px;
+    top: 130px;
+    font-family: Futura Bk BT;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+#myBtnContainer {
+    display: flex;
+    justify-content: center;
+    /* Centrar horizontalmente los elementos */
+    align-items: center;
+    /* Centrar verticalmente los elementos */
+}
+
+.btn {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+    width: 97.5px;
+    height: 154.5px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    border-bottom-left-radius: 7.5px;
+    border-bottom-right-radius: 45px;
+    position: relative;
+    /* Ensure the button is a positioned parent */
+    overflow: hidden;
+    /* Ensure the circle stays within the button */
+}
+
+.inner-circle-select {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#cat-cont button div {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .Cake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
+/* .Cupcake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/muffin.png);
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
+/* .Slidecake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake-slice.png);
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
+/* .Donut {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut);
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
+/* .Cookie {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cookies.png);
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
+
+.btn:hover {
+    background-color: #ddd;
+}
+
+.btn.active {
+    background-color: rgba(236, 158, 73, 1);
+    color: white;
+}
+
+.ImageContainer {
+    width: 123px;
+    height: 136.61289978027344px;
+    position: absolute;
+    left: 29px;
+    top: 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ImageBread {
+    width: 100%;
+    /* Adjusted width to fit container */
+    height: 100%;
+    /* Adjusted height to fit container */
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menupagebrad.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.questionText {
+    color: rgba(35, 35, 35, 1);
+    font-family: Futura Bk BT;
+    font-size: 50px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.addContainer {
+    background-color: rgba(236.00000113248825, 158.00000578165054, 73.00000324845314, 1);
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/plus.png);
+    width: 33px;
+    height: 32.20161437988281px;
+    position: absolute;
+    left: 147px;
+    top: 154px;
+    background-repeat: no-repeat;
+    background-position: center;
+}

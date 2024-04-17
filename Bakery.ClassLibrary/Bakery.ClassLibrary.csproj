@@ -7,12 +7,22 @@
     <UserSecretsId>05dae173-c4bd-4a62-a712-0c89f71d369d</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Components\MenuContents.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Components\MenuContents.razor.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>

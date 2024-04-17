@@ -1,0 +1,64 @@
+﻿@page "/menuContents"
+@using Bakery.ClassLibrary.Services;
+@using Bakery.WebApp.Data;
+@inject IItemTypeService _itemservice
+@inject ICategoryService _categoryservice
+@inject ISizeService _sizeservice
+@* @using Bakery.WebApp.Services *@
+@using Bakery.WebApp.Logic;
+@inherits MenuContentsBase
+@* @rendermode InteractiveServer *@ 
+
+<div class="Container">
+    <div class="locationContainer">
+        <div class="location"></div>
+        <span class="locationText">Manti, Utah</span>
+    </div>
+
+    <div class="frame">
+        <div class="left-section">
+            <span class="questionText">What would you like to eat?</span>
+        </div>
+        <div class="right-section">
+            <div class="ImageBread"></div>
+        </div>
+    </div>
+
+    <div class="searchBar">
+        <div class="InputContainer">
+            <input placeholder="Search.." id="input" class="input" name="text" type="text">
+        </div>
+    </div>
+
+
+    <div class="categories">
+        <!-- Control buttons -->
+        <div id="myBtnContainer">
+            <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter All</button>
+            @foreach (var category in categories)
+            {
+                <button class="btn" id="cat-cont " @onclick="() => FilterSelection(category.CategoryName)">
+                    @category.CategoryName
+                    <div style="background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(category.CategoryName.ToLower()).png);" class="@category.CategoryName"></div>
+                </button>
+            }
+            <!-- The filterable elements -->
+        </div>
+        <div class="container">
+            @foreach (var item in filterItems)
+            {
+                <div class="filterDiv @item.CategoryId">
+                    <div class="purpleFrameItem"></div>
+                    <div class="ImageContainer"
+                        style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')">
+                    </div>
+                    <span class="itemPrice">@item.ItemPrice $</span>
+                    <span class="itemName">@item.ItemName</span>
+                    <a href="/customizeItem/@item.ItemTypeId">
+                        <div class="addContainer"></div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
