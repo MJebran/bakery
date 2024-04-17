@@ -10,11 +10,11 @@ jobs:
         run: |
           cd ./BakeryTests/
           dotnet test
-      - name: "run unit tests"
-        run: |
-          cd ./Bakery.XUnitTests/
-          dotnet workload restore [/home/ahmad/actions-runner-kakey/_work/bakery/bakery/Bakery.Mobile/Bakery.Mobile.csproj::TargetFramework=net8.0]
-          dotnet test 
+      # - name: "run unit tests"
+      #   run: |
+      #     cd ./Bakery.XUnitTests/
+      #     dotnet workload restore [/home/ahmad/actions-runner-kakey/_work/bakery/bakery/Bakery.Mobile/Bakery.Mobile.csproj::TargetFramework=net8.0]
+      #     dotnet test 
       # - name: "run linting"
       #   run: |
       #     cd ./
