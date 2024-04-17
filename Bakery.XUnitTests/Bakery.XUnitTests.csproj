@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bakery.ClassLibrary\Bakery.ClassLibrary.csproj" />
-    <ProjectReference Include="..\Bakery.Mobile\Bakery.Mobile.csproj" />
   </ItemGroup>
 
 </Project>

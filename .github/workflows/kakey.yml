@@ -14,18 +14,17 @@ jobs:
         run: |
           cd ./BakeryTests/
           dotnet test
-      # - name: "run unit tests"
-      #   run: |
-      #     cd ./Bakery.XUnitTests/
-      #     dotnet workload restore [/home/ahmad/actions-runner-kakey/_work/bakery/bakery/Bakery.Mobile/Bakery.Mobile.csproj::TargetFramework=net8.0]
-      #     dotnet test 
-      # - name: "run linting"
-      #   run: |
-      #     cd ./
-      #     docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn 
+      - name: "run unit tests"
+        run: |
+          cd ./Bakery.XUnitTests/
+          dotnet test 
+      - name: "run linting"
+        run: |
+          cd ./Bakery.WebApp/
+          docker run --rm -v "$(pwd):/app" -w /app -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet format --verify-no-changes --severity warn 
       - name: "build warnings fail"
         run: |
-          cd ./
+          cd ./Bakery.WebApp/
           docker run --rm -v "$(pwd):/app" -w /app/ -e DOTNET_CLI_HOME="/tmp/dotnet" --user $(id -u):$(id -g) mcr.microsoft.com/dotnet/sdk:8.0 dotnet build
 
       - name: deploy
