@@ -89,9 +89,6 @@
     margin: 0x auto;
 
 }
-.container .filterDiv:last-child {
-    margin-right: 50px;
-}
 .purpleFrameItem {
     background-color: rgba(243.00000071525574, 228.0000016093254, 254.00000005960464, 1);
     width: 179px;
