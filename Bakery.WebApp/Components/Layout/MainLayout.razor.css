@@ -120,6 +120,7 @@ ul {
 }
 
 .footer {
+    margin-top: 10px;
     background-color: #FAE8D4;
     /* background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1); */
     padding: 70px 0;
