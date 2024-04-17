@@ -1,13 +1,11 @@
 ﻿@page "/menuContents"
 @using Bakery.ClassLibrary.Services;
 @using Bakery.WebApp.Data;
+@using Bakery.WebApp.Logic;
+@inherits MenuContentsBase
 @inject IItemTypeService _itemservice
 @inject ICategoryService _categoryservice
 @inject ISizeService _sizeservice
-@*@using Bakery.WebApp.Services *@
-@using Bakery.WebApp.Logic;
-@inherits MenuContentsBase
-@* @rendermode InteractiveServer *@ 
 
 <div class="Container">
     <div class="locationContainer">
@@ -33,16 +31,15 @@
 
     <div class="categories">
         <!-- Control buttons -->
-        <div id="myBtnContainer">
+        <div id="myBtnContainer" class="d-flex justify-content-center">
             <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter All</button>
             @foreach (var category in categories)
             {
-                <button class="btn" id="cat-cont " @onclick="() => FilterSelection(category.CategoryName)">
+                <button class="btn" id="cat-cont" @onclick="() => FilterSelection(category.CategoryName)">
                     @category.CategoryName
-                    <div style="background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(category.CategoryName.ToLower()).png);" class="@category.CategoryName"></div>
+                    <div style="background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(category.CategoryName.ToLower()).png);" class="imagen @category.CategoryName"></div>
                 </button>
             }
-            <!-- The filterable elements -->
         </div>
         <div class="container">
             @foreach (var item in filterItems)
@@ -50,7 +47,7 @@
                 <div class="filterDiv @item.CategoryId">
                     <div class="purpleFrameItem"></div>
                     <div class="ImageContainer"
-                        style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')">
+                         style="background-image: url('https://kakeybakerystorage.blob.core.windows.net/itemcontainer/@(item.ItemName?.Replace(" ", ""))')">
                     </div>
                     <span class="itemPrice">@item.ItemPrice $</span>
                     <span class="itemName">@item.ItemName</span>
