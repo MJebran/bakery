@@ -1,4 +1,16 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Bakery.WebApp.Authentication;
+@using Bakery.ClassLibrary.Services;
+@using Bakery.WebApp.Data;
+@using System.Linq;
+@using System.Security.Claims;
+@inject HttpClient Http
+@inject IUserService _userService;
+@inject IBakeryAutheticationService _authenticationService
+@* @rendermode InteractiveServer *@
+
+
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Bakery.Mobile</a>
     </div>
@@ -23,5 +35,11 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Login
             </NavLink>
         </div>
+
+        @if(_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
+    {
+        <a href="managerDashboard">Upload</a>
+    }
+    <LoginControl/>
     </nav>
 </div>

@@ -9,10 +9,12 @@
 
   <ItemGroup>
     <None Remove="Components\MenuContents.razor.css" />
+    <None Remove="Layout\LoginControl.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Components\MenuContents.razor.css" />
+    <Content Include="Layout\LoginControl.razor.css" />
   </ItemGroup>
 
 
