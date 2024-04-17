@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bakery.ClassLibrary\Bakery.ClassLibrary.csproj" />
-    <ProjectReference Include="..\Bakery.Mobile\Bakery.Mobile.csproj" />
     <ProjectReference Include="..\Bakery.WebApp\Bakery.WebApp.csproj" />
   </ItemGroup>
 
