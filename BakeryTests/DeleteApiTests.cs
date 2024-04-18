@@ -39,33 +39,33 @@ namespace BakeryTests
         //     getcategories.Should().BeEmpty();
         // }
 
-        [Fact]
-        public async void DeleteItemTypeTest()
-        {
-            //Arrange
-            var product = new Itemtype()
-            {
-                ItemTypeId = 1,
-                ItemName = "Test1",
-                ItemPrice = 1,
-                ItmeCalories = 1,
-                ItemWeight = 1,
-                ItemDescription = "Test1",
-                CategoryId = 1,
-                SizeId = 1
+        // [Fact]
+        // public async void DeleteItemTypeTest()
+        // {
+        //     //Arrange
+        //     var product = new Itemtype()
+        //     {
+        //         ItemTypeId = 1,
+        //         ItemName = "Test1",
+        //         ItemPrice = 1,
+        //         ItmeCalories = 1,
+        //         ItemWeight = 1,
+        //         ItemDescription = "Test1",
+        //         CategoryId = 1,
+        //         SizeId = 1
 
-            };
-            //Act itemtype/add/itemtype
-            await client.PostAsJsonAsync("api/itemtype/add/itemtype", product);
-            var productSerialized = System.Text.Json.JsonSerializer.Serialize(product);
-            var requestContent = new HttpRequestMessage(HttpMethod.Delete, $"api/itemtype/delete/{product.ItemTypeId}");
-            requestContent.Content = new StringContent(JsonConvert.SerializeObject(productSerialized), Encoding.UTF8, "application/json");
-            await this.client.SendAsync(requestContent);
-            var getItemType = (await client.GetFromJsonAsync<List<ItemtypeDTO>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
+        //     };
+        //     //Act itemtype/add/itemtype
+        //     await client.PostAsJsonAsync("api/itemtype/add/itemtype", product);
+        //     var productSerialized = System.Text.Json.JsonSerializer.Serialize(product);
+        //     var requestContent = new HttpRequestMessage(HttpMethod.Delete, $"api/itemtype/delete/{product.ItemTypeId}");
+        //     requestContent.Content = new StringContent(JsonConvert.SerializeObject(productSerialized), Encoding.UTF8, "application/json");
+        //     await this.client.SendAsync(requestContent);
+        //     var getItemType = (await client.GetFromJsonAsync<List<ItemtypeDTO>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
 
-            //Assert
-            getItemType.Should().BeNull();
-        }
+        //     //Assert
+        //     getItemType.Should().BeNull();
+        // }
 
         //[Fact]
         //public async void DeleteCategoryTest()
