@@ -1,19 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Bakery.Mobile.Services;
 using Bakery.ClassLibrary.Services;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-
-
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Authentication;
 using Bakery.WebApp.Data;
-
 using Microsoft.EntityFrameworkCore;
-
-using Bakery.WebApp.Logic;
-
+using Bakery.ClassLibrary.Logic;
 using System.Text.Json.Serialization;
 
 
