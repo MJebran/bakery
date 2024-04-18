@@ -3,7 +3,7 @@ using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Authentication;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 public class CustomizeItemBase : ComponentBase
 {
     [Parameter]

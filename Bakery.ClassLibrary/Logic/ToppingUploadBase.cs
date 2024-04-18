@@ -3,7 +3,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 
 public class ToppingUploadBase : ComponentBase
 {

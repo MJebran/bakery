@@ -4,7 +4,7 @@ using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 public class CheckoutBase : ComponentBase
 {
     private IJSObjectReference? module;

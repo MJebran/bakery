@@ -1,9 +1,9 @@
 ﻿using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
-using Bakery.WebApp.Logic;
+using Bakery.ClassLibrary.Logic;
 using MailKit.Net.Smtp;
 using MimeKit;
-using static Bakery.WebApp.Logic.CheckoutBase;
+using static Bakery.ClassLibrary.Logic.CheckoutBase;
 
 namespace Bakery.WebApp.Services
 {

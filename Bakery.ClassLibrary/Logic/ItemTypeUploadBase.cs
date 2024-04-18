@@ -3,7 +3,7 @@ using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 public class ItemTypeUploadBase : ComponentBase
 {
     [Inject]

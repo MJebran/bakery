@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Bakery.WebApp.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 public class LoginControlBase : ComponentBase
 {
     [Inject]

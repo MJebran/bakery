@@ -5,7 +5,7 @@ using Bakery.WebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Bakery.WebApp.Logic;
+using Bakery.ClassLibrary.Logic;
 using Bakery.WebApp.Components;
 using System.Text.Json.Serialization;
 

@@ -7,7 +7,7 @@
     <UserSecretsId>05dae173-c4bd-4a62-a712-0c89f71d369d</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <None Remove="Components\MenuContents.razor.css" />
     <None Remove="Layout\LoginControl.razor.css" />
   </ItemGroup>
@@ -15,7 +15,7 @@
   <ItemGroup>
     <Content Include="Components\MenuContents.razor.css" />
     <Content Include="Layout\LoginControl.razor.css" />
-  </ItemGroup>
+  </ItemGroup> -->
 
 
   <ItemGroup>

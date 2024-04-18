@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 public class ItemDescriptionBase : ComponentBase
 {
     [Inject]

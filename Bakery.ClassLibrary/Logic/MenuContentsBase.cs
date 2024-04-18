@@ -2,7 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components;
 
-namespace Bakery.WebApp.Logic;
+namespace Bakery.ClassLibrary.Logic;
 
 public class MenuContentsBase : ComponentBase
 {
