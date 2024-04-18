@@ -9,6 +9,7 @@ using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
 using BakeryTests.ServiceTests;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace BakeryTests;
 
@@ -32,9 +33,10 @@ public class BakeryWebAPIFactory : WebApplicationFactory<Program>, IAsyncLifetim
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        //THE TEST THING MIGHT BE PRODUCED HERE
+        Console.WriteLine($"The connection string is: {_dbContainer.GetConnectionString()}");
         builder.ConfigureTestServices(services =>
         {
-            //var connection = _dbContainer.GetConnectionString();
             services.RemoveAll(typeof(DbContextOptions<PostgresContext>));
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
         });

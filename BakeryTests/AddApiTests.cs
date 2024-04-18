@@ -17,7 +17,7 @@ namespace BakeryTests
         [Fact]
         public async void AddCategoryTest()
         {
-            //Arrange
+            //Arrange THIS IS INTERACTING WITH OUR API
             var category = new Category()
             {
                 CategoryId = 1,
