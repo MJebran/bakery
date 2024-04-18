@@ -6,6 +6,7 @@ using Bakery.WebApp.Data;
 using System.Text;
 using System.Text.Json;
 using Newtonsoft.Json;
+using Bakery.WebApp.Services;
 
 namespace BakeryTests
 {
@@ -60,7 +61,7 @@ namespace BakeryTests
             var requestContent = new HttpRequestMessage(HttpMethod.Delete, $"api/itemtype/delete/{product.ItemTypeId}");
             requestContent.Content = new StringContent(JsonConvert.SerializeObject(productSerialized), Encoding.UTF8, "application/json");
             await this.client.SendAsync(requestContent);
-            var getItemType = (await client.GetFromJsonAsync<List<Itemtype>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
+            var getItemType = (await client.GetFromJsonAsync<List<ItemtypeDTO>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
 
             //Assert
             getItemType.Should().BeNull();

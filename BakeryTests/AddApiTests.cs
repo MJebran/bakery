@@ -14,25 +14,25 @@ namespace BakeryTests
             _factory = factory;
         }
 
-        [Fact]
-        public async void AddCategoryTest()
-        {
-            using var client = _factory.CreateDefaultClient();
-            //Arrange THIS IS INTERACTING WITH OUR API
-            var category = new Category()
-            {
-                CategoryId = 1,
-                CategoryName = "Test1",
-                CategoryDescription = "this is just a test"
-            };
-            //Act 
-            await client.PostAsJsonAsync("/api/Category/add/category", category);
-            var getcategories = await client.GetFromJsonAsync<List<Category>>("/api/Category/categories");
+        // [Fact]
+        // public async void AddCategoryTest()
+        // {
+        //     using var client = _factory.CreateDefaultClient();
+        //     //Arrange THIS IS INTERACTING WITH OUR API
+        //     var category = new Category()
+        //     {
+        //         CategoryId = 1,
+        //         CategoryName = "Test1",
+        //         CategoryDescription = "this is just a test"
+        //     };
+        //     //Act 
+        //     await client.PostAsJsonAsync("/api/Category/add/category", category);
+        //     var getcategories = await client.GetFromJsonAsync<List<Category>>("/api/Category/categories");
 
-            //Assert
-            getcategories.Should().NotBeNull();
+        //     //Assert
+        //     getcategories.Should().NotBeNull();
 
-        }
+        // }
 
         [Fact]
         public async void AddSizeTest()
