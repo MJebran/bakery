@@ -13,7 +13,6 @@
     <None Remove="Components\Pages\Admin\ItemTypeUpload.razor.css" />
     <None Remove="Components\Pages\Admin\ToppingUpload.razor.CSS" />
     <None Remove="Components\Pages\Admin\ViewUser.razor.css" />
-    <None Remove="Components\Pages\Home.razor.css" />
     <None Remove="Components\Pages\MenuPage.razor.css" />
   </ItemGroup>
 
@@ -23,7 +22,6 @@
     <Content Include="Components\Pages\Admin\ItemTypeUpload.razor.css" />
     <Content Include="Components\Pages\Admin\ToppingUpload.razor.css" />
     <Content Include="Components\Pages\Admin\ViewUser.razor.css" />
-    <Content Include="Components\Pages\Home.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

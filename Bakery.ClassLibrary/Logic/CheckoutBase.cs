@@ -9,7 +9,7 @@ public class CheckoutBase : ComponentBase
 {
     private IJSObjectReference? module;
 
-    [Inject]
+    [Parameter]
     public IJSRuntime? Js { get; set; }
 
     [Inject]

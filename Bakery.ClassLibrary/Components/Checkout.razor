@@ -1,14 +1,10 @@
-@page "/Checkout/{purchaseId}"
 @using Bakery.ClassLibrary.Services
 @using Bakery.ClassLibrary.Logic
 @using Bakery.WebApp.Authentication;
 @inherits CheckoutBase
-@inject IJSRuntime Js
 @inject IPurchaseService _purchaseservice
 @inject IEmailService _emailservice
-
 @inject IBakeryAutheticationService _authenticationservice
-@rendermode InteractiveServer
 
 @if (itempurchases != null)
 {
