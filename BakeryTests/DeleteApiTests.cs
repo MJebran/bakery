@@ -39,6 +39,7 @@ namespace BakeryTests
         //     getcategories.Should().BeEmpty();
         // }
 
+        // THIS ONE WORKS LOCALLY, BUT IN THE WORKFLOW, IT NEEDS THE DB FOR SOME REASON
         // [Fact]
         // public async void DeleteItemTypeTest()
         // {
