@@ -8,15 +8,16 @@ namespace BakeryTests
 {
     public class AddApiTests : IClassFixture<BakeryWebAPIFactory>
     {
-        HttpClient client;
+        BakeryWebAPIFactory _factory {get; set;}
         public AddApiTests(BakeryWebAPIFactory factory)
         {
-            client = factory.CreateDefaultClient();
+            _factory = factory;
         }
 
         [Fact]
         public async void AddCategoryTest()
         {
+            using var client = _factory.CreateDefaultClient();
             //Arrange THIS IS INTERACTING WITH OUR API
             var category = new Category()
             {
@@ -36,6 +37,8 @@ namespace BakeryTests
         [Fact]
         public async void AddSizeTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var size = new Bakery.WebApp.Data.Size()
             {
@@ -55,6 +58,8 @@ namespace BakeryTests
         [Fact]
         public async void AddItemTypeTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var itemtype = new Itemtype()
             {
@@ -84,6 +89,8 @@ namespace BakeryTests
         [Fact]
         public async void AddCustomItemTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var customitem = new Customitem()
             {
@@ -107,6 +114,8 @@ namespace BakeryTests
         [Fact]
         public async void AddFavoriteItemTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var favoriteitem = new Favoriteitem()
             {
@@ -127,6 +136,8 @@ namespace BakeryTests
         [Fact]
         public async void AddToppingTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var topping = new Topping()
             {
@@ -149,6 +160,8 @@ namespace BakeryTests
         [Fact]
         public async void AddUserTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var user = new User()
             {
@@ -171,6 +184,8 @@ namespace BakeryTests
         [Fact]
         public async void AddRoleTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var role = new Role()
             {
@@ -191,6 +206,8 @@ namespace BakeryTests
         [Fact]
         public async void AddItemPurchaseTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var itempurchase = new Itempurchase()
             {
@@ -213,6 +230,8 @@ namespace BakeryTests
         [Fact]
         public async void AddPurchaseTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var purchase = new Purchase()
             {
@@ -235,6 +254,8 @@ namespace BakeryTests
         [Fact]
         public async void AddItemTest()
         {
+            using var client = _factory.CreateDefaultClient();
+
             //Arrange
             var item = new Bakery.WebApp.Data.Itemtype()
             {
