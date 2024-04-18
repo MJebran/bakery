@@ -1,4 +1,4 @@
-using Bakery.WebApp.Logic;
+using Bakery.ClassLibrary.Logic;
 using Bakery.WebApp.Data;
 using FluentAssertions;
 using BakeryTests.ServiceTests;
@@ -19,7 +19,7 @@ namespace BakeryTests
             Services.AddSingleton<ISizeService, SizeServiceTest>();
 
             // Arrange
-            var cut = RenderComponent<Bakery.WebApp.Logic.MenuContentsBase>();
+            var cut = RenderComponent<Bakery.ClassLibrary.Logic.MenuContentsBase>();
 
             // Act
             await cut.InvokeAsync(() => cut.Instance.FilterSelection());
