@@ -1,0 +1,11 @@
+﻿@page "/Checkout/{purchaseId}"
+@* @rendermode InteractiveServer *@
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@inject IJSRuntime Js
+
+<Bakery.ClassLibrary.Components.Checkout purchaseId="@purchaseId" Js="@Js"></Bakery.ClassLibrary.Components.Checkout>
+
+@code{
+    [Parameter]
+    public string purchaseId {get; set;} = "";
+}
