@@ -32,7 +32,7 @@ jobs:
           docker build -t 144.17.92.12:5000/kakey1/kakey1-web:2 .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:2
 
-          kubectl delete configmap blazor-web-postgres-init -n kakey1
+          kubectl delete configmap blazor-web-postgres-init -n kakey1 || true
           kubectl -n kakey1 create configmap blazor-web-postgres-init --from-file=init.sql
 
           cd kube-bakery-configs
