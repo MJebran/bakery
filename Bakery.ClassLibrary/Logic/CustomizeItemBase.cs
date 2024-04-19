@@ -42,12 +42,18 @@ public class CustomizeItemBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
+        
+
+        user = _authenticationService!.GetAuthenticatedUser();
+    }
+
+
+
+    protected override async Task OnParametersSetAsync()
+    {
         var items = (await _itemservice!.GetAllItemtypes()).ToList<Itemtype>();
 
         var toppings = (await _toppingservice!.GetAllToppings()).ToList<Topping>();
-
-        user = _authenticationService!.GetAuthenticatedUser();
-
         baseItem = items
         .Where(i => i.ItemTypeId == Int32.Parse(baseItemId ?? ""))
         .First<Itemtype>();
