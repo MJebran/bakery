@@ -2,6 +2,8 @@
 using Bakery.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace Bakery.Mobile.Services
 {
@@ -30,7 +32,9 @@ namespace Bakery.Mobile.Services
 
         public async Task UpdatePurchase(Purchase purchase)
         {
-            await client.PutAsync($"api/purchase/update/purchase", purchase);
+            string json = JsonSerializer.Serialize(purchase);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            await client.PutAsync($"api/purchase/update/purchase", content);
         }
     }
 }
