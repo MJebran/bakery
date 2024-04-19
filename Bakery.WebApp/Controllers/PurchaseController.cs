@@ -47,9 +47,9 @@ public class PurchaseController : ControllerBase
         await _service.DeletePurchase(id);
     }
 
-    [HttpPut("update/purchase/{id}")]
-    public async Task UpdatePurchaseAsync(int id)
+    [HttpPut("update/purchase")]
+    public async Task UpdatePurchaseAsync([FromBody] Purchase purchase)
     {
-        await _service.UpdatePurchase(id);
+        await _service.UpdatePurchase(purchase);
     }
 }

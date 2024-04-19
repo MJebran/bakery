@@ -8,9 +8,9 @@ namespace Bakery.Mobile.Services
     public class PurchaseService : IPurchaseService
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri("https://kakeybakery.azurewebsites.net/") };
-        public async Task AddPurchase(Purchase item)
+        public async Task AddPurchase(Purchase purchase)
         {
-            await client.PostAsJsonAsync("api/purchase/add/purchase", item);
+            await client.PostAsJsonAsync("api/purchase/add/purchase", purchase);
         }
 
         public async Task DeletePurchase(int id)
@@ -28,9 +28,9 @@ namespace Bakery.Mobile.Services
             return await client.GetFromJsonAsync<Purchase>($"api/purchase/purchase/{id}") ?? throw new Exception("purchase not found");
         }
 
-        public async Task UpdatePurchase(int id)
+        public async Task UpdatePurchase(Purchase purchase)
         {
-            await client.PutAsync($"api/purchase/update/purchase/{id}", new StringContent(""));
+            await client.PutAsync($"api/purchase/update/purchase", purchase);
         }
     }
 }

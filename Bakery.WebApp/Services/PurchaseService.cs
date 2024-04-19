@@ -49,13 +49,9 @@ namespace Bakery.WebApp.Services
                 .FirstOrDefaultAsync() ?? new Purchase();
         }
 
-        public async Task UpdatePurchase(int id)
+        public async Task UpdatePurchase(Purchase purchase)
         {
             var context = await factory.CreateDbContextAsync();
-            Purchase purchase = new Purchase()
-            {
-                PurchaseId = id
-            };
             context.Purchases.Update(purchase);
             context.SaveChanges();
         }
