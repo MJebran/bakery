@@ -1,10 +1,13 @@
 @using Bakery.ClassLibrary.Services
 @using Bakery.ClassLibrary.Logic
-@using Bakery.WebApp.Authentication;
+@using Bakery.WebApp.Authentication
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.JSInterop
 @inherits CheckoutBase
 @inject IPurchaseService _purchaseservice
 @inject IEmailService _emailservice
 @inject IBakeryAutheticationService _authenticationservice
+@inject NavigationManager NavigationManager
 
 @if (itempurchases != null)
 {
@@ -31,7 +34,8 @@
                     {
                         <tr>
                             <td>
-                                <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")" style="max-width: 100px; max-height: 100px;" />
+                                <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{item.ItempurchaseItem.Item.ItemName?.Replace(" ", "")}")"
+                                    style="max-width: 100px; max-height: 100px;" />
                             </td>
                             <td>@item.ItempurchaseQuantity x @item.ItempurchaseItem.Item.ItemName</td>
                             <td>@item.ItempurchaseQuantity</td>
@@ -62,7 +66,8 @@
 
                             <td>
                                 @{
-                                    decimal totalToppingsPrice = item.ItempurchaseItem.Customitemtoppings.Sum(customTopping => customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) ?? 0;
+                                    decimal totalToppingsPrice = item.ItempurchaseItem.Customitemtoppings.Sum(customTopping =>
+                                    customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) ?? 0;
                                 }
                                 @totalToppingsPrice.ToString("C")
                             </td>
@@ -94,7 +99,6 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="p-3 mb-2 btn btn-success" @onclick="Purchase">Send Email </button>
 
             <h3 class="mb-5">Checkout</h3>
             <div class="row">
@@ -113,4 +117,23 @@
             <p>You currently have no items in your shopping cart</p>
         }
     </div>
+}
+
+@code {
+    [JSInvokable()]
+    public static async Task ReceiveDataFromJS(DotNetObjectReference<CheckoutBase> objectReference)
+    {
+        await Task.CompletedTask;
+
+        if (objectReference is not null)
+        {
+            objectReference.Value?.NavigationManager?.NavigateTo("/thankYou");
+            objectReference.Value?.SendEmailAfterSuccesfulPurchase();
+            objectReference.Value?.MarkCartAsCompletedPurchase();
+        }
+        else
+        {
+            throw new Exception("No object reference found");
+        }
+    }
 }
