@@ -1,4 +1,4 @@
-export function initialisePayPal() {
+export function initialisePayPal(dotNetObject) {
     var description = document.querySelector('#smart-button-container #description');
     var amount = document.querySelector('#smart-button-container #amount');
 
@@ -29,7 +29,7 @@ export function initialisePayPal() {
             return actions.order.capture().then(function (orderData) {
 
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                window.location.href = "/thankYou";
+                DotNet.invokeMethodAsync('Bakery.ClassLibrary', 'ReceiveDataFromJS', dotNetObject)
             });
         },
 
@@ -39,7 +39,8 @@ export function initialisePayPal() {
     }).render('#paypal-button-container');
 }
 
-export function onUpdate() {
-    initialisePayPal();
-}
+// export function onUpdate() {
+//     initialisePayPal();
+// }
+
 

@@ -36,7 +36,7 @@ public class PurchaseServiceTest : IPurchaseService
         return itemToReturn ?? throw new Exception("no purchase found");
     }
 
-    public Task UpdatePurchase(int id)
+    public Task UpdatePurchase(Purchase purchase)
     {
         throw new NotImplementedException();
     }

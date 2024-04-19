@@ -10,6 +10,9 @@ public class CheckoutBase : ComponentBase
     private IJSObjectReference? module;
 
     [Parameter]
+    public string? purchaseId { get; set; }
+
+    [Parameter]
     public IJSRuntime? Js { get; set; }
 
     [Inject]
@@ -17,27 +20,32 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public IBakeryAutheticationService? _authenticationservice { get; set; }
+    
+    [Inject]
+    public IPurchaseService? _purchaseservice { get; set; }
+
+    [Inject]
+    public NavigationManager? NavigationManager { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
     protected decimal PaymentAmount { get; set; }
     protected decimal TaxAmount { get; set; }
     protected string DisplayButtons { get; set; } = "block";
-
-    [Parameter]
-    public string? purchaseId { get; set; }
-
-    [Inject]
-    public IPurchaseService? _purchaseservice { get; set; }
     public int PurchaseId { get; set; }
+    public User? user {get; set;}
+    public Purchase? userCart {get; set;}
+
 
     protected override async Task OnInitializedAsync()
     {
         PurchaseId = int.Parse(purchaseId ?? "0");
+        user = _authenticationservice?.GetAuthenticatedUser();
+        userCart = (await _purchaseservice!.GetAllPurchase()).ToList<Purchase>().Where(p => p.PurchaseId == PurchaseId).FirstOrDefault();
 
         try
         {
-            itempurchases = (await _purchaseservice!.GetAllPurchase()).Where(p => p.PurchaseId == PurchaseId).FirstOrDefault()?.Itempurchases.ToList<Itempurchase>();
+            itempurchases = userCart?.Itempurchases.ToList<Itempurchase>();
 
             if (itempurchases != null && itempurchases.Count() > 0)
             {
@@ -75,17 +83,30 @@ public class CheckoutBase : ComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         if (firstRender)
         {
+            var dotNetReference = DotNetObjectReference.Create(this);
             module = await Js.InvokeAsync<IJSObjectReference>("import", "/js/Checkout.js");
-            await module.InvokeVoidAsync("initialisePayPal");
+            await module.InvokeVoidAsync("initialisePayPal", dotNetReference);
         }
 
     }
-    public async Task Purchase()
+    public async Task SendEmailAfterSuccesfulPurchase()
     {
-        var User = _authenticationservice!.GetAuthenticatedUser();
-        await _emailservice!.SendEmailAsync(User?.UserEmail ?? throw new Exception("user email not found"), itempurchases);
+        await _emailservice!.SendEmailAsync(user?.UserEmail ?? throw new Exception("user email not found"), itempurchases);
     }
+
+    public async Task MarkCartAsCompletedPurchase()
+    {
+        if(userCart is not null)
+        {
+            userCart.Ispayed = true;
+            _purchaseservice?.UpdatePurchase(userCart);
+            await Task.CompletedTask;
+        }
+        else{
+            throw new Exception("user cart not available");
+        }
+    }
+
 }

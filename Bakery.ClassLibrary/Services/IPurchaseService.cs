@@ -11,8 +11,7 @@ public interface IPurchaseService
 {
     public Task AddPurchase(Purchase size);
     public Task<IEnumerable<Purchase>> GetAllPurchase();
-    //public Task DeletePurchase(int id);
-    public Task UpdatePurchase(int id);
+    public Task UpdatePurchase(Purchase purchase);
     public Task<Purchase> GetPurchase(int id);
     public Task DeletePurchase(int id);
 }
