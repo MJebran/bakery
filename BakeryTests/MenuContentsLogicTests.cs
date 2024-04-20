@@ -29,6 +29,24 @@ namespace BakeryTests
             Assert.Equal(0, filterItemsCount);
         }
 
+        [Fact]
+        public async void CakeEmptyFilterWorks()
+        {
+            Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
+            Services.AddSingleton<ICategoryService, CategoryServiceTest>();
+            Services.AddSingleton<ISizeService, SizeServiceTest>();
+
+            // Arrange
+            var cut = RenderComponent<Bakery.ClassLibrary.Logic.MenuContentsBase>();
+
+            // Act
+            await cut.InvokeAsync(() => cut.Instance.FilterSelection());
+
+            // Assert
+            var filterItemsCount = cut.Instance.filterItems.Count();
+            Assert.Equal(0, filterItemsCount);
+        }
+
     }
 
 }
