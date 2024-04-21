@@ -42,6 +42,10 @@ jobs:
 
           kubectl delete configmap kakey1-grafana-datasource-config -n kakey1 || true
           kubectl -n kakey1 create configmap kakey1-grafana-datasource-config --from-file=bakery-datasource.yml
+
+          kubectl delete configmap kakey1-blackbox-config -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-blackbox-config --from-file=bakery-blackbox-config.yml
+
           cd ..
 
           kubectl apply -f kubeBakeryDeploy/

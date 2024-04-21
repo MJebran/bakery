@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kakey1-blackbox-exporter
+  namespace: kakey1
+spec:
+  selector:
+    matchLabels:
+      app: kakey1-blackbox-exporter
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kakey1-blackbox-exporter
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: kakey1-blackbox-exporter
+        image: prom/blackbox-exporter:v0.23.0
+        ports:
+        - containerPort: 9115
+        volumeMounts:
+        - name: config
+          mountPath: /etc/blackbox/blackbox.yml
+        args:
+        - --config.file=/etc/blackbox/blackbox.yml
+      volumes:
+      - name: config
+        configMap:
+          name: kakey1-blackbox-config

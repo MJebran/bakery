@@ -5,7 +5,8 @@ using Bakery.WebApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Bakery.ClassLibrary.Logic;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Bakery.WebApp.Components;
 using System.Text.Json.Serialization;
 
@@ -61,6 +62,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql("Name=db"));
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
@@ -71,6 +74,19 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//Heathchecks
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+});
 
 app.UseHttpsRedirection()
     .UseStaticFiles()
@@ -83,10 +99,6 @@ app.MapRazorPages();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(typeof(Bakery.ClassLibrary.Components.Home).Assembly);
-
-
-
-//app.MapBlazorHub();
 
 //Swagger
 app.UseSwagger();
