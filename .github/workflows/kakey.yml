@@ -48,5 +48,6 @@ jobs:
 
           cd ..
 
-          kubectl apply -f kubeBakeryDeploy/
+          kubectl apply -f kubeBakeryDeploy/ --recursive
+
 
