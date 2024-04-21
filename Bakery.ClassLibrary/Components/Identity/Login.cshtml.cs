@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Bakery.WebApp.Components.Identity;
+namespace Bakery.ClassLibrary.Components.Identity;
 
 [AllowAnonymous]
 public class Login : PageModel
