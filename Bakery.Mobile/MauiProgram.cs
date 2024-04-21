@@ -2,8 +2,8 @@
 using Bakery.Mobile.Services;
 using Bakery.ClassLibrary.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Authentication;
 using Bakery.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +41,7 @@ namespace Bakery.Mobile
             .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
             .AddSingleton<IFavoriteItemService, FavoriteItemService>()
             .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
+            .AddSingleton<AuthenticationStateProvider>()
             .AddScoped<HttpClient>()
             .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
             .AddAuthentication().AddGoogle(options =>
@@ -52,6 +53,9 @@ namespace Bakery.Mobile
             });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddCascadingAuthenticationState();
+            builder.Services.AddAuthorizationCore();
+
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
