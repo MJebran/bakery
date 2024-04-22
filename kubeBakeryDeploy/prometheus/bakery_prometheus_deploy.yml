@@ -22,9 +22,7 @@ spec:
             - containerPort: 9090
           volumeMounts:
             - name: prometheus-config
-              mountPath: /etc/prometheus
-              subPath: kakey1-prometheus-config.yml
-
+              mountPath: /etc/prometheus/prometheus.yml
       volumes:
         - name: prometheus-config
           configMap:
