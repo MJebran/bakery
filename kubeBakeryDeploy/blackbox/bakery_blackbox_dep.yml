@@ -1,8 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kakey1-blackbox-exporter
+  name: kakey1-blackbox-deployment
   namespace: kakey1
+  labels:
+    app: kakey1-blackbox-exporter
 spec:
   selector:
     matchLabels:

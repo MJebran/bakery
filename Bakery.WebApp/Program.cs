@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Bakery.WebApp.Components;
 using System.Text.Json.Serialization;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +68,18 @@ builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgs
 
 builder.Services.AddHealthChecks();
 
+builder.Services.AddOpenTelemetry()
+.WithMetrics(b =>
+    {
+        b
+        .AddAspNetCoreInstrumentation()
+        .AddPrometheusExporter()
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri("http://kakey1-collector:4317/"); //MIGHT NEED TO CHANGE This to otel-collector
+        });
+    });;
+
 builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
@@ -104,6 +120,8 @@ app.MapRazorComponents<App>()
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
+
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.Run();
 

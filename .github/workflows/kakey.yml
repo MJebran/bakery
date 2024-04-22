@@ -46,6 +46,9 @@ jobs:
           kubectl delete configmap kakey1-blackbox-config -n kakey1 || true
           kubectl -n kakey1 create configmap kakey1-blackbox-config --from-file=bakery-blackbox-config.yml
 
+          kubectl delete configmap kakey1-prometheus-config -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-prometheus-config --from-file=bakery-prometheus-config.yml
+
           cd ..
 
           kubectl apply -f kubeBakeryDeploy/ --recursive
