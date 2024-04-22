@@ -69,20 +69,20 @@
                                     decimal totalToppingsPrice = item.ItempurchaseItem.Customitemtoppings.Sum(customTopping =>
                                     customTopping.Topping.ToppingPrice * customTopping.CustomItemToppingQuantity) ?? 0;
                                 }
-                                @totalToppingsPrice.ToString("C")
+                                @totalToppingsPrice.ToString()
                             </td>
                             <td>
                                 @{
                                     decimal basePrice = item.ItempurchaseItem.Item.ItemPrice ?? 0;
                                 }
-                                @basePrice.ToString("C")
+                                @basePrice.ToString()
                             </td>
 
                             <td>
                                 @{
                                     decimal totalPrice = basePrice + totalToppingsPrice;
                                 }
-                                @totalPrice.ToString("C")
+                                @totalPrice.ToString()
                             </td>
                         </tr>
                     }
@@ -95,7 +95,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><b>@PaymentAmount.ToString("C")</b></td>
+                        <td><b>@PaymentAmount.ToString()</b></td>
                     </tr>
                 </tbody>
             </table>
