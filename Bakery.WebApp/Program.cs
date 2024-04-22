@@ -78,7 +78,7 @@ builder.Services.AddOpenTelemetry()
         {
             o.Endpoint = new Uri("http://kakey1-collector:4317/"); //MIGHT NEED TO CHANGE This to otel-collector
         });
-    });;
+    }); ;
 
 builder.Services.AddCascadingAuthenticationState();
 
