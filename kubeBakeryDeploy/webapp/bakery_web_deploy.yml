@@ -29,3 +29,6 @@ spec:
           value: "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"
         - name: DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE
           value: "false"
+        - name: MapKey 
+          value: "WsgLD37FO52KUXPukZ8sOXj4uTwEduS6ImvACWgB-Vk"
+
