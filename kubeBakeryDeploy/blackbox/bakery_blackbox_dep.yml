@@ -24,7 +24,7 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/blackbox/blackbox.yml
-          subPath: kakey1-blackbox-config.yml  
+          subPath: bakery-blackbox-config.yml  
 
       volumes:
       - name: config

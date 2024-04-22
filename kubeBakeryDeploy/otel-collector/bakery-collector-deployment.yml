@@ -23,7 +23,7 @@ spec:
         volumeMounts:
         - name: kakey1-otel-config
           mountPath: /etc/otel-collector-config.yaml
-          subPath: kakey1-collector-config.yml
+          subPath: bakery-collector-config.yml
 
       volumes:
       - name: kakey1-otel-config
