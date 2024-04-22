@@ -6,12 +6,12 @@ function initializeMap(mapsKey) {
     // Create the map instance
     map = new atlas.Map("mapDiv", {
         view: "Auto",
-        center: [-122.129, 47.640],
-        zoom: 3
+        center: [-111.58264854191678, 39.36143191547314],
+        zoom: 13
     });
 
     navigator.geolocation.getCurrentPosition(function (position) {
-        var userLocation = [position.coords.longitude, position.coords.latitude];
+        var userLocation = [-111.58264854191678, 39.36143191547314];
         map.setCamera({
             center: userLocation,
             zoom: 13
