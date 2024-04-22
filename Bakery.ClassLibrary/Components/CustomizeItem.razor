@@ -12,78 +12,76 @@
 @inject ICustomeItemToppingService _customItemToppingService
 @inject NavigationManager NavigationManager
 
-<div class="background-page">
-    <div class="bottom-back">
-        <a href="/menuContents">
-            <div class="back">Back</div>
-        </a>
-    </div>
-
-    <div class="ImagineCustomer">
-        @if (baseItem is not null)
-        {
-            <div class="imaginecontainer">
-                <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{baseItem.ItemName?.Replace(" ", "")}")" />
-            </div>
-        }
-    </div>
-
-    <div class="size">
-        <div class="myBtnContainer">
-            <button class="btn" @onclick="() => FilterSelection('S')">
-                S
-                <div class="sizeButton S"></div>
-            </button>
-            <button class="btn" @onclick="() => FilterSelection('M')">
-                M
-                <div class="sizeButton M"></div>
-            </button>
-            <button class="btn" @onclick="() => FilterSelection('L')">
-                L
-                <div class="sizeButton L"></div>
-            </button>
+<body>
+    <div class="background-page">
+        <div class="bottom-back">
+            <a href="/menuContents">
+                <div class="back">Back</div>
+            </a>
         </div>
-    </div>
 
+        <div class="ImagineCustomer">
+            @if (baseItem is not null)
+            {
+                <div class="imaginecontainer">
+                    <img src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{baseItem.ItemName?.Replace(" ", "")}")" />
+                </div>
+            }
+        </div>
 
+        <div class="size">
+            <div class="myBtnContainer">
+                <button class="btn" @onclick="() => FilterSelection('S')">
+                    S
+                    <div class="sizeButton S"></div>
+                </button>
+                <button class="btn" @onclick="() => FilterSelection('M')">
+                    M
+                    <div class="sizeButton M"></div>
+                </button>
+                <button class="btn" @onclick="() => FilterSelection('L')">
+                    L
+                    <div class="sizeButton L"></div>
+                </button>
+            </div>
+        </div>
 
-    <div class="description d-flex justify-content-center">
-        <div class="descriptionBox">
-            <div class="descriptionBoxPink">
-                @if (baseItem is not null)
-                {
-                    @if (toppingToQuantity is not null)
+        <div class="description d-flex justify-content-center">
+            <div class="descriptionBox">
+                <div class="descriptionBoxPink">
+                    @if (baseItem is not null)
                     {
-                        @foreach (var toppingAndQuantity in toppingToQuantity)
+                        @if (toppingToQuantity is not null)
                         {
-                            <div class="ingredientContainer">
-                                <div class="item-decrease">
-                                    <button @onclick="() => DecreaseToppingAmount(toppingAndQuantity.Key)">-</button>
+                            @foreach (var toppingAndQuantity in toppingToQuantity)
+                            {
+                                <div class="ingredientContainer">
+                                    <div class="item-decrease">
+                                        <button @onclick="() => DecreaseToppingAmount(toppingAndQuantity.Key)">-</button>
+                                    </div>
+                                    <div class="item-img">
+                                        <img style="height:40px"
+                                             src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{toppingAndQuantity.Key.ToppingName?.Replace(" ", "")}")" />
+                                    </div>
+                                    <div class="item-ttl">
+                                        <div>@toppingAndQuantity.Key.ToppingName</div>
+                                    </div>
+                                    <div class="item-ctl">@toppingAndQuantity.Value</div>
+                                    <div class="item-increase">
+                                        <button @onclick="() => IncreaseToppingAmount(toppingAndQuantity.Key)">+</button>
+                                    </div>
                                 </div>
-                                <div class="item-img">
-                                    <img style="height:40px"
-                                         src="@($"https://kakeybakerystorage.blob.core.windows.net/itemcontainer/{toppingAndQuantity.Key.ToppingName?.Replace(" ", "")}")" />
-                                </div>
-                                <div class="item-ttl">
-                                    <div>@toppingAndQuantity.Key.ToppingName</div>
-                                </div>
-                                <div class="item-ctl">@toppingAndQuantity.Value</div>
-                                <div class="item-increase">
-                                    <button @onclick="() => IncreaseToppingAmount(toppingAndQuantity.Key)">+</button>
-                                </div>
-                            </div>
+                            }
                         }
                     }
-                }
-                <div class="prices">
-                    <div class="addCart">
-                        <button @onclick="AddToCart">Order Now</button>
+                    <div class="prices">
+                        <div class="addCart">
+                            <button @onclick="AddToCart">Order Now</button>
+                        </div>
+                        <div class="priceCart">Total: @ComputeTotalPrice()</div>
                     </div>
-                    <div class="priceCart">Total: @ComputeTotalPrice()</div>
                 </div>
             </div>
         </div>
     </div>
-
-
-</div>
+</body>
