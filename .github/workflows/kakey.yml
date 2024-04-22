@@ -27,10 +27,9 @@ jobs:
           rm -r TestResults || true
           dotnet test --collect:"XPlat Code Coverage"
           COBERTURA_FILE=$(find . -type f -name "*.xml")
+          python3 -m pip install pycobertura
           python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
         #apt install python3
-        #python3 -m pip install pycobertura
-
       - name: "run linting"
         run: |
           cd ./Bakery.WebApp/
