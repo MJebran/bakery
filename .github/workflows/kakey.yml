@@ -10,18 +10,32 @@ jobs:
       #db: "host=postgresbakery.postgres.database.azure.com;user id=bakeryadmin;database=postgres;password=Password@123;"
     steps:
       - uses: actions/checkout@v4
+      
       - name: "run integration tests"
         run: |
           cd ./BakeryTests/
           dotnet test
+
       - name: "run unit tests"
         run: |
           cd ./Bakery.XUnitTests/
           dotnet test 
+
+      - name: "compute code coverage"
+        run: |
+          cd ./BakeryTests/
+          sudo apt install python3
+          python3 -m pip install pycobertura
+          rm -r TestResults || true
+          dotnet test --collect:"XPlat Code Coverage"
+          COBERTURA_FILE=$(find . -type f -name "*.xml")
+          python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
+
       - name: "run linting"
         run: |
           cd ./Bakery.WebApp/
           dotnet format --verify-no-changes --severity warn 
+
       - name: "build warnings fail"
         run: |
           cd ./Bakery.WebApp/
@@ -52,5 +66,3 @@ jobs:
           cd ..
 
           kubectl apply -f kubeBakeryDeploy/ --recursive
-
-
