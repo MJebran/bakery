@@ -1,52 +1,107 @@
 using Bakery.ClassLibrary.Logic;
 using Bakery.WebApp.Data;
-using FluentAssertions;
 using BakeryTests.ServiceTests;
 using Bakery.ClassLibrary.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Bunit;
 
-namespace BakeryTests
+namespace BakeryTests;
+public class MenuContentsLogicTests : TestContext
 {
-
-    public class MenuContentsLogicTests : TestContext
+    static List<Itemtype> createItemsWithCategory(List<(string name, string category)> itemNameAndCategory)
     {
-        [Fact]
-        public async void EmptyFilterWorks()
+        List<Itemtype> items = new();
+        foreach (var item in itemNameAndCategory)
         {
-            Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
-            Services.AddSingleton<ICategoryService, CategoryServiceTest>();
-            Services.AddSingleton<ISizeService, SizeServiceTest>();
+            items.Add(new Itemtype{ItemName = item.name, 
+            Category=new Category{CategoryName = item.category}});
+        }
+        return items;
+    }
 
-            // Arrange
-            var cut = RenderComponent<Bakery.ClassLibrary.Logic.MenuContentsBase>();
+    [Fact]
+    public async void EmptyFilterWorks()
+    {
+        Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
+        Services.AddSingleton<ICategoryService, CategoryServiceTest>();
+        Services.AddSingleton<ISizeService, SizeServiceTest>();
 
-            // Act
-            await cut.InvokeAsync(() => cut.Instance.FilterSelection());
+        // Arrange
+        var cut = RenderComponent<MenuContentsBase>();
 
-            // Assert
-            var filterItemsCount = cut.Instance.filterItems.Count();
-            Assert.Equal(0, filterItemsCount);
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.FilterSelection());
+
+        // Assert
+        var filterItemsCount = cut.Instance.filterItems.Count();
+        Assert.Equal(0, filterItemsCount);
+    }
+
+    [Fact]
+    public async void CakeFilterWorks()
+    {
+        // Arrange
+        Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
+        Services.AddSingleton<ICategoryService, CategoryServiceTest>();
+        Services.AddSingleton<ISizeService, SizeServiceTest>();
+
+        var itemsWithCategories = new List<(string, string)>{
+        ("chocolate cake", "cake"), 
+        ("strawberry cake", "cake"), 
+        ("chocolate cupcake", "cupcake"),
+        };
+
+        var items = createItemsWithCategory(itemsWithCategories);
+
+        var svc = Services.GetService<IItemTypeService>();
+
+        foreach (var item in items)
+        {     
+            await svc.AddItemtype(item);
         }
 
-        [Fact]
-        public async void CakeEmptyFilterWorks()
-        {
-            Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
-            Services.AddSingleton<ICategoryService, CategoryServiceTest>();
-            Services.AddSingleton<ISizeService, SizeServiceTest>();
+        var cut = RenderComponent<MenuContentsBase>();
 
-            // Arrange
-            var cut = RenderComponent<Bakery.ClassLibrary.Logic.MenuContentsBase>();
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.FilterSelection("cake"));
 
-            // Act
-            await cut.InvokeAsync(() => cut.Instance.FilterSelection());
+        // Assert
+        var filterItemsCount = cut.Instance.filterItems.Count();
+        Assert.Equal(2, filterItemsCount);
+    }
 
-            // Assert
-            var filterItemsCount = cut.Instance.filterItems.Count();
-            Assert.Equal(0, filterItemsCount);
+    [Fact]
+    public async void CupcakeFilterWorks()
+    {
+        // Arrange
+        Services.AddSingleton<IItemTypeService, ItemTypeServiceTest>();
+        Services.AddSingleton<ICategoryService, CategoryServiceTest>();
+        Services.AddSingleton<ISizeService, SizeServiceTest>();
+
+        var itemsWithCategories = new List<(string, string)>{
+        ("chocolate cake", "cake"), 
+        ("strawberry cake", "cake"), 
+        ("chocolate cupcake", "cupcake"),
+        };
+
+        var items = createItemsWithCategory(itemsWithCategories);
+
+        var svc = Services.GetService<IItemTypeService>();
+
+        foreach (var item in items)
+        {     
+            await svc.AddItemtype(item);
         }
 
+        var cut = RenderComponent<MenuContentsBase>();
+
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.FilterSelection("cupcake"));
+
+        // Assert
+        var filterItemsCount = cut.Instance.filterItems.Count();
+        Assert.Equal(1, filterItemsCount);
     }
 
 }
+

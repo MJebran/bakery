@@ -4,7 +4,7 @@ using BakeryTests;
 using System.Net.Http.Json;
 
 namespace BakeryTests.ServiceTests;
-class ItemTypeServiceTest : IItemTypeService
+public class ItemTypeServiceTest : IItemTypeService
 {
     List<Itemtype> itemtypes { get; set; }
     public ItemTypeServiceTest()
@@ -14,6 +14,15 @@ class ItemTypeServiceTest : IItemTypeService
     public async Task AddItemtype(Itemtype size)
     {
         itemtypes.Add(size);
+        await Task.CompletedTask;
+    }
+
+    public async Task AddItemtypes(List<Itemtype> items)
+    {
+        foreach (var item in items)
+        {          
+            itemtypes.Add(item);
+        }
         await Task.CompletedTask;
     }
 

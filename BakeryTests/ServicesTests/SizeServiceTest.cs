@@ -2,7 +2,7 @@ using Bakery.ClassLibrary.Services;
 
 namespace BakeryTests.ServiceTests;
 
-class SizeServiceTest : ISizeService
+public class SizeServiceTest : ISizeService
 {
     List<Bakery.WebApp.Data.Size> sizes { get; set; }
     public SizeServiceTest()

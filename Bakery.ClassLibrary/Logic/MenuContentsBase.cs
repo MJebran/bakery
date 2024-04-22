@@ -29,6 +29,10 @@ public class MenuContentsBase : ComponentBase
 
     public void FilterSelection(string category = "all")
     {
+        foreach (var item in items)
+        {
+            Console.WriteLine($"item: {item.ItemName} category: {item.Category.CategoryName}");
+        }
         if (category == "all")
         {
             filterItems = items;

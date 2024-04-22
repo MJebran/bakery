@@ -2,7 +2,7 @@ using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 
 namespace BakeryTests.ServiceTests;
-class CategoryServiceTest : ICategoryService
+public class CategoryServiceTest : ICategoryService
 {
     public List<Category> categories { get; set; }
     public CategoryServiceTest()
