@@ -42,8 +42,8 @@
     width: 60px;
     height: 30px;
     position: absolute;
-    left: 58vh;
-    top: 80vh;
+    left: 49%;
+    top: 100%;
     border-radius: 13px;
     display: flex;
     justify-content: center; /* Horizontally center the content */
@@ -83,7 +83,7 @@
     grid-template-rows: auto;
     height: 250px;
     border: 100px;
-    height: 50vh;
+    height: 70vh;
 }
 
 
