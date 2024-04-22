@@ -26,8 +26,8 @@
 					<div class="item-ct">@itemToPurchase.Value</div>
 					<button class="item-btn" @onclick="() => IncreasingAmountItem(itemToPurchase.Key)">+</button>
 				</div>
-				<div class="item-rmv">
-					<button @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
+				<div class="item-rmv d-flex justify-content-center">
+					<button class="d-flex justify-content-center" @onclick="() => RemoveFromCart(itemToPurchase.Key)">Remove</button>
 				</div>
 			</div>
 		}
