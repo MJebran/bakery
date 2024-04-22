@@ -13,6 +13,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Bakery.WebApp.Telemetry;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,8 @@ builder.Services
         options.ClaimActions.MapJsonKey("urn:google:image", "picture");
     });
 
+builder.Services.AddSingleton<PopularPagesMetric>();
+
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -73,6 +76,7 @@ builder.Services.AddOpenTelemetry()
     {
         b
         .AddAspNetCoreInstrumentation()
+        .AddMeter(PopularPagesMetric.MetricName)
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {

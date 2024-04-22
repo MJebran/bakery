@@ -1,9 +1,15 @@
 @page "/customizeItem/{baseItemId}"
 @rendermode InteractiveServer
+@inject PopularPagesMetric _ppmetric
 
 <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
 
 @code {
     [Parameter]
     public string baseItemId { get; set; } = "";
+
+    protected override void OnInitialized()
+    {
+        _ppmetric.IncrementPopularPageCounter("cart");
+    }
 }

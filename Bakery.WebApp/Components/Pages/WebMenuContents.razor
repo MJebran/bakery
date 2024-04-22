@@ -1,5 +1,12 @@
 ﻿@page "/menuContents"
 @rendermode InteractiveServer
+@inject PopularPagesMetric _ppmetric
 
 <Bakery.ClassLibrary.Components.MenuContents></Bakery.ClassLibrary.Components.MenuContents>
 
+@code {
+    protected override void OnInitialized()
+    {
+        _ppmetric.IncrementPopularPageCounter("menucontents");
+    }
+}

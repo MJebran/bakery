@@ -1,4 +1,6 @@
 @page "/cart/{cartId}"
+@inject PopularPagesMetric _ppmetric
+
 @rendermode InteractiveServer
 
 <Bakery.ClassLibrary.Components.Cart cartId="@cartId"></Bakery.ClassLibrary.Components.Cart>
@@ -6,4 +8,9 @@
 @code{
     [Parameter]
     public string cartId {get; set;} = "";
+
+    protected override void OnInitialized()
+    {
+        _ppmetric.IncrementPopularPageCounter("cart");
+    }
 }

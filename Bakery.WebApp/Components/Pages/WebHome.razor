@@ -1,3 +1,11 @@
 @page "/"
+@inject PopularPagesMetric _ppmetric
 
 <Bakery.ClassLibrary.Components.Home></Bakery.ClassLibrary.Components.Home>
+
+@code {
+    protected override void OnInitialized()
+    {
+        _ppmetric.IncrementPopularPageCounter("home");
+    }
+}

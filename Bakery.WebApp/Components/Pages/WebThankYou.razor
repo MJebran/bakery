@@ -1,4 +1,12 @@
 @page "/thankYou"
 @rendermode InteractiveServer
+@inject PopularPagesMetric _ppmetric
 
 <Bakery.ClassLibrary.Components.ThankYou></Bakery.ClassLibrary.Components.ThankYou>
+
+@code{
+        protected override void OnInitialized()
+    {
+        _ppmetric.IncrementPopularPageCounter("thankyou");
+    }
+}

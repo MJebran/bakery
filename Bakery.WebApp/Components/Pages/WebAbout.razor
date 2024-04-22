@@ -1,5 +1,6 @@
 @page "/about"
 @inject IConfiguration config
+@inject PopularPagesMetric _ppmetric
 
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 
@@ -13,6 +14,7 @@
     protected override void OnInitialized()
     {
         MapsKey = config.GetValue<string>("MapKey") ?? throw new Exception("Map key is not in the secrets");
+        _ppmetric.IncrementPopularPageCounter("about");
     }
 
 }
