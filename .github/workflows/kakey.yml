@@ -27,7 +27,6 @@ jobs:
           rm -r TestResults || true
           dotnet test --collect:"XPlat Code Coverage"
           COBERTURA_FILE=$(find . -type f -name "*.xml")
-          sudo apt-get install python3-pip
           python3 -m pip install pycobertura
           python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
         #apt install python3
