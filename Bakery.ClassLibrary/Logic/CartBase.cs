@@ -118,4 +118,16 @@ public class CartBase : ComponentBase
         return total;
     }
 
+    protected async Task UpdateQuantitiesAsync()
+    {
+        foreach (var itemPurchaseAndQuantity in itemPurchaseToQuantity)
+        {
+            if (itemPurchaseAndQuantity.Value > 1)
+            {
+                itemPurchaseAndQuantity.Key.ItempurchaseQuantity = itemPurchaseAndQuantity.Value;
+                await _itemPurchaseService!.UpdateItempurchase(itemPurchaseAndQuantity.Key);
+            }
+        }
+    }
+
 }

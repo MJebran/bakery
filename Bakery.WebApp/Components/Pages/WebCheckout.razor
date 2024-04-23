@@ -1,7 +1,9 @@
 @page "/Checkout/{purchaseId}"
 @rendermode InteractiveServer
+@using System.Diagnostics
 @inject IJSRuntime Js
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 
 <Bakery.ClassLibrary.Components.Checkout purchaseId="@purchaseId" Js="@Js"></Bakery.ClassLibrary.Components.Checkout>
@@ -9,9 +11,22 @@
 @code {
     [Parameter]
     public string purchaseId { get; set; } = "";
+    Stopwatch stopwatch = new Stopwatch();
 
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("checkout");
+
+        stopwatch.Start();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("checkout", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 }

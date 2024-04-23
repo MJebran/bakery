@@ -42,8 +42,6 @@ public class CustomizeItemBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        
-
         user = _authenticationService!.GetAuthenticatedUser();
     }
 

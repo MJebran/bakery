@@ -1,23 +1,25 @@
 ﻿@inherits LayoutComponentBase
+@inject SocialMediaMetric _smmetric
 
 <div class="page">
     <div>
         <main>
-        <div class=" bg-primary">
-            <NavMenu />
-        </div>
+            <div class=" bg-primary">
+                <NavMenu />
+            </div>
 
-        <article class="content">
-            @Body
-        </article>
+            <article class="content">
+                @Body
+            </article>
             <footer class="footer">
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+                <link rel="stylesheet" type="text/css"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
                 <div class="container">
                     <div class="row">
                         <div class="footer-col">
                             <h4>company</h4>
                             <ul>
-                            <li><a href="https://kakeybakery.azurewebsites.net/about">about us</a></li>
+                                <li><a href="https://kakeybakery.azurewebsites.net/about">about us</a></li>
                                 <li><a href="#">privacy policy</a></li>
 
                             </ul>
@@ -25,24 +27,28 @@
                         <div class="footer-col">
                             <h4>get help</h4>
                             <ul>
-                            <li><a href="#">about</a></li>
+                                <li><a href="#">about</a></li>
                             </ul>
                         </div>
                         <div class="footer-col">
                             <h4>online shop</h4>
                             <ul>
-                            <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cake</a></li>
-                            <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cupcake</a></li>
-                            <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cookie</a></li>
+                                <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cake</a></li>
+                                <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cupcake</a></li>
+                                <li><a href="https://kakeybakery.azurewebsites.net/menuContents">Cookie</a></li>
                             </ul>
                         </div>
                         <div class="footer-col">
                             <h4>follow us</h4>
                             <div class="social-links">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" @onclick="@( () => _smmetric.IncrementSocialMediaCounter("facebook"))"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a href="#" @onclick="@( () => _smmetric.IncrementSocialMediaCounter("twitter"))"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="#" @onclick="@( () => _smmetric.IncrementSocialMediaCounter("instagram"))"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="#" @onclick="@( () => _smmetric.IncrementSocialMediaCounter("linkedin"))"><i
+                                        class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>
@@ -58,3 +64,4 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+

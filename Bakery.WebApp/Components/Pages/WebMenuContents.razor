@@ -1,12 +1,28 @@
 ﻿@page "/menuContents"
 @rendermode InteractiveServer
+@using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 <Bakery.ClassLibrary.Components.MenuContents></Bakery.ClassLibrary.Components.MenuContents>
 
 @code {
+    Stopwatch stopwatch = new Stopwatch();
+
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("menucontents");
+
+        stopwatch.Start();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("menucontents", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 }

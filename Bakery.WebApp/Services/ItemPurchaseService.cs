@@ -49,13 +49,9 @@ namespace Bakery.WebApp.Services
             return itempurchase;
         }
 
-        public async Task UpdateItempurchase(int id)
+        public async Task UpdateItempurchase(Itempurchase itempurchase)
         {
             var context = await dbFactory.CreateDbContextAsync();
-            var itempurchase = new Itempurchase()
-            {
-                ItempurchaseId = id
-            };
             context.Itempurchases.Update(itempurchase);
             context.SaveChanges();
         }

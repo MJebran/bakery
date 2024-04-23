@@ -50,7 +50,11 @@ builder.Services
         options.ClaimActions.MapJsonKey("urn:google:image", "picture");
     });
 
+//METRICS
 builder.Services.AddSingleton<PopularPagesMetric>();
+builder.Services.AddSingleton<SocialMediaMetric>();
+builder.Services.AddSingleton<PurchasesCompletedMetric>();
+builder.Services.AddSingleton<LoadingTimeMetric>();
 
 
 builder.Services.AddRazorComponents()
@@ -80,6 +84,9 @@ builder.Services.AddOpenTelemetry()
         b
         .AddAspNetCoreInstrumentation()
         .AddMeter(PopularPagesMetric.MetricName)
+        .AddMeter(SocialMediaMetric.MetricName)
+        .AddMeter(PurchasesCompletedMetric.MetricName)
+        .AddMeter(LoadingTimeMetric.MetricName)
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {

@@ -1,16 +1,30 @@
 @page "/about"
+@using System.Diagnostics
 @inject IConfiguration config
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 
 @code {
     private string? MapsKey { get; set; }
-
+    Stopwatch stopwatch = new Stopwatch();
     protected override void OnInitialized()
     {
         MapsKey = config.GetValue<string>("MapKey") ?? throw new Exception("Map key is not in the secrets");
         _ppmetric.IncrementPopularPageCounter("about");
+
+        stopwatch.Start();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("about", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 
 }

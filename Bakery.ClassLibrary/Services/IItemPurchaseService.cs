@@ -13,7 +13,6 @@ public interface IItemPurchaseService
     public Task<IEnumerable<Itempurchase>> GetAllItempurchase();
     //public Task DeleteItempurchase(int id);
     public Task<Itempurchase> GetItempurchaseById(int id);
-    public Task UpdateItempurchase(int id);
-
+    public Task UpdateItempurchase(Itempurchase itempurchase);
     public Task DeleteItempurchase(int id);
 }
