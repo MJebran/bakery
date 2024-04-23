@@ -11,7 +11,7 @@ class PurchasesCompletedMetric
         CompletedPurchasesCounter = meter.CreateCounter<int>("bakery.purchases_completed_counter");
     }
     public static string MetricName = "bakery.CompletedPurchases";
-     public void IncrementPopularPageCounter()
+    public void IncrementPopularPageCounter()
     {
         CompletedPurchasesCounter.Add(1);
     }
