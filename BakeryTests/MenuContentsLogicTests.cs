@@ -13,8 +13,11 @@ public class MenuContentsLogicTests : TestContext
         List<Itemtype> items = new();
         foreach (var item in itemNameAndCategory)
         {
-            items.Add(new Itemtype{ItemName = item.name, 
-            Category=new Category{CategoryName = item.category}});
+            items.Add(new Itemtype
+            {
+                ItemName = item.name,
+                Category = new Category { CategoryName = item.category }
+            });
         }
         return items;
     }
@@ -46,8 +49,8 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
         var itemsWithCategories = new List<(string, string)>{
-        ("chocolate cake", "cake"), 
-        ("strawberry cake", "cake"), 
+        ("chocolate cake", "cake"),
+        ("strawberry cake", "cake"),
         ("chocolate cupcake", "cupcake"),
         };
 
@@ -56,7 +59,7 @@ public class MenuContentsLogicTests : TestContext
         var svc = Services.GetService<IItemTypeService>();
 
         foreach (var item in items)
-        {     
+        {
             await svc.AddItemtype(item);
         }
 
@@ -79,8 +82,8 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
         var itemsWithCategories = new List<(string, string)>{
-        ("chocolate cake", "cake"), 
-        ("strawberry cake", "cake"), 
+        ("chocolate cake", "cake"),
+        ("strawberry cake", "cake"),
         ("chocolate cupcake", "cupcake"),
         };
 
@@ -89,7 +92,7 @@ public class MenuContentsLogicTests : TestContext
         var svc = Services.GetService<IItemTypeService>();
 
         foreach (var item in items)
-        {     
+        {
             await svc.AddItemtype(item);
         }
 

@@ -85,7 +85,7 @@ builder.Services.AddOpenTelemetry()
         });
     }); ;
 
-builder.Logging.AddOpenTelemetry(logs => 
+builder.Logging.AddOpenTelemetry(logs =>
     logs
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
@@ -111,11 +111,11 @@ var handler = app.Services.GetRequiredService<ExampleHandler>();
 //     Meters.LurisCount += 1
 // })
 // handler.HandleRequest());
-app.MapGet("/log1", ()=>handler.HandleRequest());
-app.MapGet("/log2", ()=>handler.HandleRequest());
-app.MapGet("/log3", ()=>handler.HandleRequest());
-app.MapGet("/log4", ()=>handler.HandleRequest());
-app.MapGet("/log5", ()=>handler.HandleRequest());
+app.MapGet("/log1", () => handler.HandleRequest());
+app.MapGet("/log2", () => handler.HandleRequest());
+app.MapGet("/log3", () => handler.HandleRequest());
+app.MapGet("/log4", () => handler.HandleRequest());
+app.MapGet("/log5", () => handler.HandleRequest());
 
 if (!app.Environment.IsDevelopment())
 {

@@ -20,7 +20,7 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public IBakeryAutheticationService? _authenticationservice { get; set; }
-    
+
     [Inject]
     public IPurchaseService? _purchaseservice { get; set; }
 
@@ -33,8 +33,8 @@ public class CheckoutBase : ComponentBase
     protected decimal TaxAmount { get; set; }
     protected string DisplayButtons { get; set; } = "block";
     public int PurchaseId { get; set; }
-    public User? user {get; set;}
-    public Purchase? userCart {get; set;}
+    public User? user { get; set; }
+    public Purchase? userCart { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -98,13 +98,14 @@ public class CheckoutBase : ComponentBase
 
     public async Task MarkCartAsCompletedPurchase()
     {
-        if(userCart is not null)
+        if (userCart is not null)
         {
             userCart.Ispayed = true;
             _purchaseservice?.UpdatePurchase(userCart);
             await Task.CompletedTask;
         }
-        else{
+        else
+        {
             throw new Exception("user cart not available");
         }
     }

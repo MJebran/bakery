@@ -20,7 +20,7 @@ public class ItemTypeServiceTest : IItemTypeService
     public async Task AddItemtypes(List<Itemtype> items)
     {
         foreach (var item in items)
-        {          
+        {
             itemtypes.Add(item);
         }
         await Task.CompletedTask;

@@ -8,7 +8,7 @@ namespace BakeryTests
 {
     public class AddApiTests : IClassFixture<BakeryWebAPIFactory>
     {
-        BakeryWebAPIFactory _factory {get; set;}
+        BakeryWebAPIFactory _factory { get; set; }
         public AddApiTests(BakeryWebAPIFactory factory)
         {
             _factory = factory;
