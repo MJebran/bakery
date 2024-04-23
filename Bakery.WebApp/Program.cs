@@ -71,7 +71,10 @@ builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgs
 
 builder.Services.AddHealthChecks();
 
+const string serviceName = "bakery service";
+
 builder.Services.AddOpenTelemetry()
+.ConfigureResource(resource => resource.AddService(serviceName))
 .WithMetrics(b =>
     {
         b
@@ -80,7 +83,7 @@ builder.Services.AddOpenTelemetry()
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://kakey1-collector:4317/"); //MIGHT NEED TO CHANGE This to otel-collector
+            o.Endpoint = new Uri("http://kakey1-collector-service:4317/"); 
         });
     }); ;
 
