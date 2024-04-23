@@ -53,6 +53,10 @@ builder.Services
 
 builder.Services.AddSingleton<PopularPagesMetric>();
 builder.Services.AddSingleton<ExampleHandler>();
+builder.Services.AddSingleton<SocialMediaMetric>();
+builder.Services.AddSingleton<PurchasesCompletedMetric>();
+builder.Services.AddSingleton<LoadingTimeMetric>();
+
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -72,12 +76,17 @@ builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgs
 
 builder.Services.AddHealthChecks();
 
+const string serviceName = "bakery service";
 builder.Services.AddOpenTelemetry()
+.ConfigureResource(resource => resource.AddService(serviceName))
 .WithMetrics(b =>
     {
         b
         .AddAspNetCoreInstrumentation()
         .AddMeter(PopularPagesMetric.MetricName)
+        .AddMeter(SocialMediaMetric.MetricName)
+        .AddMeter(PurchasesCompletedMetric.MetricName)
+        .AddMeter(LoadingTimeMetric.MetricName)
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {
