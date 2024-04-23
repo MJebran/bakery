@@ -1,72 +1,100 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
 <body>
+    <div class="about-section">
+        <h1>About Us Page</h1>
+        <p>Fresh and Quality.</p>
+    </div>
 
-<div class="about-section">
-  <h1>About Our Bakery</h1>
-  <p>Quick And Fresh</p>
-  <p>Deliciously handcrafted, simply irresistible.</p>
-</div>
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="column">
+                <div class="cont">
+                    <p>
+                        At Kakey Bakery, we're all about the simple pleasure of freshly baked goods. From warm bread to delightful pastries, each treat is made with care and quality ingredients.
 
-    <div class="content">
-        <div class="about">
-            <div class="text">
-                <h2>About Us</h2>
-                <p>
-                    At Kakey Bakery, we're all about the simple pleasure of freshly baked goods. From warm bread to delightful pastries, each treat is made with care and quality ingredients.
+                        Our passion is bringing people together through the joy of great food. Whether it's a morning pick-me-up or a special celebration, we're here to make every moment a little sweeter.
 
-                    Our passion is bringing people together through the joy of great food. Whether it's a morning pick-me-up or a special celebration, we're here to make every moment a little sweeter.
+                        Step into our bakery and experience the warmth of our delicious creations. Thank you for letting us be a part of your day.
+                    </p>
+                </div>
+            </div>
 
-                    Step into our bakery and experience the warmth of our delicious creations. Thank you for letting us be a part of your day.
-                </p>
+            <div class="column">
+                <div class="cont">
+                    <video autoplay muted loop id="background-video">
+                        <source src="https://videos.pexels.com/video-files/3992584/3992584-uhd_4096_2160_25fps.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
         </div>
-        <div class="video">
-            <video autoplay muted loop id="background-video">
-                <source src="https://videos.pexels.com/video-files/3992584/3992584-uhd_4096_2160_25fps.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    </div>
+
+
+
+    <div class="row d-flex justify-content-center">
+        <div class="column">
+            <div class="card">
+                    <img src="https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menuPicAboutPage.jpg" alt="menu" style="width:100%">
+                    <div class="container">
+                        <h2>Our Menu</h2>
+                        <p class="title">Fresh</p>
+                        <p>Delightful Creations: Simply Irresistible</p>
+                        <p>Kakey Bakery</p>
+                        <p><button class="button">Menu</button></p>
+                    </div>
+                </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/7190703/pexels-photo-7190703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="home" style="width:100%">
+                <div class="container">
+                    <h2>Home</h2>
+                    <p class="title">Home Page</p>
+                    <p>Enjoy for your special day!!</p>
+                    <p>Ephraim, Utah</p>
+                    <p><button class="button">Home</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/7201204/pexels-photo-7201204.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Local" style="width:100%">
+                <div class="container">
+                    <h2>Local</h2>
+                    <p class="title">Local Information</p>
+                    <p>You can visit us, Ephraim Utah</p>
+                    <p>(435)312-4566</p>
+                    <p><button class="button">Order Now!</button></p>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div class="row d-flex justify-content-center">
+        <div class="column">
+            <div id="mapDiv" style="width:100%;height:600px;"></div>
+        </div>
+        <div class="column">
+            <p>Kakey bakery</p>
+            <p>150 College Ave E, Ephraim, UT 84627</p>
+            <p>· 435.283.7000 · snowcollege@snow.edu</p>
+        </div>
+    </div>
 
-<h2 style="text-align:center">Enjoy</h2>
-<div class="d-flex justify-content-center">
-  <div class="column">
-    <div class="card">
-      <img src="https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menuPicAboutPage.jpg" alt="menu" style="width:100%">
-      <div class="container">
-        <h2>Our Menu</h2>
-        <p class="title">Fresh</p>
-        <p>Delightful Creations: Simply Irresistible</p>
-        <p>Kakey Bakery</p>
-        <p><button class="button">Menu</button></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="column">
-    <div class="card">
-      <img src="https://images.pexels.com/photos/7190703/pexels-photo-7190703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="home" style="width:100%">
-      <div class="container">
-        <h2>Home</h2>
-        <p class="title">Home Page</p>
-        <p>Enjoy for your special day!!</p>
-        <p>Ephraim, Utah</p>
-        <p><button class="button">Home</button></p>
-      </div>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <img src="https://images.pexels.com/photos/7201204/pexels-photo-7201204.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Local" style="width:100%">
-      <div class="container">
-        <h2>Local</h2>
-        <p class="title">Local Information</p>
-        <p>You can visit us, Ephraim Utah</p>
-        <p>(435)312-4566</p>
-        <p><button class="button">Order Now!</button></p>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
+
+@code {
+    [Parameter] public string MapsKey { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeMap", MapsKey);
+        }
+    }
+}

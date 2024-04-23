@@ -7,14 +7,14 @@ function initializeMap(mapsKey) {
     map = new atlas.Map("mapDiv", {
         view: "Auto",
         center: [-111.58264854191678, 39.36143191547314],
-        zoom: 13
+        zoom: 16
     });
 
     navigator.geolocation.getCurrentPosition(function (position) {
         var userLocation = [-111.58264854191678, 39.36143191547314];
         map.setCamera({
             center: userLocation,
-            zoom: 13
+            zoom: 16
         });
     });
 

@@ -22,18 +22,25 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 8px;
   }
-  
-  .about-section {
+.cont {
+    margin: 30px;
+}
+.about-section {
     padding: 50px;
     text-align: center;
     background-color: #FDF6F0;
     color: #ed95ab;
-  }
-  
-  .container {
+}
+.about-text {
+    padding: 50px;
+    text-align: center;
+    color: black;
+
+}
+
+.container {
     padding: 0 16px;
-    height: 20%;
-  }
+}
   
   .container::after, .row::after {
     content: "";
@@ -60,13 +67,13 @@ body {
   .button:hover {
     background-color: #8e5b68;
   }
-  
-  @media screen and (max-width: 650px) {
+
+@media screen and (max-width: 650px) {
     .column {
-      width: 100%;
-      display: block;
+        width: 100%;
+        display: block;
     }
-  }
+}
 * {
     box-sizing: border-box;
     margin: 0;
@@ -103,7 +110,6 @@ body {
 video {
     width: 100%;
 }
-
 @media only screen and (min-width: 600px) {
     .content {
         padding: 40px;
