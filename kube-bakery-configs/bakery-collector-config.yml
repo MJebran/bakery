@@ -9,8 +9,6 @@ receivers:
       endpoint: "0.0.0.0:1234" #MIGHT NEED TO CHANGE THIS WITH SOMETHING
     loki:
       endpoint: http://kakey1-loki-service:3100/loki/api/v1/push
-    # zipkin:
-    #   endpoint: http://carlos_zipkin:9411/api/v2/spans
   
   extensions:
     health_check:     
@@ -21,10 +19,6 @@ receivers:
   service:
     extensions: [health_check] 
     pipelines:
-    #   traces:
-    #     receivers: [otlp]
-    #     processors: [batch]
-    #     exporters: [zipkin]
       metrics:
         receivers: [otlp]
         processors: []
