@@ -1,15 +1,30 @@
 @page "/customizeItem/{baseItemId}"
 @rendermode InteractiveServer
+@using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
 
 @code {
     [Parameter]
     public string baseItemId { get; set; } = "";
+    Stopwatch stopwatch = new Stopwatch();
 
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("cart");
+
+        stopwatch.Start();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("cart", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 }

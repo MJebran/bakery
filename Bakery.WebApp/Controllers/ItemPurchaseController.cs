@@ -40,10 +40,10 @@ namespace Bakery.WebApp.Services
             await _service.DeleteItempurchase(id);
         }
 
-        [HttpPut("update/itempurchase/{id}")]
-        public async Task UpdateItemPurchaseAsync(int id)
+        [HttpPut("update/itempurchase")]
+        public async Task UpdateItemPurchaseAsync([FromBody] Itempurchase itempurchase)
         {
-            await _service.UpdateItempurchase(id);
+            await _service.UpdateItempurchase(itempurchase);
         }
     }
 }

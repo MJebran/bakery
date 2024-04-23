@@ -1,12 +1,29 @@
 @page "/thankYou"
 @rendermode InteractiveServer
+@using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
+@inject PurchasesCompletedMetric _pcmetric
+@inject LoadingTimeMetric _ltmetric
 
 <Bakery.ClassLibrary.Components.ThankYou></Bakery.ClassLibrary.Components.ThankYou>
 
-@code{
-        protected override void OnInitialized()
+@code {
+
+    Stopwatch stopwatch = new Stopwatch();
+    protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("thankyou");
+        _pcmetric.IncrementPopularPageCounter();
+
+        stopwatch.Start();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("thankyou", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 }

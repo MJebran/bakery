@@ -22,4 +22,4 @@ scrape_configs:
     - job_name: 'metrics-blazor'
       scrape_interval: 5s 
       static_configs:
-        - targets: ['kakey1-web-service:8080']
+        - targets: ['kakey1-web-service:80']

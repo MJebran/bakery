@@ -1,16 +1,29 @@
 @page "/cart/{cartId}"
+@using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 @rendermode InteractiveServer
 
 <Bakery.ClassLibrary.Components.Cart cartId="@cartId"></Bakery.ClassLibrary.Components.Cart>
 
-@code{
+@code {
     [Parameter]
-    public string cartId {get; set;} = "";
+    public string cartId { get; set; } = "";
+    Stopwatch stopwatch = new Stopwatch();
 
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("cart");
+        stopwatch.Start();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("cart", stopwatch.Elapsed.Milliseconds);
+        }
     }
 }

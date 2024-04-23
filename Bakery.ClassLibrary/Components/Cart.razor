@@ -35,7 +35,7 @@
 
 	<div class="checkout-cnt">
 		<div class="checkout-btn">
-			<a href="/Checkout/@cartId" style="text-decoration: none">
+			<a href="/Checkout/@cartId" style="text-decoration: none" @onclick="async () => await UpdateQuantitiesAsync()">
 			Check Out
 			</a>
 		</div>

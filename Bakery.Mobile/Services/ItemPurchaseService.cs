@@ -2,6 +2,8 @@
 using Bakery.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace Bakery.Mobile.Services
 {
@@ -28,9 +30,11 @@ namespace Bakery.Mobile.Services
             return await client.GetFromJsonAsync<Itempurchase>($"api/itempurchase/itempurchase/{id}") ?? throw new Exception("item purchase not found");
         }
 
-        public async Task UpdateItempurchase(int id)
+        public async Task UpdateItempurchase(Itempurchase itempurchase)
         {
-            await client.PutAsync($"api/itempurchase/update/itempurchase/{id}", new StringContent(""));
+            string json = JsonSerializer.Serialize(itempurchase);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            await client.PutAsync($"api/itempurchase/update/itempurchase", content);
         }
 
     }

@@ -1,11 +1,25 @@
 @page "/"
+@using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
+@inject LoadingTimeMetric _ltmetric
 
 <Bakery.ClassLibrary.Components.Home></Bakery.ClassLibrary.Components.Home>
 
 @code {
+    Stopwatch stopwatch = new Stopwatch();
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("home");
+
+        stopwatch.Start();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            stopwatch.Stop();
+            _ltmetric.RecordTimeForPage("home", stopwatch.Elapsed.Milliseconds);
+
+        }
     }
 }

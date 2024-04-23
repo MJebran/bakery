@@ -7,8 +7,6 @@ datasources:
   uid: prometheus
   access: proxy
   url: http://kakey1-prometheus-service:9090
-#   jsonData:
-#     timeInterval: 10s
   isDefault: true
   version: 1
   editable: false
@@ -20,9 +18,3 @@ datasources:
   basicAuth: false
   version: 1
   editable: false
-#   jsonData:
-#     derivedFields:
-#       - datasourceUid: tempo
-#         matcherRegex: "\u0022traceid\u0022:\u0022(\\w+)\u0022"
-#         name: TraceId
-#         url: '$${__value.raw}'
