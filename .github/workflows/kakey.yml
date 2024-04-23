@@ -71,10 +71,10 @@ jobs:
       - name: Verificar token
         run: echo ${{ github.token }}
 
-      # - name: Send notification
-      #   uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
-      #   if: always()
-      #   with:
-      #     github-token: ${{ github.token }}
-      #     webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
+      - name: Send notification
+        uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
+        if: always()
+        with:
+          github-token: ${{ github.token }}
+          webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
 #################
