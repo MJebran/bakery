@@ -68,8 +68,8 @@ jobs:
 
           kubectl apply -f kubeBakeryDeploy/ --recursive
       
-      # - name: Verificar token
-      #   run: echo ${{ github.token }}
+      - name: Verificar token
+        run: echo ${{ github.token }}
 
       # - name: Send notification
       #   uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
