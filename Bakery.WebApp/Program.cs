@@ -38,6 +38,7 @@ builder.Services
     .AddSingleton<ICustomeItemToppingService, CustomeItemToppingService>()
     .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
     .AddSingleton<IFavoriteItemService, FavoriteItemService>()
+
     .AddSingleton<IBlobStorageService, BlobService>()
     .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
     .AddScoped<HttpClient>()
@@ -51,7 +52,7 @@ builder.Services
     });
 
 builder.Services.AddSingleton<PopularPagesMetric>();
-
+builder.Services.AddSingleton<ExampleHandler>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -84,9 +85,37 @@ builder.Services.AddOpenTelemetry()
         });
     }); ;
 
+builder.Logging.AddOpenTelemetry(logs => 
+    logs
+        .AddConsoleExporter()
+        .AddOtlpExporter(o =>
+        {
+            o.Endpoint = new Uri("http://kakey1-collector:4317/");// Might be the other direccion
+        }));
+
+using ILoggerFactory factory = LoggerFactory.Create(builder =>
+{
+    builder.AddOpenTelemetry(logging =>
+    {
+        logging.AddOtlpExporter();
+    });
+});
+
+
 builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
+
+var handler = app.Services.GetRequiredService<ExampleHandler>();
+// app.MapGet("/log", ()=> {
+//     Meters.LurisCount += 1
+// })
+// handler.HandleRequest());
+app.MapGet("/log1", ()=>handler.HandleRequest());
+app.MapGet("/log2", ()=>handler.HandleRequest());
+app.MapGet("/log3", ()=>handler.HandleRequest());
+app.MapGet("/log4", ()=>handler.HandleRequest());
+app.MapGet("/log5", ()=>handler.HandleRequest());
 
 if (!app.Environment.IsDevelopment())
 {
