@@ -43,7 +43,7 @@ jobs:
       - name: deploy
         run: |      
           # cd ./bakery
-          docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID.
+          docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
 
           kubectl delete configmap blazor-web-postgres-init -n kakey1 || true

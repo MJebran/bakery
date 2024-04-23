@@ -81,7 +81,7 @@ builder.Services.AddOpenTelemetry()
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://kakey1-collector:4317/"); //MIGHT NEED TO CHANGE This to otel-collector
+            o.Endpoint = new Uri("http://kakey1-collector-service:4317/"); //MIGHT NEED TO CHANGE This to otel-collector
         });
     }); ;
 
@@ -90,7 +90,7 @@ builder.Logging.AddOpenTelemetry(logs =>
         .AddConsoleExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://kakey1-collector:4317/");// Might be the other direccion
+            o.Endpoint = new Uri("http://kakey1-collector-service:4317/");// Might be the other direccion
         }));
 
 using ILoggerFactory factory = LoggerFactory.Create(builder =>
