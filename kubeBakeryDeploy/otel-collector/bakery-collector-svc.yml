@@ -10,3 +10,4 @@ spec:
   ports:
     - port: 4317
       targetPort: 4317
+

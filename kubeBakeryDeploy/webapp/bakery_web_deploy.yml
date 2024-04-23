@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: kakey1-web
-        image: 144.17.92.12:5000/kakey1/kakey1-web:2
+        image: 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
         ports:
         - containerPort: 8080
         env:
@@ -31,4 +31,15 @@ spec:
           value: "false"
         - name: MapKey 
           value: "WsgLD37FO52KUXPukZ8sOXj4uTwEduS6ImvACWgB-Vk"
-
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
