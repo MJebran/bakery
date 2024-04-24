@@ -66,9 +66,7 @@ jobs:
 
           cd ..
 
-          folders=kubeBakeryDeploy
-
-          for folder in "${folders}"; do
+          for folder in "kubeBakeryDeploy/*"; do
             if [ -d "$folder" ]; then
                 for file in "$folder/*"; do
                         echo "envsubst applied to $file"
