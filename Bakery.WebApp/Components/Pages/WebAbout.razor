@@ -4,13 +4,15 @@
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
 
+
+<Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
+<Map MapsKey="@MapsKey"></Map>
 @if(featureFlagIsEnabled)
 {
     <div>This came from a feature flag</div>
     <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
 }
 
-<Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 
 
 
