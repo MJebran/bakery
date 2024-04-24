@@ -66,14 +66,10 @@ jobs:
 
           cd ..
 
-          for folder in "kubeBakeryDeploy/*"; do
-            if [ -d "$folder" ]; then
+          for folder in ./kubeBakeryDeploy/*; do
                 for file in "$folder/*"; do
                         echo "envsubst applied to $file"
                 done
-            else
-                echo "Folder $folder does not exist."
-            fi
           done
 
           #kubectl apply -f kubeBakeryDeploy/ --recursive
