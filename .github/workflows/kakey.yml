@@ -70,7 +70,7 @@ jobs:
 
           for folder in "${folders}"; do
             if [ -d "$folder" ]; then
-                for file in "$folder"/*; do
+                for file in "$folder/*"; do
                         echo "envsubst applied to $file"
                 done
             else
