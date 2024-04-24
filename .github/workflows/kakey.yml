@@ -1,6 +1,8 @@
 name: kakeyProcess
+
 on:
   push:
+
 jobs:
   DeployingPipeline:
     runs-on: kakeylabel
@@ -30,6 +32,7 @@ jobs:
           python3 -m pip install pycobertura
           python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
         #apt install python3
+
       - name: "run linting"
         run: |
           cd ./Bakery.WebApp/
@@ -66,12 +69,17 @@ jobs:
           cd ..
 
           kubectl apply -f kubeBakeryDeploy/ --recursive
+      
+      - name: Verificar token
+        run: echo ${{ github.token }}
 
-      - name: Send notification
-        uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
+  Push_to_Teams:
+    runs-on: kakeylabel
+    steps:
+      - uses: actions/checkout@v2
+      # this is the new step
+      - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
         if: always()
         with:
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
-
-          #######
