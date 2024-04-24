@@ -8,7 +8,7 @@ using Bunit;
 namespace BakeryTests;
 public class MenuContentsLogicTests : TestContext
 {
-    static List<Itemtype> createItemsWithCategory(List<(string name, string category)> itemNameAndCategory)
+    static List<Itemtype> createItemsWithCategory(List<(string name, int categoryId)> itemNameAndCategory)
     {
         List<Itemtype> items = new();
         foreach (var item in itemNameAndCategory)
@@ -16,7 +16,7 @@ public class MenuContentsLogicTests : TestContext
             items.Add(new Itemtype
             {
                 ItemName = item.name,
-                Category = new Category { CategoryName = item.category }
+                CategoryId = item.categoryId
             });
         }
         return items;
@@ -48,19 +48,28 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ICategoryService, CategoryServiceTest>();
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
-        var itemsWithCategories = new List<(string, string)>{
-        ("chocolate cake", "cake"),
-        ("strawberry cake", "cake"),
-        ("chocolate cupcake", "cupcake"),
+        var itemsWithCategoryID = new List<(string, int)>{
+        ("chocolate cake", 1),
+        ("strawberry cake", 1),
+        ("chocolate cupcake", 2),
         };
 
-        var items = createItemsWithCategory(itemsWithCategories);
+        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"}, 
+                                               new Category(){CategoryId = 2, CategoryName = "cupcake"}};
 
-        var svc = Services.GetService<IItemTypeService>();
+        var items = createItemsWithCategory(itemsWithCategoryID);
+
+        var itemsvc = Services.GetService<IItemTypeService>();
+        var catsvc = Services.GetService<ICategoryService>();
 
         foreach (var item in items)
         {
-            await svc.AddItemtype(item);
+            await itemsvc!.AddItemtype(item);
+        }
+
+        foreach(var category in categories)
+        {
+            await catsvc!.AddCategory(category);
         }
 
         var cut = RenderComponent<MenuContentsBase>();
@@ -81,19 +90,29 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ICategoryService, CategoryServiceTest>();
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
-        var itemsWithCategories = new List<(string, string)>{
-        ("chocolate cake", "cake"),
-        ("strawberry cake", "cake"),
-        ("chocolate cupcake", "cupcake"),
+        var itemsWithCategoryID = new List<(string, int)>{
+        ("chocolate cake", 1),
+        ("strawberry cake", 1),
+        ("chocolate cupcake", 2),
         };
 
-        var items = createItemsWithCategory(itemsWithCategories);
+        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"}, 
+                                               new Category(){CategoryId = 2, CategoryName = "cupcake"}};
 
-        var svc = Services.GetService<IItemTypeService>();
+        var items = createItemsWithCategory(itemsWithCategoryID);
+
+        var itemsvc = Services.GetService<IItemTypeService>();
+        var catsvc = Services.GetService<ICategoryService>();
+
 
         foreach (var item in items)
         {
-            await svc.AddItemtype(item);
+            await itemsvc!.AddItemtype(item);
+        }
+        
+        foreach(var category in categories)
+        {
+            await catsvc!.AddCategory(category);
         }
 
         var cut = RenderComponent<MenuContentsBase>();

@@ -4,13 +4,24 @@
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
 
+@if(featureFlagIsEnabled)
+{
+    <div>This came from a feature flag</div>
+    <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
+}
+
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
+
+
 
 @code {
     private string? MapsKey { get; set; }
     Stopwatch stopwatch = new Stopwatch();
+
+    bool featureFlagIsEnabled {get; set;}
     protected override void OnInitialized()
     {
+        featureFlagIsEnabled = bool.Parse(config["featureFlag"] ?? "false");
         MapsKey = config.GetValue<string>("MapKey") ?? throw new Exception("Map key is not in the secrets");
         _ppmetric.IncrementPopularPageCounter("about");
 
