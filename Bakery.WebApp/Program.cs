@@ -90,7 +90,7 @@ builder.Services.AddOpenTelemetry()
         .AddPrometheusExporter()
         .AddOtlpExporter(o =>
         {
-            o.Endpoint = new Uri("http://kakey1-collector-service:4317/"); 
+            o.Endpoint = new Uri("http://kakey1-collector-service:4317/");
         });
     }); ;
 
