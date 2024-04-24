@@ -68,7 +68,8 @@ jobs:
 
           for folder in ./kubeBakeryDeploy/*; do
                 for file in $folder/*; do
-                        echo "envsubst applied to $file"
+                        echo "envsubst applying to $file"
+                        cat $file | envsubst | kubectl apply -f -
                 done
           done
 
