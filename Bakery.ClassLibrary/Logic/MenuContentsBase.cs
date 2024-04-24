@@ -29,17 +29,14 @@ public class MenuContentsBase : ComponentBase
 
     public void FilterSelection(string category = "all")
     {
-        foreach (var item in items)
-        {
-            Console.WriteLine($"item: {item.ItemName} category: {item.Category.CategoryName}");
-        }
         if (category == "all")
         {
             filterItems = items;
         }
         else
         {
-            filterItems = items.Where(item => item.Category.CategoryName == category).ToList();
+            var category1 = categories.Find(ca => ca.CategoryName == category);
+            filterItems = items.Where(item => item.CategoryId == category1.CategoryId).ToList();
         }
     }
 }
