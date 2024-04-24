@@ -1,5 +1,4 @@
-﻿var map;
-
+﻿﻿var map;
 function initializeMap(mapsKey) {
     // Initialize the Azure Maps
     atlas.setSubscriptionKey(mapsKey);
@@ -7,17 +6,16 @@ function initializeMap(mapsKey) {
     map = new atlas.Map("mapDiv", {
         view: "Auto",
         center: [-111.58264854191678, 39.36143191547314],
-        zoom: 16
+        zoom: 13
     });
 
     navigator.geolocation.getCurrentPosition(function (position) {
         var userLocation = [-111.58264854191678, 39.36143191547314];
         map.setCamera({
             center: userLocation,
-            zoom: 16
+            zoom: 13
         });
     });
-
     var marker = new atlas.HtmlMarker({
         color: 'DodgerBlue',
         text: 'O',
@@ -28,9 +26,7 @@ function initializeMap(mapsKey) {
         })
     });
     map.markers.add(marker);
-
     map.events.add('click', marker, () => {
         marker.togglePopup();
     });
 }
-
