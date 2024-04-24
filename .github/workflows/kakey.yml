@@ -69,9 +69,6 @@ jobs:
           cd ..
 
           kubectl apply -f kubeBakeryDeploy/ --recursive
-      
-      - name: Verificar token
-        run: echo ${{ github.token }}
 
   Push_to_Teams:
     runs-on: kakeylabel
