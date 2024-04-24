@@ -1,3 +1,5 @@
+using Bakery.WebApp.Data;
+
 namespace Bakery.WebApp.Services;
 
 public class ItemtypeDTO
@@ -9,5 +11,6 @@ public class ItemtypeDTO
     public decimal? ItemWeight { get; set; }
     public string? ItemDescription { get; set; }
     public int CategoryId { get; set; }
+    public Category Category { get; set; } = null!;
     public int SizeId { get; set; }
 }

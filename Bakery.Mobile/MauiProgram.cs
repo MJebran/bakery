@@ -41,7 +41,7 @@ namespace Bakery.Mobile
             .AddSingleton<IItemPurchaseService, ItemPurchaseService>()
             .AddSingleton<IFavoriteItemService, FavoriteItemService>()
             .AddSingleton<IBakeryAutheticationService, BakeryAuthenticationService>()
-            .AddSingleton<AuthenticationStateProvider>()
+            //.AddSingleton<AuthenticationStateProvider>()
             .AddScoped<HttpClient>()
             .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie().Services
             .AddAuthentication().AddGoogle(options =>
@@ -53,8 +53,8 @@ namespace Bakery.Mobile
             });
 
             builder.Services.AddMauiBlazorWebView();
-            builder.Services.AddCascadingAuthenticationState();
-            builder.Services.AddAuthorizationCore();
+            //builder.Services.AddCascadingAuthenticationState();
+            //builder.Services.AddAuthorizationCore();
 
 
 #if DEBUG
