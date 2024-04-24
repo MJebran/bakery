@@ -22,7 +22,7 @@ spec:
         - containerPort: 4317
         volumeMounts:
         - name: kakey1-otel-config
-          mountPath: /etc/otel-collector-config.yaml
+          mountPath: /etc/otelcol-contrib/config.yaml
           subPath: bakery-collector-config.yml
 
       volumes:
