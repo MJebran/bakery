@@ -3,27 +3,26 @@ receivers:
       protocols:
         grpc:
         http:
-  
-  exporters:
-    prometheus:
-      endpoint: "0.0.0.0:1234" #MIGHT NEED TO CHANGE THIS WITH SOMETHING
-    loki:
-      endpoint: http://kakey1-loki-service:3100/loki/api/v1/push
-  
-  extensions:
-    health_check:     
-  
-  processors:
-    batch:
-  
-  service:
-    extensions: [health_check] 
-    pipelines:
-      metrics:
-        receivers: [otlp]
-        processors: []
-        exporters: [prometheus]
-      logs:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [loki]
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:1234" #MIGHT NEED TO CHANGE THIS WITH SOMETHING
+  loki:
+    endpoint: http://kakey1-loki-service:3100/loki/api/v1/push
+
+extensions:
+  health_check:     
+
+processors:
+  batch:
+
+service:
+  extensions: [health_check] 
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [prometheus]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [loki]
