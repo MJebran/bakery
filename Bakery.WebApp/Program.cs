@@ -53,11 +53,13 @@ builder.Services
     });
 
 builder.Services.AddSingleton<PopularPagesMetric>();
-//builder.Services.AddSingleton<PageLogger>();
 builder.Services.AddSingleton<SocialMediaMetric>();
 builder.Services.AddSingleton<PurchasesCompletedMetric>();
 builder.Services.AddSingleton<LoadingTimeMetric>();
 
+builder.Services.AddSingleton<ErrorLogger>();
+builder.Services.AddSingleton<PageLogger>();
+builder.Services.AddSingleton<PageLoggerWithRealTimeProcessing>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

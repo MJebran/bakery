@@ -3,7 +3,7 @@
 @inject IConfiguration config
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
-
+@inject ErrorLogger _errorloger
 
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 <Map MapsKey="@MapsKey"></Map>
@@ -49,11 +49,10 @@
             throw new Exception("this is an error exception that was triggered");
 
         }
-        catch
+        catch(Exception e)
         {
             Console.WriteLine("error thrown");
-
-        // LURIS ANADE UN LOG DE ERROR ACA
+            _errorloger.LogError(e.Message);
         }
     }
 
