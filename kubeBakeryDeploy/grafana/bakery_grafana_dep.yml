@@ -34,7 +34,7 @@ spec:
         - name: dashboard
           mountPath: /etc/grafana/provisioning/dashboards/dashboards.yml
           subPath: bakery-dashboard.yml
-        - name: dashboard_contents
+        - name: dashboard-contents
           mountPath: /etc/grafana/provisioning/dashboards/contents.json
           subPath: bakery-dashboard-content.json
 
@@ -45,6 +45,6 @@ spec:
       - name: dashboard
         configMap:
           name: kakey1-grafana-dashboard-config
-      - name: dashboard_contents
+      - name: dashboard-contents
         configMap:
           name: kakey1-grafana-dashboard-json
