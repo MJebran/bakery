@@ -5,24 +5,25 @@ on:
 
 jobs:
   DeployingPipeline:
-    runs-on: kakeylabel
+    runs-on: ubuntu-latest
     env:
       Authentication_Google_ClientId: "1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com"
       Authentication_Google_ClientSecret: "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"
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: "run integration tests"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Integration Tests
         run: |
           cd ./BakeryTests/
           dotnet test
 
-      - name: "run unit tests"
+      - name: Run Unit Tests
         run: |
           cd ./Bakery.XUnitTests/
           dotnet test 
 
-      - name: "compute code coverage"
+      - name: Compute Code Coverage
         run: |
           cd ./BakeryTests/
           rm -r TestResults || true
@@ -31,17 +32,17 @@ jobs:
           python3 -m pip install pycobertura
           python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
 
-      - name: "run linting"
+      - name: Run Linting
         run: |
           cd ./Bakery.WebApp/
           dotnet format --verify-no-changes --severity warn 
 
-      - name: "build warnings fail"
+      - name: Build Warnings Fail
         run: |
           cd ./Bakery.WebApp/
           dotnet build
 
-      - name: deploy
+      - name: Deploy
         run: |      
           docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
@@ -78,9 +79,11 @@ jobs:
             done
           done
 
-      - name: Notifies teams
-        uses: dchourasia/ms-teams-notification@1.0
-        if: always()
+      - name: Microsoft Teams Notifications
+        uses: dragos-cojocari/ms-teams-notification@v1.0.2
         with:
-          github-token: ${{ github.token }}
-          webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          notification-summary: custome notification
+          notification-color: '17a2b8'
+          timezone: 'Europe/Bucharest'

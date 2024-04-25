@@ -23,14 +23,4 @@ public class PageLogger
         _logger.LogInformation($"User '{username}' accessed the Menu page.");
     }
 
-    // public void LogCustomItemCreation(string itemName, string username)
-    // {
-    //     _logger.LogInformation($"User '{username}' created a custom item: '{itemName}'.");
-    // }
-
-    // public void LogError(string errorMessage)
-    // {
-    //     _logger.LogError(errorMessage);
-    //     _errorCount++;
-    // }
 }
