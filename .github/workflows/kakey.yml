@@ -5,25 +5,24 @@ on:
 
 jobs:
   DeployingPipeline:
-    runs-on: ubuntu-latest
+    runs-on: kakeylabel
     env:
       Authentication_Google_ClientId: "1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com"
       Authentication_Google_ClientSecret: "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"
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Run Integration Tests
+      - uses: actions/checkout@v4
+      
+      - name: "run integration tests"
         run: |
           cd ./BakeryTests/
           dotnet test
 
-      - name: Run Unit Tests
+      - name: "run unit tests"
         run: |
           cd ./Bakery.XUnitTests/
           dotnet test 
 
-      - name: Compute Code Coverage
+      - name: "compute code coverage"
         run: |
           cd ./BakeryTests/
           rm -r TestResults || true
@@ -32,17 +31,17 @@ jobs:
           python3 -m pip install pycobertura
           python3 -m pycobertura show --format html --output coverage.html $COBERTURA_FILE
 
-      - name: Run Linting
+      - name: "run linting"
         run: |
           cd ./Bakery.WebApp/
           dotnet format --verify-no-changes --severity warn 
 
-      - name: Build Warnings Fail
+      - name: "build warnings fail"
         run: |
           cd ./Bakery.WebApp/
           dotnet build
 
-      - name: Deploy
+      - name: deploy
         run: |      
           docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
@@ -84,6 +83,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: custome notification
+          notification-summary: Your custom notification message
           notification-color: '17a2b8'
           timezone: 'Europe/Bucharest'
