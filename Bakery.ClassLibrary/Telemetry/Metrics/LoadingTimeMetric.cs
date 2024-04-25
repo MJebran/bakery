@@ -1,7 +1,7 @@
 using System.Diagnostics.Metrics;
 
 namespace Bakery.WebApp.Telemetry;
-class LoadingTimeMetric
+public class LoadingTimeMetric
 {
     public Histogram<double> AboutPage_ProcessingTime { get; private set; }
     public Histogram<double> CartPage_ProcessingTime { get; private set; }

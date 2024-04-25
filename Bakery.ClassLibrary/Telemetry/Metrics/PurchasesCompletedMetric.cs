@@ -1,7 +1,7 @@
 using System.Diagnostics.Metrics;
 
 namespace Bakery.WebApp.Telemetry;
-class PurchasesCompletedMetric
+public class PurchasesCompletedMetric
 {
     public Counter<int> CompletedPurchasesCounter { get; private set; }
     public PurchasesCompletedMetric(IMeterFactory meterFactory)
