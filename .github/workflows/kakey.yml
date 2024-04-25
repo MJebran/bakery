@@ -67,20 +67,16 @@ jobs:
           cd ..
 
           for folder in ./kubeBakeryDeploy/*; do
-                for file in $folder/*; do
-                        echo "envsubst applying to $file"
-                        cat $file | envsubst | kubectl apply -f -
-                done
+            for file in $folder/*; do
+              echo "envsubst applying to $file"
+              cat $file | envsubst | kubectl apply -f -
+            done
           done
 
-          #kubectl apply -f kubeBakeryDeploy/ --recursive
+          # kubectl apply -f kubeBakeryDeploy/ --recursive
 
-  Push_to_Teams:
-    runs-on: kakeylabel
-    steps:
-      - uses: actions/checkout@v2
-      # this is the new step
-      - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
+      - name: Notifies teams
+        uses: dchourasia/ms-teams-notification@1.0
         if: always()
         with:
           github-token: ${{ github.token }}
