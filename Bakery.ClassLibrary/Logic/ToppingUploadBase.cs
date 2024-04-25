@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Components;
 using Bakery.ClassLibrary.Services;
 using Bakery.WebApp.Data;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Runtime.InteropServices;
+using Bakery.WebApp.Telemetry;
 
 namespace Bakery.ClassLibrary.Logic;
 
@@ -12,6 +14,8 @@ public class ToppingUploadBase : ComponentBase
 
     [Inject]
     IBlobStorageService? _blobService { get; set; }
+    [Inject]
+    PageLogger _pageLogger { get; set; }
     public Topping? toppingToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
@@ -26,6 +30,7 @@ public class ToppingUploadBase : ComponentBase
     {
         if (toppingToAdd is not null)
         {
+            _pageLogger.AddToppingLogNotification();
             await _toppingService!.AddTopping(toppingToAdd);
 
             await OnUploadSubmit();

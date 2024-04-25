@@ -21,15 +21,8 @@
         </div>
     </div>
 
-    <div class="searchBar">
-        <div class="InputContainer">
-            <input placeholder="Search.." id="input" class="input" name="text" type="text">
-        </div>
-    </div>
-
-
+    <!----------- Control buttons ------------->
     <div class="categories">
-        <!-- Control buttons -->
         <div id="myBtnContainer" class="d-flex justify-content-center">
             <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter All</button>
             @foreach (var category in categories)

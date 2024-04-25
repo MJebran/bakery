@@ -21,8 +21,8 @@
 .frame .div {
     background-color: #ffffff;
     overflow: hidden;
-    width: 100%; /* Adjusted to cover the whole screen */
-    height: 100%; /* Adjusted to cover the whole screen */
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
@@ -32,30 +32,17 @@
     width: 156px;
     height: 108px;
     top: 57px;
-    left: calc(50% + 900px);  /*this moves the Mene button right and left */
+    left: calc(50% + 900px);
     background-color: #ed95ab;
     border-radius: 45px 45px 45px 0px;
     box-shadow: 0px 0px 15px #00000040;
 }
 
-    /*.frame .overlap {
-        position: absolute;
-        width: 156px;
-        height: 108px;
-        top: 57px;
-        left: 50%;*/ /* Center horizontally */
-        /*transform: translateX(-50%);*/ /* Center the element based on its width */
-        /* Optionally adjust other properties for responsiveness */
-        /*border-radius: 45px 45px 45px 0px;
-        box-shadow: 0px 0px 15px #00000040;
-    }*/
-
 @media (max-width: 600px) {
     .frame .overlap {
-        width: 120px; /* Adjust width for smaller screens */
-        height: 84px; /* Adjust height proportionally */
-        top: 30px; /* Adjust top spacing */
-        /* Optionally adjust other properties */
+        width: 120px; 
+        height: 84px;
+        top: 30px;
     }
 }
 
@@ -88,35 +75,34 @@
     font-family: "Futura Bk BT-Book", Helvetica;
     font-weight: 400;
     color: #ffffff;
-    font-size: 5vw; /* Adjusted font size to be relative to viewport width */
+    font-size: 5vw; 
     letter-spacing: 0;
     line-height: normal;
 }
 
 .frame .rectangle {
     position: absolute;
-    width: 9.9vw; /* Adjusted width to be relative to viewport width */
-    height: 8.4vw; /* Adjusted height to be relative to viewport width */
-    top: 16vw; /* Adjusted top position to be relative to viewport width */
-    left: 1.9vw; /* Adjusted left position to be relative to viewport width */
+    width: 9.9vw;
+    height: 8.4vw; 
+    top: 16vw; 
+    left: 1.9vw; 
 }
 
 
 .frame .text-wrapper-2 {
     position: absolute;
-    top: 22vw; /* Adjusted top position to be relative to viewport width */
-    left: 5.6vw; /* Adjusted left position to be relative to viewport width */
+    top: 22vw; 
+    left: 5.6vw; 
     font-family: "Futura Bk BT-Book", Helvetica;
     font-weight: 400;
     color: #ffffff;
-    font-size: 2.8vw; /* Adjusted font size to be relative to viewport width */
+    font-size: 2.8vw; 
     letter-spacing: 0;
     line-height: normal;
     white-space: nowrap;
 }
 
 .video-container {
-    /*position: absolute;*/
     position:page;
     top: 0;
     left: 0;
@@ -147,27 +133,26 @@
     position: absolute;
     width: 136px;
     height: 1px;
-    top: calc(50% - 0.5px); /* Adjusted to center vertically */
+    top: calc(50% - 0.5px); 
 }
 
 .frame .line {
-    left: calc(50% - 1224px); /* Adjusted to center horizontally */
+    left: calc(50% - 1224px);
 }
 
 .frame .img {
-    left: calc(50% - 1057px); /* Adjusted to center horizontally */
+    left: calc(50% - 1057px); 
 }
 
 .frame .line-2 {
-    left: calc(50% - 884px); /* Adjusted to center horizontally */
+    left: calc(50% - 884px); 
 }
 
 
 
 .overlap {
     position: relative;
-    /*padding: 2vw 4.4vw;*/ /* Adjusted padding to be relative to viewport width */
-    border-radius: 2.4vw; /* Adjusted border radius to be relative to viewport width */
+    border-radius: 2.4vw;
     border: none;
     color: #fff;
     cursor: pointer;

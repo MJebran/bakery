@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
 using Microsoft.AspNetCore.Components.Forms;
+using Bakery.WebApp.Telemetry;
 
 namespace Bakery.ClassLibrary.Logic;
 
@@ -12,6 +13,8 @@ public class CategoryUploadBase : ComponentBase
 
     [Inject]
     IBlobStorageService? _blobService { get; set; }
+    [Inject]
+    PageLogger _logger {get; set; }
     public Category categoryToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
@@ -26,6 +29,7 @@ public class CategoryUploadBase : ComponentBase
     {
         if (categoryToAdd is not null)
         {
+             _logger.AddCategoryLogNotification();
             await _categoryservice!.AddCategory(categoryToAdd);
 
             await OnUploadSubmit();
