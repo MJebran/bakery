@@ -2,6 +2,7 @@
 @using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
+@inject PageLogger _pageLogger
 
 <Bakery.ClassLibrary.Components.Home></Bakery.ClassLibrary.Components.Home>
 
@@ -9,8 +10,10 @@
     Stopwatch stopwatch = new Stopwatch();
     protected override void OnInitialized()
     {
+        // var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        // var username = authState.User.Identity?.Name ?? "Anonymous";
+        // _pageLogger.LogHomePageAccess(username);
         _ppmetric.IncrementPopularPageCounter("home");
-
         stopwatch.Start();
     }
     protected override void OnAfterRender(bool firstRender)

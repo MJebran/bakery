@@ -52,7 +52,7 @@ builder.Services
     });
 
 builder.Services.AddSingleton<PopularPagesMetric>();
-builder.Services.AddSingleton<ExampleHandler>();
+builder.Services.AddSingleton<PageLogger>();
 builder.Services.AddSingleton<SocialMediaMetric>();
 builder.Services.AddSingleton<PurchasesCompletedMetric>();
 builder.Services.AddSingleton<LoadingTimeMetric>();
@@ -115,16 +115,8 @@ builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
 
-var handler = app.Services.GetRequiredService<ExampleHandler>();
-// app.MapGet("/log", ()=> {
-//     Meters.LurisCount += 1
-// })
-// handler.HandleRequest());
-app.MapGet("/log1", () => handler.HandleRequest());
-app.MapGet("/log2", () => handler.HandleRequest());
-app.MapGet("/log3", () => handler.HandleRequest());
-app.MapGet("/log4", () => handler.HandleRequest());
-app.MapGet("/log5", () => handler.HandleRequest());
+var handler = app.Services.GetRequiredService<PageLogger>();
+
 
 if (!app.Environment.IsDevelopment())
 {

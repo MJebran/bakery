@@ -10,7 +10,6 @@ public class LoginControlBase : ComponentBase
     AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
     [Inject]
     IBakeryAutheticationService? _authenticationService { get; set; }
-
     protected ClaimsPrincipal? User;
     protected string? GivenName;
     protected string? Surname;
