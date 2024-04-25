@@ -14,6 +14,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Bakery.WebApp.Telemetry;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +53,7 @@ builder.Services
     });
 
 builder.Services.AddSingleton<PopularPagesMetric>();
-builder.Services.AddSingleton<PageLogger>();
+//builder.Services.AddSingleton<PageLogger>();
 builder.Services.AddSingleton<SocialMediaMetric>();
 builder.Services.AddSingleton<PurchasesCompletedMetric>();
 builder.Services.AddSingleton<LoadingTimeMetric>();
@@ -115,7 +116,7 @@ builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
 
-var handler = app.Services.GetRequiredService<PageLogger>();
+//var handler = app.Services.GetRequiredService<PageLogger>();
 
 
 if (!app.Environment.IsDevelopment())
