@@ -9,6 +9,8 @@ using Bakery.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Bakery.ClassLibrary.Logic;
 using System.Text.Json.Serialization;
+using Bakery.Mobile.MauiAuth0;
+using Auth0.OidcClient;
 
 
 namespace Bakery.Mobile
@@ -54,7 +56,17 @@ namespace Bakery.Mobile
 
             builder.Services.AddMauiBlazorWebView();
             //builder.Services.AddCascadingAuthenticationState();
-            //builder.Services.AddAuthorizationCore();
+      
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, Auth0AuthenticationStateProvider>();
+            builder.Services.AddSingleton(new Auth0Client(new()
+            {
+                Domain = "dev-ot83g3aoauljuw5l.us.auth0.com",
+                ClientId = "HDZQOLaqbKntrfBD23wZ4W2qdVC6nA0p",
+                Scope = "openid profile",
+                RedirectUri = "myapp://callback",
+            }));
+            builder.Services.AddAuthorizationCore();
 
 
 #if DEBUG
