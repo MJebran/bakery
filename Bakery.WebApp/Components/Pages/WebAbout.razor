@@ -7,10 +7,21 @@
 
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 <Map MapsKey="@MapsKey"></Map>
-@if(featureFlagIsEnabled)
+
+@try
 {
-    <div>This came from a feature flag</div>
-    <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
+
+    @if (featureFlagIsEnabled)
+    {
+        <div>This came from a feature flag</div>
+        <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
+        <button type="button" class="btn btn-primary"
+            @onclick="@(() => throw new Exception("this exception should be cached"))">Generate Error</button>
+
+    }
+}
+catch{
+    TriggerErrorLog();
 }
 
 
@@ -20,7 +31,7 @@
     private string? MapsKey { get; set; }
     Stopwatch stopwatch = new Stopwatch();
 
-    bool featureFlagIsEnabled {get; set;}
+    bool featureFlagIsEnabled { get; set; }
     protected override void OnInitialized()
     {
         featureFlagIsEnabled = bool.Parse(config["featureFlag"] ?? "false");
@@ -32,12 +43,18 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
-        if(firstRender)
+        if (firstRender)
         {
             stopwatch.Stop();
             _ltmetric.RecordTimeForPage("about", stopwatch.Elapsed.Milliseconds);
 
         }
+    }
+
+    protected void TriggerErrorLog()
+    {
+        Console.WriteLine("error triggered");
+        // LURIS ANADE UN LOG DE ERROR ACA
     }
 
 }

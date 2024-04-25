@@ -1,0 +1,33 @@
+name: Kakey Pull Request Workflow
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  deploy-to-kubernetes:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: deploy kubernetes environment
+        run: |
+          export PULL_REQUEST_ID=${{ github.event.pull_request.number }}
+          export RUN_SALT="pr-${PULL_REQUEST_ID}-${GITHUB_RUN_ID}"
+          export NAMESPACE=kakey1-pr-$PULL_REQUEST_ID
+          
+          kubectl create namespace $NAMESPACE || true
+          kubectl -n $NAMESPACE delete configmap blazor-web-postgres-init || true
+          kubectl -n $NAMESPACE create configmap blazor-web-postgres-init --from-file=init.sql
+
+          docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$RUN_SALT .
+          docker push 144.17.92.12:5000/kakey1/kakey1-web:$RUN_SALT
+
+          for folder in ./kubeBakeryPullRequestDeploy/*; do
+            for file in $folder/*; do
+              echo "envsubst applying to $file"
+              cat $file | envsubst | kubectl apply -f -
+            done
+          done

@@ -43,7 +43,6 @@ jobs:
 
       - name: deploy
         run: |      
-          # cd ./bakery
           docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
 
@@ -78,8 +77,6 @@ jobs:
               cat $file | envsubst | kubectl apply -f -
             done
           done
-
-          # kubectl apply -f kubeBakeryDeploy/ --recursive
 
       - name: Notifies teams
         uses: dchourasia/ms-teams-notification@1.0
