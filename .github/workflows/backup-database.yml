@@ -11,7 +11,8 @@ jobs:
           kubectl -n kakey1 exec -t $CONTAINER_NAME -- \
             pg_dumpall -c -U postgres \
             > /home/ahmad/dump.sql
-          cat /home/ahmad/dump.sql | kubectl exec -i $CONTAINER_NAME psql -U postgres
+          cat /home/ahmad/dump.sql | kubectl exec -i $CONTAINER_NAME -- env PGUSER=postgres psql
+
 
 
  
