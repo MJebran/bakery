@@ -11,7 +11,7 @@
     {
         _ppmetric.IncrementPopularPageCounter("home");
         stopwatch.Start();
-        _pageLogger.LogMenuPageAccess(""); // aqui debo de pasarle el usurio.
+        _pageLogger.LogHomePageAccess("user-acces-login"); // aqui debo de pasarle el usurio.
     }
     protected override void OnAfterRender(bool firstRender)
     {

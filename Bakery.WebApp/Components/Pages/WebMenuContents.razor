@@ -3,7 +3,7 @@
 @using System.Diagnostics
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
-@inject PageLoggerWithRealTimeProcessing _pagelogger
+@inject PageLogger _pagelogger
 
 <Bakery.ClassLibrary.Components.MenuContents></Bakery.ClassLibrary.Components.MenuContents>
 
@@ -13,7 +13,7 @@
     protected override void OnInitialized()
     {
         _ppmetric.IncrementPopularPageCounter("menucontents");
-        _pagelogger.StartProcessing();
+        _pagelogger.LogMenuPageAccess("");
 
         stopwatch.Start();
     }

@@ -59,7 +59,6 @@ builder.Services.AddSingleton<LoadingTimeMetric>();
 
 builder.Services.AddSingleton<ErrorLogger>();
 builder.Services.AddSingleton<PageLogger>();
-builder.Services.AddSingleton<PageLoggerWithRealTimeProcessing>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
