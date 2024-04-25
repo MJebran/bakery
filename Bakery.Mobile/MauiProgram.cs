@@ -57,17 +57,17 @@ namespace Bakery.Mobile
             builder.Services.AddMauiBlazorWebView();
             //builder.Services.AddCascadingAuthenticationState();
       
-            builder.Services.AddAuthorizationCore();
-            builder.Services.AddScoped<AuthenticationStateProvider, Auth0AuthenticationStateProvider>();
             builder.Services.AddSingleton(new Auth0Client(new()
             {
                 Domain = "dev-ot83g3aoauljuw5l.us.auth0.com",
                 ClientId = "HDZQOLaqbKntrfBD23wZ4W2qdVC6nA0p",
                 Scope = "openid profile",
                 RedirectUri = "myapp://callback",
+                PostLogoutRedirectUri = "myapp://callback"
             }));
-            builder.Services.AddAuthorizationCore();
 
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, Auth0AuthenticationStateProvider>();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

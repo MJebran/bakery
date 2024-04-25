@@ -3,10 +3,13 @@
 @using Bakery.WebApp.Data;
 @using System.Linq;
 @using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Bakery.ClassLibrary.Layout
+@using Bakery.Mobile.MauiAuth0
 @inject HttpClient Http
 @inject IUserService _userService;
 @inject IBakeryAutheticationService _authenticationService
-@* @rendermode InteractiveServer *@
+@inject AuthenticationStateProvider authProvider
 
 
 
@@ -35,14 +38,71 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <MauiLogin></MauiLogin>
+            @* <MauiLogin></MauiLogin> *@
+            <AuthorizeView>
+                <Authorized>
+                    <p>Logged in</p>
+                </Authorized>
+                <NotAuthorized>
+                    <button @onclick="Login">Log In</button>
+                </NotAuthorized>
+
+            </AuthorizeView>
         </div>
 
-        @if(_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
-    {
-        <a href="managerDashboard">Upload</a>
-    }
-    @* <LoginControl/> *@
-    <WebLoginControl></WebLoginControl>
+        @if (_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
+        {
+            <a href="managerDashboard">Upload</a>
+        }
+        @* <LoginControl/> *@
+        @* <WebLoginControl></WebLoginControl> *@
     </nav>
 </div>
+
+@code{
+    public async Task Login()
+    {
+        await ((Auth0AuthenticationStateProvider)authProvider).LogInAsync();
+    }
+}
+
+@* <div>
+    <CascadingAuthenticationState>
+        <AuthorizeView>
+            <Authorized>
+                <NavLink class="nav-link mx-1" style="z-index:2" Match="NavLinkMatch.All">
+                    <span class="nav-item d-none d-xl-inline p-3" href="#">Log Out</span>
+                    <span class="nav-item d-xl-none" href="#">Log Out</span>
+                </NavLink>
+            </Authorized>
+            <NotAuthorized>
+                <NavLink class="nav-link mx-1" @onclick="(() => Login())" style="z-index:2" Match="NavLinkMatch.All">
+                    <span class="nav-item d-none d-xl-inline p-3" href="#">Log In</span>
+                    <span class="nav-item d-xl-none" href="#">Log In</span>
+                </NavLink>
+            </NotAuthorized>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
+</div>
+
+<div class="addCart">
+    @if (_authenticationService.UserExists())
+    {
+        <button @onclick="AddToCart">Order Now</button>
+    }
+    else
+    {
+        <button @onclick="Login">Login Now</button>
+    }
+</div>
+
+@code {
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    private void Login()
+    {
+        NavigationManager.NavigateTo("/Identity/WebLogin");
+    }
+
+
+} *@
