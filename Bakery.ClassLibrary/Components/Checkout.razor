@@ -87,6 +87,28 @@
                             </tr>
                         }
                         <tr>
+                            <td>Taxes</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>@PaymentWithOutTaxes.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td>Sub-Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>@TaxAmount.ToString()</td>
+                        </tr>
+                        <tr>
                             <td><b>Total</b></td>
                             <td></td>
                             <td></td>
@@ -100,7 +122,6 @@
                     </tbody>
                 </table>
 
-                <h3 class="mb-5">Checkout</h3>
                 <div class="row container-fluid text-center">
                 <div class="col-md-6 container-fluid text-center" style="display:@DisplayButtons">
                         <h4 class="mb-2 container-fluid text-center">Payment Method</h4>

@@ -74,7 +74,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
+    padding-bottom: 50px;
 }
 
 .filterDiv {
@@ -127,14 +127,13 @@
 }
 
 #myBtnContainer {
-    /* justify-content: center; */
     width: 100%;
     max-width: 100%; 
     height: auto;
     overflow-x: auto; 
     overflow-y: hidden;
     white-space: nowrap;
-    padding: 20px 10%;
+    padding: 80px 10%;
     margin-bottom: 20px;
 }
 
@@ -227,7 +226,7 @@
 
 .frame {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 3fr;
     grid-template-rows: auto;
     background-color: rgba(250, 232, 212, 1);
     height: auto;
@@ -235,27 +234,18 @@
     position: relative;
 }
 
-.left-section {
-    grid-row: 1;
-}
-
-.right-section {
-    grid-row: 1;
-}
-
 .ImageBread {
-    width: 135%;
-    height: 130%;
+    width: 130%;
+    height: 135%;
     background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/menupagebrad.png);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center center;
 }
 
 .questionText {
     color: rgba(35, 35, 35, 1);
     font-family: Futura Bk BT;
-    font-size: 50px;
+    font-size: 60px;
     text-align: left;
     padding-left: 10px;
 }
@@ -264,10 +254,12 @@
     .frame {
         grid-template-columns: 1fr 1fr;
     }
-}
-/* @media screen and (max-width: 768px) {
-    .filterDiv {
-        width: 100%;
-        margin-bottom: 10px;
+    .questionText {
+        color: rgba(35, 35, 35, 1);
+        font-family: Futura Bk BT;
+        font-size: 70px;
+        text-align: left;
+        padding-left: 10px;
     }
-} */
+    
+}
