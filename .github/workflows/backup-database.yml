@@ -1,6 +1,6 @@
 name: backup database
 on:
-  - workflow_dispatch
+  workflow_dispatch
 jobs:
   backup:
     runs-on: self-hosted
@@ -11,6 +11,7 @@ jobs:
           kubectl -n kakey1 exec -t $CONTAINER_NAME -- \
             pg_dumpall -c -U postgres \
             > /home/ahmad/dump.sql
-          cat dump.sql | kubectl exec -i $CONTAINER_NAME psql -U postgres
+          cat /home/ahmad/dump.sql | kubectl exec -i $CONTAINER_NAME psql -U postgres
+
 
  
