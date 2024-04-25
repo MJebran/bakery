@@ -8,23 +8,14 @@
 <Bakery.ClassLibrary.Components.About></Bakery.ClassLibrary.Components.About>
 <Map MapsKey="@MapsKey"></Map>
 
-@try
+
+@if (featureFlagIsEnabled)
 {
+    <div>This came from a feature flag</div>
+    <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
+    <button type="button" class="btn btn-primary" @onclick="TriggerErrorLog">Generate Error</button>
 
-    @if (featureFlagIsEnabled)
-    {
-        <div>This came from a feature flag</div>
-        <img src="https://kahoot.com/files/2024/01/Spongebob-633x422.webp">
-        <button type="button" class="btn btn-primary"
-            @onclick="@(() => throw new Exception("this exception should be cached"))">Generate Error</button>
-
-    }
 }
-catch{
-    TriggerErrorLog();
-}
-
-
 
 
 @code {
@@ -53,8 +44,17 @@ catch{
 
     protected void TriggerErrorLog()
     {
-        Console.WriteLine("error triggered");
+        try
+        {
+            throw new Exception("this is an error exception that was triggered");
+
+        }
+        catch
+        {
+            Console.WriteLine("error thrown");
+
         // LURIS ANADE UN LOG DE ERROR ACA
+        }
     }
 
 }
