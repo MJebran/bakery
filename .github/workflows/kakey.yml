@@ -9,7 +9,6 @@ jobs:
     env:
       Authentication_Google_ClientId: "1042263982950-qq84p1l37u3jqrr8rcqj7n0u53b25832.apps.googleusercontent.com"
       Authentication_Google_ClientSecret: "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"
-      #db: "host=postgresbakery.postgres.database.azure.com;user id=bakeryadmin;database=postgres;password=Password@123;"
     steps:
       - uses: actions/checkout@v4
       
@@ -67,7 +66,14 @@ jobs:
 
           cd ..
 
-          kubectl apply -f kubeBakeryDeploy/ --recursive
+          for folder in ./kubeBakeryDeploy/*; do
+                for file in $folder/*; do
+                        echo "envsubst applying to $file"
+                        cat $file | envsubst | kubectl apply -f -
+                done
+          done
+
+          #kubectl apply -f kubeBakeryDeploy/ --recursive
 
   Push_to_Teams:
     runs-on: kakeylabel
