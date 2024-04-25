@@ -76,7 +76,15 @@
                     }
                     <div class="prices">
                         <div class="addCart">
-                            <button @onclick="AddToCart">Order Now</button>
+                            @if (_authenticationService.UserExists())
+                            {
+                                <button @onclick="AddToCart">Order Now</button>
+
+                            }
+                            else
+                            {
+                                <button @onclick="@(() => NavigationManager.NavigateTo("/Identity/WebLogin"))">Login Now</button>
+                            }
                         </div>
                         <div class="priceCart">Total: @ComputeTotalPrice()</div>
                     </div>
