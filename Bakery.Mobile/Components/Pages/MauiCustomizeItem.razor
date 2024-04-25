@@ -1,9 +1,24 @@
 ﻿@page "/customizeItem/{baseItemId}"
-@* @rendermode InteractiveServer *@
+@using Bakery.Mobile.MauiAuth0
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider authProvider
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
-<Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+
+<AuthorizeView>
+    <Authorized>
+    <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+    </Authorized>
+    <NotAuthorized>
+        <button @onclick="Login">Log In</button>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter]
     public string baseItemId { get; set; } = "";
+    public async Task Login()
+    {
+        await ((Auth0AuthenticationStateProvider)authProvider).LogInAsync();
+    }
 }

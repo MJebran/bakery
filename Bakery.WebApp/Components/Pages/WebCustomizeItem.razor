@@ -1,10 +1,22 @@
 @page "/customizeItem/{baseItemId}"
 @rendermode InteractiveServer
 @using System.Diagnostics
+@using Bakery.WebApp.Authentication
 @inject PopularPagesMetric _ppmetric
 @inject LoadingTimeMetric _ltmetric
+@inject IBakeryAutheticationService _authenticationService
+@inject NavigationManager NavigationManager
 
-<Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+@if (_authenticationService.UserExists())
+{
+    <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+}
+else
+{
+    <h2>You Need to Login to start adding to the cart</h2>
+    <button @onclick="@(() => NavigationManager.NavigateTo("/Identity/WebLogin"))">Login Now</button>
+}
+
 
 @code {
     [Parameter]
