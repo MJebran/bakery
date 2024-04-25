@@ -58,6 +58,12 @@ jobs:
           kubectl delete configmap kakey1-grafana-datasource-config -n kakey1 || true
           kubectl -n kakey1 create configmap kakey1-grafana-datasource-config --from-file=bakery-datasource.yml
 
+          kubectl delete configmap kakey1-grafana-dashboard-config -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-grafana-dashboard-config --from-file=bakery-dashboard.yml
+
+          kubectl delete configmap kakey1-grafana-dashboard-json -n kakey1 || true
+          kubectl -n kakey1 create configmap kakey1-grafana-dashboard-json --from-file=bakery-dashboard-content.json
+
           kubectl delete configmap kakey1-blackbox-config -n kakey1 || true
           kubectl -n kakey1 create configmap kakey1-blackbox-config --from-file=bakery-blackbox-config.yml
 

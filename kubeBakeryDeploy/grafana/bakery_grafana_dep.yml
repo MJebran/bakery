@@ -31,8 +31,20 @@ spec:
         - name: datasources
           mountPath: /etc/grafana/provisioning/datasources/datasource.yml
           subPath: bakery-datasource.yml
+        - name: dashboard
+          mountPath: /etc/grafana/provisioning/dashboards/dashboards.yml
+          subPath: bakery-dashboard.yml
+        - name: dashboard_contents
+          mountPath: /etc/grafana/provisioning/dashboards/contents.json
+          subPath: bakery-dashboard-content.json
 
       volumes:
       - name: datasources
         configMap:
           name: kakey1-grafana-datasource-config
+      - name: dashboard
+        configMap:
+          name: kakey1-grafana-dashboard-config
+      - name: dashboard_contents
+        configMap:
+          name: kakey1-grafana-dashboard-json
