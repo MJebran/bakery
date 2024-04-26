@@ -37,20 +37,41 @@
     </main>
 </div>
 
-@code { 
-  private string Username = "Anonymous User";
-  private string Picture = "";
+@code {
+    private string Username = "Anonymous User";
+    private string Picture = "";
+    private string Email = "cakebakery@gmail.com";
+    private string Name = "";
+    private string Surname = "";
 
-  protected override async Task OnInitializedAsync()
-  {
-    var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-    Username = state.User.Identity.Name?? string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-    Picture = state.User.Claims
-                .Where(c => c.Type.Equals("picture"))
-                .Select(c => c.Value)
-                .FirstOrDefault() ?? string.Empty;
+        if(Username == string.Empty)
+        {
+            Username = state.User.Identity.Name?? string.Empty;
+        }
+
+        string[] name = Username.Split(' ');
+        Name = name[0];
+        Surname = name[1];
+
+        Picture = state.User.Claims
+                    .Where(c => c.Type.Equals("picture"))
+                    .Select(c => c.Value)
+                    .FirstOrDefault() ?? string.Empty;
+
+        if (!await _authenticationService!.IsUserAuthenticatedAsync(Email))
+        {
+           //  Email = state.User.Claims.FirstOrDefault(x => x.Type.Contains("email"))?.Value ?? throw new Exception("missing on email");
+           // if (Email != "unknown" && Email != "")
+           // {
+           //      await _authenticationService.RegisterUserAsync(Email, Name, Surname);
+           // }
+        }
+        
 
     await base.OnInitializedAsync();
   }

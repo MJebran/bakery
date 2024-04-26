@@ -1,4 +1,5 @@
 ﻿using Auth0.OidcClient;
+using Bakery.WebApp.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ public class Auth0AuthenticationStateProvider : AuthenticationStateProvider
 {
     private ClaimsPrincipal currentUser = new ClaimsPrincipal(new ClaimsIdentity());
     private readonly Auth0Client auth0Client;
+    IBakeryAutheticationService? _authenticationService;
 
-    public Auth0AuthenticationStateProvider(Auth0Client client)
+    public Auth0AuthenticationStateProvider(Auth0Client client, IBakeryAutheticationService? authenticationService)
     {
         auth0Client = client;
+        _authenticationService = authenticationService;
     }
 
     public override Task<AuthenticationState> GetAuthenticationStateAsync() =>
@@ -35,7 +38,13 @@ public class Auth0AuthenticationStateProvider : AuthenticationStateProvider
         {
             var user = await LoginWithAuth0Async();
             currentUser = user;
-
+            //if (!await _authenticationService!.IsUserAuthenticatedAsync(Email))
+            //{
+            //    if (Email != "unknown" && Email != "")
+            //    {
+            //        await _authenticationService.RegisterUserAsync(Email, GivenName, Surname);
+            //    }
+            //}
             return new AuthenticationState(currentUser);
         }
     }
