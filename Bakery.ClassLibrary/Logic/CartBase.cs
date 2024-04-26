@@ -18,8 +18,12 @@ public class CartBase : ComponentBase
     ICustomeItemToppingService? _customItemToppingService { get; set; }
 
     [Inject]
+    IToppingService? _toppingService {get; set;}
+
+    [Inject]
     NavigationManager? NavigationManager { get; set; }
     List<Itempurchase>? userPurchases { get; set; }
+    List<Topping>? availableToppings {get; set;}
     public Dictionary<Itempurchase, int> itemPurchaseToQuantity { get; set; } = new();
     bool HasAtLeastOneInCart(Itempurchase itempurchase) => itemPurchaseToQuantity?[itempurchase] > 1;
 
@@ -27,6 +31,7 @@ public class CartBase : ComponentBase
     {
         var purchases = (await _itemPurchaseService!.GetAllItempurchase()).ToList();
         userPurchases = purchases.Where(c => c.PurchaseId == int.Parse(cartId ?? "")).ToList();
+        availableToppings = (await _toppingService!.GetAllToppings()).ToList();
 
         foreach (var purchaseItem in userPurchases)
         {
@@ -100,7 +105,8 @@ public class CartBase : ComponentBase
 
         foreach (var topping in toppings)
         {
-            total += topping.CustomItemToppingQuantity ?? 0 * topping.Topping.ToppingPrice ?? 0;
+            var currentTopping = availableToppings?.Where(t => t.ToppingId == topping.ToppingId).First() ?? throw new Exception("topping not found");
+            total += (topping.CustomItemToppingQuantity ?? 0) * (currentTopping.ToppingPrice ?? 0);
         }
 
         return total;

@@ -38,14 +38,12 @@ public class CustomizeItemBase : ComponentBase
     protected Purchase? userCart { get; set; } = new();
     protected string? ErrorMesage { get; set; } = null;
     protected Dictionary<Topping, int>? toppingToQuantity { get; set; }
-    protected char? sizeItem { get; set; }
+    protected char? sizeItem { get; set; } = 'M';
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() 
     {
         user = _authenticationService!.GetAuthenticatedUser();
     }
-
-
 
     protected override async Task OnParametersSetAsync()
     {
@@ -67,7 +65,6 @@ public class CustomizeItemBase : ComponentBase
         {
             toppingToQuantity?.Add(topping, 0);
         }
-        sizeItem = 'S';
     }
 
     protected void IncreaseToppingAmount(Topping topping)
@@ -93,19 +90,6 @@ public class CustomizeItemBase : ComponentBase
             foreach (var toppingAndQuantity in toppingToQuantity)
             {
                 total += toppingAndQuantity.Key.ToppingPrice * toppingAndQuantity.Value ?? 0.0m;
-
-                if (sizeItem == 'S')
-                {
-                    total *= 1;
-                }
-                else if (sizeItem == 'M')
-                {
-                    total *= 1.25m;
-                }
-                else if (sizeItem == 'L')
-                {
-                    total *= 1.50m;
-                }
             }
         }
 
