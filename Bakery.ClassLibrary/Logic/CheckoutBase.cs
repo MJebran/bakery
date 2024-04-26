@@ -65,9 +65,9 @@ public class CheckoutBase : ComponentBase
                     PaymentAmount += customitem.Item.ItemPrice * itempurchase.ItempurchaseQuantity ?? 0m;
 
                 }
-                TaxAmount = (int)Math.Round(PaymentAmount) - PaymentAmount;
+                TaxAmount = (int)Math.Ceiling(PaymentAmount) - PaymentAmount;
                 PaymentWithOutTaxes = PaymentAmount;
-                PaymentAmount = (int)Math.Round(PaymentAmount);
+                PaymentAmount = (int)Math.Ceiling(PaymentAmount);
                 TotalQty = 10;
                 PaymentDescription = "Some random description xdd";
             }
@@ -88,7 +88,7 @@ public class CheckoutBase : ComponentBase
         if (firstRender)
         {
             var dotNetReference = DotNetObjectReference.Create(this);
-            module = await Js.InvokeAsync<IJSObjectReference>("import", "/js/Checkout.js");
+            module = await Js!.InvokeAsync<IJSObjectReference>("import", "/js/Checkout.js");
             await module.InvokeVoidAsync("initialisePayPal", dotNetReference);
         }
 

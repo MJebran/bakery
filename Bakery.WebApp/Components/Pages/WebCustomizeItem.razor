@@ -13,8 +13,17 @@
 }
 else
 {
-    <h2>You Need to Login to start adding to the cart</h2>
-    <button @onclick="@(() => NavigationManager.NavigateTo("/Identity/WebLogin"))">Login Now</button>
+<div style="position: relative;">
+    <video autoplay muted loop style="width: 100%; height: auto; object-fit: cover;">
+        <source src="https://cdne-bakery-a0hrc8bufjbtavaz.z01.azurefd.net/itemcontainer/rain.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+        <h2 style="margin-bottom: 20px;">You Need to Login to start adding to the cart</h2>
+        <a href="/Identity/Login" class="btn btn-pink" style="text-decoration: none; background-color: #ed95ab; color: white;">Login Now</a>
+    </div>
+</div>
+
 }
 
 

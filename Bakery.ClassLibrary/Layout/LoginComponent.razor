@@ -10,8 +10,8 @@
 @if (User?.Identity?.Name != null)
 {
     <img class="profile-pic" src="@Avatar"/>
-    <b>@GivenName @Surname</b>
-    <a href="/Identity/Logout"
+    @* <b>@GivenName @Surname</b> *@
+    <a href="/Identity/Logout" style="text-decoration: none; color: inherit;"
        target="_top">
         Logout
     </a>
@@ -19,7 +19,7 @@
 else
 {
     <a href="/Identity/Login"
-       target="_top">
+       target="_top" style="text-decoration: none; color: inherit;">
         Login
     </a>
 }
