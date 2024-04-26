@@ -190,6 +190,54 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.Cake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/cake.png);
+}
+.Cupcake {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/Cupcake.png);
+}
+.Cookie {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
+}
+.Doughnut {
+    border-radius: 50%;
+    background-color: rgba(250.00000029802322, 232.00000137090683, 212.00000256299973, 1);
+    width: 79.5px;
+    height: 79.5px;
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/Cupcake.png);
+}
 
 .btn:hover {
     background-color: #ddd;

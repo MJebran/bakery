@@ -1,6 +1,11 @@
-﻿@using Bakery.WebApp.Authentication
+﻿@using Bakery.Mobile.MauiAuth0
+@using Bakery.WebApp.Authentication
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
 @inject IBakeryAutheticationService _authenticationService
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -12,12 +17,17 @@
             <a class="active" href="#home">Home</a>
             <a href="/menuContents">Menu</a>
             <a href="/about">About Us</a>
-           @*  <a href="/cart/{cartId}">Cart</a> *@
-            @* @if(_authenticationService.GetAuthenticatedUser() is not null && _authenticationService!.GetAuthenticatedUser()?.UserRole.RoleName == "admin")
-            {
-                <a href="managerDashboard">Upload</a>
-            } *@
-            <WebLoginControl></WebLoginControl>
+            <AccessControl /> 
+            <AuthorizeView>
+                <Authorized>
+                    Hello, @context.User.Identity.Name!
+                    <a href="#" @onclick="Logout">Log out</a>
+                </Authorized>
+                <NotAuthorized>
+                    <AccessControl /> 
+                    <a href="#" @onclick="Login">Log in</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -25,3 +35,38 @@
         </article>
     </main>
 </div>
+
+@code { 
+  private string Username = "Anonymous User";
+  private string Picture = "";
+
+  protected override async Task OnInitializedAsync()
+  {
+    var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+    Username = state.User.Identity.Name?? string.Empty;
+
+    Picture = state.User.Claims
+                .Where(c => c.Type.Equals("picture"))
+                .Select(c => c.Value)
+                .FirstOrDefault() ?? string.Empty;
+
+    await base.OnInitializedAsync();
+  }
+    public async Task Login()
+    {
+        await ((Auth0AuthenticationStateProvider)AuthenticationStateProvider)
+            .LogInAsync();
+    }
+
+    public void Logout()
+    {
+        ((Auth0AuthenticationStateProvider)AuthenticationStateProvider)
+            .LogOut();
+    }
+}
+
+
+
+
+

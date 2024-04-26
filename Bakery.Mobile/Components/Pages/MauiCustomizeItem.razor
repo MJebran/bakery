@@ -3,22 +3,31 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider authProvider
-@using static Microsoft.AspNetCore.Components.Web.RenderMode
+
 
 <AuthorizeView>
     <Authorized>
-    <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+        @* Hello, @context.User.Identity.Name! *@
+        <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
     </Authorized>
     <NotAuthorized>
-        <button @onclick="Login">Log In</button>
+        <AccessControl /> 
+        @* <a href="#" @onclick="Login">Log in</a> *@
     </NotAuthorized>
 </AuthorizeView>
-
 @code {
     [Parameter]
     public string baseItemId { get; set; } = "";
+
     public async Task Login()
     {
-        await ((Auth0AuthenticationStateProvider)authProvider).LogInAsync();
+        await ((Auth0AuthenticationStateProvider)authProvider)
+            .LogInAsync();
+    }
+
+    public void Logout()
+    {
+        ((Auth0AuthenticationStateProvider)authProvider)
+            .LogOut();
     }
 }

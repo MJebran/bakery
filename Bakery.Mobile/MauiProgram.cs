@@ -63,7 +63,7 @@ namespace Bakery.Mobile
                 ClientId = "HDZQOLaqbKntrfBD23wZ4W2qdVC6nA0p",
                 Scope = "openid profile",
                 RedirectUri = "myapp://callback",
-                PostLogoutRedirectUri = "myapp://callback"
+                PostLogoutRedirectUri = "myapp://callback/"
             }));
 
             builder.Services.AddAuthorizationCore();
