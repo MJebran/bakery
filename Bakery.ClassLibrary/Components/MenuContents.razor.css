@@ -224,7 +224,7 @@
     top: 15px;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/Cookie.png);
 }
 .Doughnut {
     border-radius: 50%;
@@ -236,7 +236,7 @@
     top: 15px;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/Cupcake.png);
+    background-image: url(https://kakeybakerystorage.blob.core.windows.net/itemcontainer/donut.png);
 }
 
 .btn:hover {
