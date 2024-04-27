@@ -11,7 +11,7 @@ jobs:
       Authentication_Google_ClientSecret: "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"
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: "run integration tests"
         run: |
           cd ./BakeryTests/
@@ -20,7 +20,7 @@ jobs:
       - name: "run unit tests"
         run: |
           cd ./Bakery.XUnitTests/
-          dotnet test 
+          dotnet test
 
       - name: "compute code coverage"
         run: |
@@ -34,7 +34,7 @@ jobs:
       - name: "run linting"
         run: |
           cd ./Bakery.WebApp/
-          dotnet format --verify-no-changes --severity warn 
+          dotnet format --verify-no-changes --severity warn
 
       - name: "build warnings fail"
         run: |
@@ -42,7 +42,7 @@ jobs:
           dotnet build
 
       - name: deploy
-        run: |      
+        run: |
           docker build -t 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID .
           docker push 144.17.92.12:5000/kakey1/kakey1-web:$GITHUB_RUN_ID
 
@@ -81,8 +81,9 @@ jobs:
       - name: Microsoft Teams Notifications
         uses: dragos-cojocari/ms-teams-notification@v1.0.2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: Your custom notification message
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
+          notification-summary: whatever message
           notification-color: '17a2b8'
           timezone: 'Europe/Bucharest'
+
