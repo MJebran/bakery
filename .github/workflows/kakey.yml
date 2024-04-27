@@ -79,11 +79,9 @@ jobs:
           done
 
       - name: Microsoft Teams Notifications
-        uses: jdcargile/ms-teams-notification@v1.4
+        uses: dchourasia/ms-teams-notification@1.0
+        if: always()
         with:
           github-token: ${{ github.token }}
-          ms-teams-webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
-          notification-summary: Build succesful?
-          notification-color: '17a2b8'
-          timezone: 'Europe/Bucharest'
+          webhook-uri: ${{ secrets.KAKEY1_WEBHOOK }}
 
