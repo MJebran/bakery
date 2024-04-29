@@ -12,9 +12,9 @@ public class ErrorLogger
       _logger = logger;
       _errorCount = 0;  
     }
-    public void LogError(string errorMessage)
+    public void LogErrorGenerator(string errorMessage)
     {
-        _logger.LogInformation($"Error: {errorMessage}");
+        _logger.LogError($"Error: {errorMessage}");
         _errorCount++;
     }
 }
