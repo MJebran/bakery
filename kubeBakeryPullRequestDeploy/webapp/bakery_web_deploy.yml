@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: kakey1-web
-        image: 144.17.92.12:5000/carlos/carlos-web:${RUN_SALT}
+        image: 144.17.92.12:5000/kakey1/kakey1-web:${RUN_SALT}
         ports:
         - containerPort: 8080
         env:
