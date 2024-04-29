@@ -9,7 +9,7 @@ spec:
   tls:
   - hosts:
     - kakey-kube.duckdns.org
-    secretName: kakey-kube-tls-production
+    secretName: kakey-kube-tls-productio1n
   ingressClassName: nginx
   rules:
   - host: kakey-kube.duckdns.org 
