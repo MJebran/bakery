@@ -300,9 +300,15 @@
           },
           {
             "matcher": {
-              "id": "byName"
+              "id": "byName",
+              "options": "{__name__=\"bakery_thank_you_page_counter_total\", instance=\"kakey1-web-service:80\", job=\"metrics-blazor\", otel_scope_name=\"bakery.PopularPages\"}"
             },
-            "properties": []
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "thank you page"
+              }
+            ]
           }
         ]
       },
@@ -644,7 +650,20 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"bakery_purchases_completed_counter_total\", instance=\"kakey1-web-service:80\", job=\"metrics-blazor\", otel_scope_name=\"bakery.CompletedPurchases\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Number of Purchases"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -672,7 +691,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "{otel_scope_name=\"bakery.CompletedPurchases\"}",
+          "expr": "{otel_scope_name=\"bakery.CompletedPurchases\", __name__!=\"otel_scope_info\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -794,6 +813,7 @@
           "sort": "none"
         }
       },
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -801,12 +821,12 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "sum by (status_code) (count_over_time({job=\"bakery service\"}[2d]))\r\n",
+          "expr": "count_over_time({job=\"bakery service\", level=\"ERROR\"}[24h])\r\n",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Total Log entries per status code within the last 2 days for the Kakey Web",
+      "title": "Error count (Last 24 hours)",
       "type": "timeseries"
     }
   ],
