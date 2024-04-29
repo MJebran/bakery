@@ -11,6 +11,7 @@ public class Login : PageModel
 {
     public IActionResult OnGetAsync(string? returnUrl = null)
     {
+        Console.WriteLine($"returnurl is : {returnUrl}");
         return new ChallengeResult("Google", new()
         {
             RedirectUri = Url.Page("./Login",
