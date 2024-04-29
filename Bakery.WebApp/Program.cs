@@ -78,6 +78,8 @@ builder.Services.AddDbContextFactory<PostgresContext>(options => options.UseNpgs
 
 builder.Services.AddHealthChecks();
 
+builder.Services.Configure<ForwardedHeadersOptions>(options => options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto);
+
 const string serviceName = "bakery service";
 builder.Services.AddOpenTelemetry()
 .ConfigureResource(resource => resource.AddService(serviceName))
@@ -116,6 +118,8 @@ using ILoggerFactory factory = LoggerFactory.Create(builder =>
 builder.Services.AddCascadingAuthenticationState();
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 //var handler = app.Services.GetRequiredService<PageLogger>();
 
