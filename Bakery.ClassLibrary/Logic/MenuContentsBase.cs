@@ -36,7 +36,7 @@ public class MenuContentsBase : ComponentBase
         else
         {
             var category1 = categories.Find(ca => ca.CategoryName == category);
-            filterItems = items.Where(item => item.CategoryId == category1.CategoryId).ToList();
+            filterItems = items.Where(item => item.CategoryId == category1?.CategoryId).ToList();
         }
     }
 }

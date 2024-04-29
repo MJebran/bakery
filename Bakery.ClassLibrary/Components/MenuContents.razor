@@ -27,7 +27,7 @@
             <button class="btn btn-primary" @onclick="@(() => FilterSelection("all"))">Filter All</button>
             @foreach (var category in categories)
             {
-                <button class="btn" id="cat-cont" @onclick="() => FilterSelection(category.CategoryName)">
+                <button class="btn" id="cat-cont" @onclick="() => FilterSelection(category!.CategoryName!)">
                 <div class="@category.CategoryName"></div>
                 </button>
             }

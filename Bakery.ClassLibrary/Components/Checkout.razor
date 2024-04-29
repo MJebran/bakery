@@ -3,11 +3,8 @@
 @using Bakery.WebApp.Authentication
 @using Microsoft.AspNetCore.Components;
 @using Microsoft.JSInterop
+
 @inherits CheckoutBase
-@inject IPurchaseService _purchaseservice
-@inject IEmailService _emailservice
-@inject IBakeryAutheticationService _authenticationservice
-@inject NavigationManager NavigationManager
 
 @if (itempurchases != null)
 {

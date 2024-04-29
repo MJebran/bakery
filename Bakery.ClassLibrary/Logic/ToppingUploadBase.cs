@@ -15,7 +15,7 @@ public class ToppingUploadBase : ComponentBase
     [Inject]
     IBlobStorageService? _blobService { get; set; }
     [Inject]
-    PageLogger _pageLogger { get; set; }
+    PageLogger? _pageLogger { get; set; }
     public Topping? toppingToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
@@ -30,7 +30,7 @@ public class ToppingUploadBase : ComponentBase
     {
         if (toppingToAdd is not null)
         {
-            _pageLogger.AddToppingLogNotification();
+            _pageLogger?.AddToppingLogNotification();
             await _toppingService!.AddTopping(toppingToAdd);
 
             await OnUploadSubmit();
