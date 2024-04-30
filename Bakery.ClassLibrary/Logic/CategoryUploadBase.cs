@@ -14,7 +14,7 @@ public class CategoryUploadBase : ComponentBase
     [Inject]
     IBlobStorageService? _blobService { get; set; }
     [Inject]
-    PageLogger _logger {get; set; }
+    PageLogger? _logger {get; set; }
     public Category categoryToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
@@ -29,7 +29,7 @@ public class CategoryUploadBase : ComponentBase
     {
         if (categoryToAdd is not null)
         {
-             _logger.AddCategoryLogNotification();
+             _logger?.AddCategoryLogNotification();
             await _categoryservice!.AddCategory(categoryToAdd);
 
             await OnUploadSubmit();

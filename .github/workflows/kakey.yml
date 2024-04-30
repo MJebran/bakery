@@ -39,7 +39,7 @@ jobs:
       - name: "build warnings fail"
         run: |
           cd ./Bakery.WebApp/
-          dotnet build
+          dotnet build -warnaserror /nowarn:NU1701,NU1902
 
       - name: deploy
         run: |
