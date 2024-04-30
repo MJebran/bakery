@@ -26,6 +26,8 @@ public class CheckoutBase : ComponentBase
 
     [Inject]
     public NavigationManager? NavigationManager { get; set; }
+    [Parameter]
+    public Purchase? userCart { get; set; }
     public List<Itempurchase>? itempurchases { get; set; }
     protected int TotalQty { get; set; }
     protected string? PaymentDescription { get; set; }
@@ -35,7 +37,6 @@ public class CheckoutBase : ComponentBase
     protected string DisplayButtons { get; set; } = "block";
     public int PurchaseId { get; set; }
     public User? user { get; set; }
-    public Purchase? userCart { get; set; }
 
 
     protected override async Task OnInitializedAsync()

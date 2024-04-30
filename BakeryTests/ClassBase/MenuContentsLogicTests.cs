@@ -49,13 +49,13 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
         var itemsWithCategoryID = new List<(string, int)>{
-        ("chocolate cake", 1),
-        ("strawberry cake", 1),
-        ("chocolate cupcake", 2),
-        };
+         ("chocolate cake", 1),
+         ("strawberry cake", 1),
+         ("chocolate cupcake", 2),
+         };
 
-        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"}, 
-                                               new Category(){CategoryId = 2, CategoryName = "cupcake"}};
+        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"},
+                                                new Category(){CategoryId = 2, CategoryName = "cupcake"}};
 
         var items = createItemsWithCategory(itemsWithCategoryID);
 
@@ -67,7 +67,7 @@ public class MenuContentsLogicTests : TestContext
             await itemsvc!.AddItemtype(item);
         }
 
-        foreach(var category in categories)
+        foreach (var category in categories)
         {
             await catsvc!.AddCategory(category);
         }
@@ -91,13 +91,13 @@ public class MenuContentsLogicTests : TestContext
         Services.AddSingleton<ISizeService, SizeServiceTest>();
 
         var itemsWithCategoryID = new List<(string, int)>{
-        ("chocolate cake", 1),
-        ("strawberry cake", 1),
-        ("chocolate cupcake", 2),
-        };
+         ("chocolate cake", 1),
+         ("strawberry cake", 1),
+         ("chocolate cupcake", 2),
+         };
 
-        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"}, 
-                                               new Category(){CategoryId = 2, CategoryName = "cupcake"}};
+        var categories = new List<Category>(){ new Category(){CategoryId = 1, CategoryName = "cake"},
+                                                new Category(){CategoryId = 2, CategoryName = "cupcake"}};
 
         var items = createItemsWithCategory(itemsWithCategoryID);
 
@@ -109,8 +109,8 @@ public class MenuContentsLogicTests : TestContext
         {
             await itemsvc!.AddItemtype(item);
         }
-        
-        foreach(var category in categories)
+
+        foreach (var category in categories)
         {
             await catsvc!.AddCategory(category);
         }

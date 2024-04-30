@@ -31,13 +31,13 @@ public class CustomizeItemBase : ComponentBase
     protected ICustomeItemToppingService? _customItemToppingService { get; set; }
 
     [Inject]
-    protected NavigationManager? NavigationManager { get; set; }
+    public NavigationManager? NavigationManager { get; set; }
     protected User? user { get; set; } = new();
     protected Customitem userCustomItem { get; set; } = new();
     protected Itemtype? baseItem { get; set; } = new();
     protected Purchase? userCart { get; set; } = new();
     protected string? ErrorMesage { get; set; } = null;
-    protected Dictionary<Topping, int>? toppingToQuantity { get; set; }
+    public Dictionary<Topping, int>? toppingToQuantity { get; set; }
     protected char? sizeItem { get; set; } = 'M';
 
     protected override async Task OnInitializedAsync() 
@@ -52,7 +52,7 @@ public class CustomizeItemBase : ComponentBase
         var toppings = (await _toppingservice!.GetAllToppings()).ToList<Topping>();
         baseItem = items
         .Where(i => i.ItemTypeId == Int32.Parse(baseItemId ?? ""))
-        .First<Itemtype>();
+        .FirstOrDefault<Itemtype>();
 
         userCustomItem = new Customitem()
         {
@@ -67,13 +67,13 @@ public class CustomizeItemBase : ComponentBase
         }
     }
 
-    protected void IncreaseToppingAmount(Topping topping)
+    public void IncreaseToppingAmount(Topping topping)
     {
         if (toppingToQuantity is not null)
             toppingToQuantity[topping] += 1;
     }
 
-    protected void DecreaseToppingAmount(Topping topping)
+    public void DecreaseToppingAmount(Topping topping)
     {
         if (toppingToQuantity?[topping] > 0)
         {
@@ -98,7 +98,7 @@ public class CustomizeItemBase : ComponentBase
         return total;
     }
 
-    protected async Task AddToCart()
+    public async Task AddToCart()
     {
         if (!_authenticationService.UserExists())
         {
