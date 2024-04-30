@@ -6,10 +6,19 @@
 @inject LoadingTimeMetric _ltmetric
 @inject IBakeryAutheticationService _authenticationService
 @inject NavigationManager NavigationManager
+@inject ErrorLogger _errorloger
+
 
 @if (_authenticationService.UserExists())
 {
-    <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+    try
+    {
+        <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
+    }
+    catch(Exception e)
+    {
+        _errorloger.LogErrorGenerator(e.Message);
+    }
 }
 else
 {
