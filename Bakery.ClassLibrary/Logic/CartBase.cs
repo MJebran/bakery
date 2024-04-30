@@ -37,6 +37,8 @@ public class CartBase : ComponentBase
         {
             itemPurchaseToQuantity.Add(purchaseItem, 1);
         }
+
+        //some comment
     }
 
     protected void DecreasingAmountItem(Itempurchase itempurchase)
