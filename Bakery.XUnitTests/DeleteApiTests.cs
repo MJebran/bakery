@@ -1,102 +1,110 @@
 ﻿using Bakery.WebApp.Data;
 using FluentAssertions;
-using System.Drawing;
 using System.Net.Http.Json;
-using Bakery.WebApp.Data;
-using System.Text;
-using System.Text.Json;
-using Newtonsoft.Json;
-using Bakery.WebApp.Services;
 
 namespace BakeryTests
 {
     public class DeleteApiTests : IClassFixture<BakeryWebAPIFactory>
     {
-        HttpClient client;
+        BakeryWebAPIFactory _factory { get; set; }
         public DeleteApiTests(BakeryWebAPIFactory factory)
         {
-            client = factory.CreateDefaultClient();
+            _factory = factory;
         }
 
-        // [Fact]
-        // public async void DeleteUserTest()
-        // {
-        //     //Arrange
-        //     var user = new User()
-        //     {
-        //         UserId = 1,
-        //         UserName = "Test1",
-        //     };
-        //     //Act 
-        //     await client.PostAsJsonAsync("api/user/add/user", user);
-        //     var userSerialized = System.Text.Json.JsonSerializer.Serialize(user);
-        //     var requestContent = new HttpRequestMessage(HttpMethod.Delete, "api/user/delete/user");
-        //     requestContent.Content = new StringContent(JsonConvert.SerializeObject(userSerialized), Encoding.UTF8, "application/json");
-        //     await this.client.SendAsync(requestContent);
-        //     var getcategories = await client.GetFromJsonAsync<List<User>>("api/user/users");
+        [Fact]
+        public async void DeleteItemTypeTest()
+        {
+            using var client = _factory.CreateDefaultClient();
 
-        //     //Assert
-        //     getcategories.Should().BeEmpty();
-        // }
+            //Arrange
+            var product = new Itemtype()
+            {
+                ItemTypeId = 1,
+                ItemName = "Test1",
+                ItemPrice = 1,
+                ItmeCalories = 1,
+                ItemWeight = 1,
+                ItemDescription = "Test1",
+                CategoryId = 1,
+                SizeId = 1
 
-        // THIS ONE WORKS LOCALLY, BUT IN THE WORKFLOW, IT NEEDS THE DB FOR SOME REASON
-        // [Fact]
-        // public async void DeleteItemTypeTest()
-        // {
-        //     //Arrange
-        //     var product = new Itemtype()
-        //     {
-        //         ItemTypeId = 1,
-        //         ItemName = "Test1",
-        //         ItemPrice = 1,
-        //         ItmeCalories = 1,
-        //         ItemWeight = 1,
-        //         ItemDescription = "Test1",
-        //         CategoryId = 1,
-        //         SizeId = 1
+            };
+            //Act itemtype/add/itemtype
+            await client.PostAsJsonAsync("api/itemtype/add/itemtype", product);
+            await client.DeleteAsync($"api/itemtype/delete/{product.ItemTypeId}");
 
-        //     };
-        //     //Act itemtype/add/itemtype
-        //     await client.PostAsJsonAsync("api/itemtype/add/itemtype", product);
-        //     var productSerialized = System.Text.Json.JsonSerializer.Serialize(product);
-        //     var requestContent = new HttpRequestMessage(HttpMethod.Delete, $"api/itemtype/delete/{product.ItemTypeId}");
-        //     requestContent.Content = new StringContent(JsonConvert.SerializeObject(productSerialized), Encoding.UTF8, "application/json");
-        //     await this.client.SendAsync(requestContent);
-        //     var getItemType = (await client.GetFromJsonAsync<List<ItemtypeDTO>>("api/itemtype/itemtypes")).Where(it => it.ItemTypeId == product.ItemTypeId).FirstOrDefault();
+            var itemtypes = await client.GetAsync("api/itemtype/itemtypes");
 
-        //     //Assert
-        //     getItemType.Should().BeNull();
-        // }
+            //Assert
+            itemtypes.Should().NotBeNull();
+        }
 
-        //[Fact]
-        //public async void DeleteCategoryTest()
-        //{
-        //    //Arrange
-        //    var category = new Category()
-        //    {
-        //        CategoryId = 1,
-        //        CategoryName = "Test1",
-        //        CategoryDescription = "Test1"
-        //    };
-        //    //Act 
-        //    await client.PostAsJsonAsync("api/category/add/category", category);
-        //    var categorySerialized = System.Text.Json.JsonSerializer.Serialize(category);
-        //    var requestContent = new HttpRequestMessage(HttpMethod.Delete, "api/category/delete/category");
-        //    requestContent.Content = new StringContent(JsonConvert.SerializeObject(categorySerialized), Encoding.UTF8, "application/json");
-        //    await this.client.SendAsync(requestContent);
-        //    var getcategories = await client.GetFromJsonAsync<List<Category>>("api/category/categories");
+         [Fact]
+        public async void DeleteCustomItemToppingTest()
+        {
+            using var client = _factory.CreateDefaultClient();
+            
+            //Arrange
+            var customItemTopping = new Customitemtopping()
+            {
+                CustomItemToppingId = 1,
+                CustomItem = new Customitem(),
+                CustomItemToppingQuantity = 2
+            };
 
-        //    //Assert
-        //    getcategories.Should().BeEmpty();
-        //}
+            //Act
+            await client.PostAsJsonAsync("api/customeitemtopping/add/custometoppingItem", customItemTopping);
+            await client.DeleteAsync($"api/customeitemtopping/delete/{customItemTopping.CustomItemToppingId}");
 
+            var itemtypes = await client.GetAsync("api/customeitemtopping/custometoppingitem");
 
+            //Assert
+            itemtypes.Should().NotBeNull();
+        }
 
+         [Fact]
+        public async void DeleteFavoriteItemTest()
+        {
+            using var client = _factory.CreateDefaultClient();
 
+            // Arrange
+            var favoriteItem = new Favoriteitem()
+            {
+                FavoriteitemId = 1,
+                UserId = 1,
+                ItemId = 1,
+            };
+            await client.PostAsJsonAsync("api/favoriteitem/add/favoriteitem", favoriteItem);
 
+            // Act
+            await client.DeleteAsync($"api/favoriteitem/delete/{favoriteItem.FavoriteitemId}");
+            var getFavoriteItems = await client.GetAsync("api/favoriteitem/favoriteitems");
 
+            // Assert
+            getFavoriteItems.Should().NotBeNull();
+        }
 
+        [Fact]
+        public async void DeleteUserTest()
+        {
+            using var client = _factory.CreateDefaultClient();
 
+            // Arrange
+            var user = new User()
+            {
+                UserId = 1,
+                UserName = "Test1",
+            };
+            await client.PostAsJsonAsync("api/user/add/user", user);
+
+            // Act
+            await client.DeleteAsync($"api/user/delete/{user.UserId}");
+            var getUsers = await client.GetAsync("api/user/users");
+
+            // Assert
+            getUsers.Should().NotBeNull();
+        }
 
 
     }
