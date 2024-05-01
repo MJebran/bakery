@@ -18,7 +18,7 @@ public class CategoryUploadBase : ComponentBase
     public Category categoryToAdd { get; set; } = new();
     protected List<IBrowserFile> loadedFiles = new();
     IReadOnlyList<IBrowserFile>? selectedFiles;
-    protected List<FileUploadViewModel> fileUploadViewModels = new();
+    public List<FileUploadViewModel> fileUploadViewModels = new();
     protected void OnInputFileChange(InputFileChangeEventArgs e)
     {
         selectedFiles = e.GetMultipleFiles();
@@ -35,7 +35,7 @@ public class CategoryUploadBase : ComponentBase
             await OnUploadSubmit();
         }
     }
-    protected async Task OnUploadSubmit()
+    public async Task OnUploadSubmit()
     {
         if (selectedFiles is not null)
         {

@@ -7,12 +7,13 @@ using Microsoft.JSInterop;
 namespace Bakery.ClassLibrary.Logic;
 public class CheckoutBase : ComponentBase
 {
-    private IJSObjectReference? module;
+    [Inject]
+    private IJSObjectReference? module{ get; set; }
 
     [Parameter]
     public string? purchaseId { get; set; }
 
-    [Parameter]
+    [Inject]
     public IJSRuntime? Js { get; set; }
 
     [Inject]
@@ -36,6 +37,7 @@ public class CheckoutBase : ComponentBase
     protected decimal PaymentWithOutTaxes {get; set; }
     protected string DisplayButtons { get; set; } = "block";
     public int PurchaseId { get; set; }
+    public bool IsComplete { get; set; }
     public User? user { get; set; }
 
 
@@ -105,6 +107,7 @@ public class CheckoutBase : ComponentBase
         {
             userCart.Ispayed = true;
             _purchaseservice?.UpdatePurchase(userCart);
+            IsComplete = true;
             await Task.CompletedTask;
         }
         else
