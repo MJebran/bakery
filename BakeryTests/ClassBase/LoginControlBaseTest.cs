@@ -9,4 +9,5 @@ namespace BakeryTests.ClassBase;
 
 public class LoginControlBaseTest
 {
+    //LOGIN CONTROL ONLY HAS AN ONINITIALIZED METHOD
 }

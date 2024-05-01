@@ -15,10 +15,13 @@ public class ViewUserBase : ComponentBase
     {
         users = (await _userService!.GetAllUsers()).ToList<User>();
     }
-    protected async Task DeleteUser(User userToDelete)
+    public async Task DeleteUser(User userToDelete)
     {
         await _userService!.DeleteUser(userToDelete.UserId);
-        _navigationManager!.Refresh();
+        if (_navigationManager is not null)
+        {
+            _navigationManager!.Refresh();
+        }
     }
 
 }
