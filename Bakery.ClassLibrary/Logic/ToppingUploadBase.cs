@@ -36,6 +36,11 @@ public class ToppingUploadBase : ComponentBase
             await OnUploadSubmit();
         }
     }
+
+    public void ChangeToppingToAdd(Topping topping)
+    {
+        toppingToAdd = topping;
+    }
     protected async Task OnUploadSubmit()
     {
         if (selectedFiles is not null)

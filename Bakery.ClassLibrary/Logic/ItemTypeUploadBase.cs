@@ -34,7 +34,7 @@ public class ItemTypeUploadBase : ComponentBase
         selectedFiles = e.GetMultipleFiles();
         this.StateHasChanged();
     }
-    protected async Task AddItem()
+    public async Task AddItem()
     {
         if (itemToAdd is not null)
         {
@@ -42,6 +42,11 @@ public class ItemTypeUploadBase : ComponentBase
 
             await OnUploadSubmit();
         }
+    }
+
+    public void ChangeItemToAdd(Itemtype itemtype)
+    {
+        itemToAdd = itemtype;
     }
     protected async Task OnUploadSubmit()
     {
