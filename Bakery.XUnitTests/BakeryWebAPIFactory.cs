@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Bakery.WebApp.Data;
 using Bakery.ClassLibrary.Services;
-using BakeryTests.ServiceTests;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -50,9 +49,5 @@ public class BakeryWebAPIFactory : WebApplicationFactory<Program>, IAsyncLifetim
     {
         await _dbContainer.StopAsync();
     }
-
-    public IItemTypeService CreateItemTypeService() => new ItemTypeServiceTest();
-    public ICategoryService CreateCategoryService() => new CategoryServiceTest();
-    public ISizeService CreateSizeService() => new SizeServiceTest();
 }
 
