@@ -1,8 +1,6 @@
 using Bakery.WebApp.Data;
 using FluentAssertions;
-using System.Drawing;
 using System.Net.Http.Json;
-using Bakery.WebApp.Data;
 
 namespace BakeryTests
 {
@@ -13,26 +11,6 @@ namespace BakeryTests
         {
             _factory = factory;
         }
-
-        // [Fact]
-        // public async void AddCategoryTest()
-        // {
-        //     using var client = _factory.CreateDefaultClient();
-        //     //Arrange THIS IS INTERACTING WITH OUR API
-        //     var category = new Category()
-        //     {
-        //         CategoryId = 1,
-        //         CategoryName = "Test1",
-        //         CategoryDescription = "this is just a test"
-        //     };
-        //     //Act 
-        //     await client.PostAsJsonAsync("/api/Category/add/category", category);
-        //     var getcategories = await client.GetFromJsonAsync<List<Category>>("/api/Category/categories");
-
-        //     //Assert
-        //     getcategories.Should().NotBeNull();
-
-        // }
 
         [Fact]
         public async void AddSizeTest()
@@ -95,12 +73,9 @@ namespace BakeryTests
             var customitem = new Customitem()
             {
                 CustomItemId = 1,
-                //CustomItemToppingQuantity = 1,
                 ItemId = 1,
-                //ToppingId = 1,
                 Item = new Itemtype(),
                 Itempurchases = new List<Itempurchase>(),
-                //Topping = new Topping()
             };
 
             //Act 
@@ -257,7 +232,7 @@ namespace BakeryTests
             using var client = _factory.CreateDefaultClient();
 
             //Arrange
-            var item = new Bakery.WebApp.Data.Itemtype()
+            var item = new Itemtype()
             {
                 ItemTypeId = 1,
                 ItemName = "Test1",
@@ -268,7 +243,7 @@ namespace BakeryTests
                 SizeId = 1,
                 CategoryId = 1,
                 Category = new Category(),
-                Size = new Bakery.WebApp.Data.Size(),
+                Size = new Size(),
                 Customitems = new List<Customitem>(),
                 Favoriteitems = new List<Favoriteitem>(),
             };
