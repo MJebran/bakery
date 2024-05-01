@@ -5,16 +5,9 @@
 @inject AuthenticationStateProvider authProvider
 
 
-<AuthorizeView>
-    <Authorized>
         @* Hello, @context.User.Identity.Name! *@
         <Bakery.ClassLibrary.Components.CustomizeItem baseItemId="@baseItemId"></Bakery.ClassLibrary.Components.CustomizeItem>
-    </Authorized>
-    <NotAuthorized>
-        <AccessControl /> 
         @* <a href="#" @onclick="Login">Log in</a> *@
-    </NotAuthorized>
-</AuthorizeView>
 @code {
     [Parameter]
     public string baseItemId { get; set; } = "";
